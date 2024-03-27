@@ -23,6 +23,8 @@
 
 ## Milestone 1
 
+<span align="justify">
+
 ### Dataset
 We will visualize 2 means of transport in New York City, taxi and bike rides. The analysis and visualizations will be complementary focused on the following 3 periods: pre, during and post COVID pandemic.
 
@@ -84,6 +86,8 @@ _General initial statistics of the datasets:_
     </tr>
   </table>
 
+</span>
+
 ### Problematic
 
 > Frame the general topic of your visualization and the main axis that you want to develop.
@@ -97,11 +101,15 @@ _General initial statistics of the datasets:_
 
 ### Related work
 
+<span align="justify">
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+The data we're working with originates from public datasets where taxi drivers and bicycle riders have given consent to store per-ride statistics in an open NYC database. Numerous companies involved in transportation services may utilize this information for various purposes such as improving service quality, predicting ride prices, or identifying busy and profitable regions [[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis). Additionally, analyses have often focused on enhancing drivers' experiences by helping them locate the most profitable zones and busiest hours throughout the day [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e). Some just show simple exploratory analysis of the dataset (similar to what we are doing in Milestone 1) [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730). These existing analyses have provided us with valuable insights into the dataset's potential, guiding our approach and visualizations.
+
+Our project's uniqueness lies in its inclusive approach. Beyond merely analyzing taxi rides, we also incorporate data on bicycle rides and examine how both modes of transportation were impacted by the COVID-19 crisis. Furthermore, we explore trends in shifting between these modes of transport in recent years. An innovative aspect of our analysis is the integration of bicycle accident data. We investigate whether shifting trends in transportation modes have led to an increase in severe accidents.
+
+To craft our approach, we drew inspiration from various sources, including previous analyses, research, and visualizations found in other online domains (cited above). While existing analyses provided a foundation, our project expands upon this by offering a comprehensive examination of the interplay between taxi and bicycle transportation, as well as the impact of external factors such as the COVID-19 crisis.
+
+</span>
 
 ## Milestone 2 (26th April, 5pm)
 

@@ -1,27 +1,88 @@
-# Project of Data Visualization (COM-480)
+<span align='center'>
+  
+  # :taxi: Means of Transport: A Data Visualization Project :bike:
 
-| Student's name | SCIPER |
-| -------------- | ------ |
-| | |
-| | |
-| | |
+<table border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#fff">
+  <tr>
+    <td cellspacing="0" cellpadding="0" colspan="3"><strong>Group Name</strong></br>Out of Touch</td>
+  </tr>
+  <tr>
+    <td cellspacing="0" cellpadding="0"><strong>Bojan Lazarevski</strong></br>375261</td>
+    <td cellspacing="0" cellpadding="0"><strong>Rares-Stefan Epure</strong></br>359773</td>
+    <td cellspacing="0" cellpadding="0"><strong>Cristian-Alexandru Botocan
+</strong></br>358786</td>
+  </tr>
+</table>
+  
+  *As part of the course "Data Visualization COM-480" at EPFL*
+  
+  [**Milestone 1**](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+  
+</span>
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
-## Milestone 1 (29th March, 5pm)
-
-**10% of the final grade**
-
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
-
-*(max. 2000 characters per section)*
+## Milestone 1
 
 ### Dataset
+We will visualize 2 means of transport in New York City, taxi and bike rides. The analysis and visualizations will be complementary focused on the following 3 periods: pre, during and post COVID pandemic.
 
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
->
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
+_Note: The datasets were filtered to contain entries only between 2019-2022 corresponding to the COVID pandemic period._
+
+- **Taxi Rides**: [NYC Open Data](https://opendata.cityofnewyork.us/data/) ([2019](https://data.cityofnewyork.us/Transportation/2019-Green-Taxi-Trip-Data/q5mz-t52e/about_data), [2020](https://data.cityofnewyork.us/Transportation/2020-Green-Taxi-Trip-Data/pkmi-4kfn/about_data), [2021](https://data.cityofnewyork.us/Transportation/2021-Green-Taxi-Trip-Data/djnb-wcxt/about_data), [2022](https://data.cityofnewyork.us/Transportation/2022-Green-Taxi-Trip-Data/8nfn-ifaj/about_data))
+    
+- **Bike Rides**: [City Bike NYC](https://s3.amazonaws.com/tripdata/index.html)
+
+  Contains precise timestamp and geolocation of the start and end of a bike ride.
+
+  <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>starttime</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>stoptime</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>start_lat</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>start_lng</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>end_lat</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>end_lng</strong></td>
+    </tr>
+  </table>
+
+  The size of this dataset was initially 10Gb, restraining our storage capacities. Therefore, we decide to load every 10th row, but still represent an equivalent data distribution as the original dataset, shrkinging the dataset to 1Gb. In order to compare the statistics with the taxi dataset, based on the geolocations, 5 new fields are computed and added as part of the final dataset: start/end zone and borough and distance travelled. The dataset contains very little NaN and duplicate values.
+  
+- **Bike Accidents**: [Crashes From NYC](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
+
+  The last dataset used comprises all the crashes from NYC from 2016 until now. So, we filtered the dataset in order to keep just the accidents which involves at least one bicycle and occurred between 2019 and 2022.
+
+_General initial statistics of the datasets:_
+
+<table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>Dataset</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>Size</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>Entries</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>NaNs</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>Duplicates</strong></td>
+    </tr>
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3">Taxi Rides</td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+    </tr>
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3">Bike Rides</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">10GB</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">100M</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">9772</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">24</td>
+    </tr>
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3">Bike Accidents</td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+    </tr>
+  </table>
 
 ### Problematic
 

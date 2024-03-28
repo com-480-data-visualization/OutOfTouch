@@ -73,16 +73,16 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
   
 - **Bike Accidents**: [Crashes From NYC](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
 
-  The last dataset used comprises all the crashes from NYC from 2016 until now. So, we filtered the dataset in order to keep just the accidents which involves at least one bicycle and occurred between 2019 and 2022. In the end, we have 28205 bike accidents from 2019 to 2022. Morover, the original dataset contains 30 columns. After extracting the bike accidents, for our project we consider relevant only the following 6.
+  This dataset contains 28205 bike accidents and their location and time of happening. Initially, it contained 30 features, but we found only 6 relevant to our analysis.
 
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
     <tr>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>CRASH DATA</strong></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>CRASH TIME</strong></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LOCATION</strong></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LATITUDE</strong></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LONGITUDE</strong></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"><strong>BOROUGH</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>crash_data</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>crash_time</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>location</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>latitude</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>longitude</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>borough</strong></td>
     </tr>
   </table>
 
@@ -119,16 +119,9 @@ _General initial statistics of the datasets:_
       <td cellspacing="0" cellpadding="0" colspan="3">0</td>
     </tr>
   </table>
-Note: We consider NaNs entries for Bike Accidents, accidents which have location field as NaN.
 </span>
 
 ### Problematic
-
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
-
-
 
 In this project, we want to show how the pandemic influences human behavior in terms of 2 public means of transport, taxis, and bikes, in a big metropole such as New York City (NYC). From different perspectives, we present human patterns in terms of using taxis or bikes. Analyzing datasets related to taxis, public bikes, and bike accidents over different periods (pre-pandemic, pandemic, and post-pandemic) can provide insights into the pandemic's impact on transportation patterns, urban mobility, and road safety. Thus, we split our motivation part into 2 main directions:
 
@@ -139,7 +132,7 @@ In this project, we want to show how the pandemic influences human behavior in t
 
 ### Exploratory Data Analysis
 
-The code associated with the data analysis can be found in `\src` folder. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png) 
+The code associated with the data analysis can be found under the `\src` folder. For the current milestone, each dataset is processed in a separate notebook file. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png) 
 
 However, the pattern for bikes appears to be symmetric for each year with a steady increase each year. ![bike_trips](./images/rides_per_day_month.png)
 

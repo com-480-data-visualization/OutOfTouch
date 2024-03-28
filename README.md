@@ -139,35 +139,37 @@ In this project, we want to show how the pandemic influences human behavior in t
 
 ### Exploratory Data Analysis
 
-The code associated with the data analysis can be found in `\src` folder. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png)
+The code associated with the data analysis can be found in `\src` folder. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png) 
 
-Additionally, we included the heatmaps for pickup and dropoff points for taxis
+However, the pattern for bikes appears to be symmetric for each year with a steady increase each year. ![bike_trips](./images/rides_per_day_month.png)
+
+Additionally, we included the heatmaps for pickup points for taxis before the pandemic. For more details about the distribution of these points, the heatmaps for drop-off points, please verify the notebooks.
 <table>
   <tr>
     <td>
-      <img src="./images/pickup_taxi_heatmap.html" alt="Pickup points taxi">
+      <img src="./images/pickup.png" alt="Pickup points taxi" style="width: 1500px; height: 400px;">
     </td>
     <td>
-      <img src="./images/dropoff_taxi_heatmap.html" alt="Dropoff points taxi">
+      <img src="./images/before_covid.png" alt="Pickup points bikes">
     </td>
   </tr>
 </table>
 
-At first glance, we can see that based on the following figure, the regions with the most frequent bike accidents.![acc_region_total](./images/region_crashes_total.png)
-However, if we use the same statistics per year, we can see that changes in the ranking for each year exist.
+
+At first glance, we can see that changes in the ranking for each year exist.
 <table>
   <tr>
     <td>
-      <img src="./images/zone_crashes_2019" alt="Bike Accidents per region 2019">
+      <img src="./images/zone_crashes_2019.png" alt="Bike Accidents per region 2019">
     </td>
     <td>
-      <img src="./images/zone_crashes_2020" alt="Bike Accidents per region 2020">
+      <img src="./images/zone_crashes_2020.png" alt="Bike Accidents per region 2020">
     </td>
     <td>
-      <img src="./images/zone_crashes_2021" alt="Bike Accidents per region 2021">
+      <img src="./images/zone_crashes_2021.png" alt="Bike Accidents per region 2021">
     </td>
     <td>
-      <img src="./images/zone_crashes_2022" alt="Bike Accidents per region 2022">
+      <img src="./images/zone_crashes_2022.png" alt="Bike Accidents per region 2022">
     </td>
   </tr>
 </table>

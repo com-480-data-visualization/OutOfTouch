@@ -51,7 +51,8 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
     </tr>
   </table>
 
-  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we filtered out the entries, where the trip_distance is smaller and 0 and 100 miles. This dataset includes 2 special zones (**Unkown** and **Outside of NY**), which were removed from the final dataset.  
+
+  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we kept the entries, where the trip_distance is between 0 and 100 miles. This dataset includes 2 special zones (**Unkown** and **Outside of NY**), which were removed from the final dataset.
     
 - **Bike Rides**: [City Bike NYC](https://s3.amazonaws.com/tripdata/index.html)
 
@@ -117,8 +118,19 @@ _General initial statistics of the datasets:_
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+The code associated with the data analysis can be found in `\src` folder. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png)
+
+Additionally, we included the heatmaps for pickup and dropoff points for taxis
+<table>
+  <tr>
+    <td>
+      <img src="./images/pickup_taxi_heatmap.html" alt="Pickup points taxi">
+    </td>
+    <td>
+      <img src="./images/dropoff_taxi_heatmap.html" alt="Dropoff points taxi">
+    </td>
+  </tr>
+</table>
 
 ### Related work
 

@@ -101,13 +101,13 @@ _General initial statistics of the datasets:_
     </tr>
     <tr>
       <td cellspacing="0" cellpadding="0" colspan="3">Bike Accidents</td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3">5.9MB</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">28205</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">1553</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">0</td>
     </tr>
   </table>
-
+Note: We consider NaNs entries for Bike Accidents, accidents which have location field as NaN.
 </span>
 
 ### Problematic
@@ -115,6 +115,15 @@ _General initial statistics of the datasets:_
 > Frame the general topic of your visualization and the main axis that you want to develop.
 > - What am I trying to show with my visualization?
 > - Think of an overview for the project, your motivation, and the target audience.
+
+
+
+In this project, we want to show how the pandemic influences human behavior in terms of 2 public means of transport, taxis, and bikes, in a big metropole such as New York City (NYC). From different perspectives, we present human patterns in terms of using taxis or bikes. Analyzing datasets related to taxis, public bikes, and bike accidents over different periods (pre-pandemic, pandemic, and post-pandemic) can provide insights into the pandemic's impact on transportation patterns, urban mobility, and road safety. Thus, we split our motivation part into 2 main directions:
+
+1.**Transportation Behavior Changes**: we explore how transportation behavior changed during different phases of the pandemic by analyzing trends in taxi usage, public bike rentals, and bike accidents to identify shifts in commuting patterns, travel distances, and popular routes. Furthermore, we want to visualize how mobility patterns evolved over time. Thus, we focus on a spatial analysis (the most frequent regions and where people are going) and a timeline analysis (when people prefer to use taxis or bikes). Our target audience is sociologists who want to know the impact of the pandemic on human behavior. Moreover, perhaps the mayor of NYC is interested in this aspect since he can implement new city traffic measurements (extend the public bike network if people prefer to use bikes instead of taxies)
+
+2.**Impact on Road Safety**: we analyze trends in bike accidents during the pre-pandemic, pandemic, and post-pandemic periods and verify if there are any correlations between changes in transportation behavior and the frequency of bike accidents. Moreover, we check if there are hotspots with many taxi and bike routes and bike accidents. This analysis can help policymakers implement targeted road safety measures and help police implement new transport flow to avoid those incidents. Additionally, any citizen of NYC might be interested in visualizing this aspect to prevent those hotspots and specific routing times.
+
 
 ### Exploratory Data Analysis
 
@@ -132,15 +141,17 @@ Additionally, we included the heatmaps for pickup and dropoff points for taxis
   </tr>
 </table>
 
+We also collect the Bike Accidents which were delacred in NYC from 2019 until 2022. We want to check if there exists any correlation regarding the 
+
 ### Related work
 
 <span align="justify">
 
-The data we're working with originates from public datasets where taxi drivers and bicycle riders have given consent to store per-ride statistics in an open NYC database. Numerous companies involved in transportation services may utilize this information for various purposes such as improving service quality, predicting ride prices, or identifying busy and profitable regions [[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis). Additionally, analyses have often focused on enhancing drivers' experiences by helping them locate the most profitable zones and busiest hours throughout the day [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e). Some just show simple exploratory analysis of the dataset (similar to what we are doing in Milestone 1) [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730). These existing analyses have provided us with valuable insights into the dataset's potential, guiding our approach and visualizations.
+The data we are working with originates from public datasets where taxi drivers and bicycle riders have given consent to store per-ride statistics in an open NYC database. Numerous companies involved in transportation services may utilize this information for various purposes, such as improving service quality, predicting ride prices, or identifying busy and profitable regions [[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis). Additionally, analyses have often focused on enhancing drivers' experiences by helping them locate the most profitable zones and busiest hours throughout the day [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e). Some show simple exploratory analysis of the dataset (similar to what we are doing in Milestone 1) [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730). These existing analyses have provided us with valuable insights into the dataset's potential, guiding our approach and visualizations.
 
-Our project's uniqueness lies in its inclusive approach. Beyond merely analyzing taxi rides, we also incorporate data on bicycle rides and examine how both modes of transportation were impacted by the COVID-19 crisis. Furthermore, we explore trends in shifting between these modes of transport in recent years. An innovative aspect of our analysis is the integration of bicycle accident data. We investigate whether shifting trends in transportation modes have led to an increase in severe accidents.
+Our project's uniqueness lies in its inclusive approach. Beyond merely analyzing taxi rides, we also incorporate data on bicycle rides and examine how the COVID-19 crisis impacted both modes of transportation. Furthermore, we explore trends in shifting between these modes of transport in recent years. An innovative aspect of our analysis is the integration of bicycle accident data. We investigate whether shifting trends in transportation modes have led to an increase in severe accidents.
 
-To craft our approach, we drew inspiration from various sources, including previous analyses, research, and visualizations found in other online domains (cited above). While existing analyses provided a foundation, our project expands upon this by offering a comprehensive examination of the interplay between taxi and bicycle transportation, as well as the impact of external factors such as the COVID-19 crisis.
+We drew inspiration from various sources to craft our approach, including previous analyses, research, and visualizations found in other online domains ([[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis), [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e), [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730) ). While existing analyses provided a foundation, our project expands upon this by offering a comprehensive examination of the interplay between taxi and bicycle transportation and the impact of external factors such as the COVID-19 crisis.
 
 </span>
 

@@ -31,6 +31,27 @@ We will visualize 2 means of transport in New York City, taxi and bike rides. Th
 _Note: The datasets were filtered to contain entries only between 2019-2022 corresponding to the COVID pandemic period._
 
 - **Taxi Rides**: [NYC Open Data](https://opendata.cityofnewyork.us/data/) ([2019](https://data.cityofnewyork.us/Transportation/2019-Green-Taxi-Trip-Data/q5mz-t52e/about_data), [2020](https://data.cityofnewyork.us/Transportation/2020-Green-Taxi-Trip-Data/pkmi-4kfn/about_data), [2021](https://data.cityofnewyork.us/Transportation/2021-Green-Taxi-Trip-Data/djnb-wcxt/about_data), [2022](https://data.cityofnewyork.us/Transportation/2022-Green-Taxi-Trip-Data/8nfn-ifaj/about_data))
+
+  Contains the zones/timestamps for pickup and dropoff as well as the cost of the ride, broke in multiple parts such as **fare_amount**, **tolls_amount**, **tip_amount** and others:
+  
+  <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>lpep_pickup_datetime</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>lpep_dropoff_datetime</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>PULocationID</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>DOLocationID</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>trip_distance</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>fare_amount</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>extra</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>mta_tax</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>tip_amount</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>tolls_amount</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>improvement_surcharge</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>total_amount</strong></td>
+    </tr>
+  </table>
+
+  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we filtered out the entries, where the trip_distance is smaller and 0 and 100 miles. This dataset includes 2 special zones (**Unkown** and **Outside of NY**), which were removed from the final dataset.  
     
 - **Bike Rides**: [City Bike NYC](https://s3.amazonaws.com/tripdata/index.html)
 
@@ -65,10 +86,10 @@ _General initial statistics of the datasets:_
     </tr>
     <tr>
       <td cellspacing="0" cellpadding="0" colspan="3">Taxi Rides</td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
-      <td cellspacing="0" cellpadding="0" colspan="3"></td>
+      <td cellspacing="0" cellpadding="0" colspan="3">960MB</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">9,7M</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">0</td>
+      <td cellspacing="0" cellpadding="0" colspan="3">0</td>
     </tr>
     <tr>
       <td cellspacing="0" cellpadding="0" colspan="3">Bike Rides</td>

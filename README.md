@@ -73,7 +73,19 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
   
 - **Bike Accidents**: [Crashes From NYC](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
 
-  The last dataset used comprises all the crashes from NYC from 2016 until now. So, we filtered the dataset in order to keep just the accidents which involves at least one bicycle and occurred between 2019 and 2022.
+  The last dataset used comprises all the crashes from NYC from 2016 until now. So, we filtered the dataset in order to keep just the accidents which involves at least one bicycle and occurred between 2019 and 2022. In the end, we have 28205 bike accidents from 2019 to 2022. Morover, the original dataset contains 30 columns. After extracting the bike accidents, for our project we consider relevant only the following 6.
+
+  <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
+    <tr>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>CRASH DATA</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>CRASH TIME</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LOCATION</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LATITUDE</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>LONGITUDE</strong></td>
+      <td cellspacing="0" cellpadding="0" colspan="3"><strong>BOROUGH</strong></td>
+    </tr>
+  </table>
+
 
 _General initial statistics of the datasets:_
 
@@ -141,7 +153,39 @@ Additionally, we included the heatmaps for pickup and dropoff points for taxis
   </tr>
 </table>
 
-We also collect the Bike Accidents which were delacred in NYC from 2019 until 2022. We want to check if there exists any correlation regarding the 
+At first glance, we can see that based on the following figure, the regions with the most frequent bike accidents.![acc_region_total](./images/region_crashes_total.png)
+However, if we use the same statistics per year, we can see that changes in the ranking for each year exist.
+<table>
+  <tr>
+    <td>
+      <img src="./images/zone_crashes_2019" alt="Bike Accidents per region 2019">
+    </td>
+    <td>
+      <img src="./images/zone_crashes_2020" alt="Bike Accidents per region 2020">
+    </td>
+    <td>
+      <img src="./images/zone_crashes_2021" alt="Bike Accidents per region 2021">
+    </td>
+    <td>
+      <img src="./images/zone_crashes_2022" alt="Bike Accidents per region 2022">
+    </td>
+  </tr>
+</table>
+
+Moreover, we also have a map that illustrates all the bike accident locations in NYC.![heatmap_acc](./images/bike_accidents_points_NYC.png)
+
+Additionally, if we look at the number of crashes per year, we can observe that the number of accidents increases, but this is not surprising since the number of public bike trips increases, and there is a high chance that people are using more bikes after the pandemic.![acc_per_year](./images/bike_crashes_per_year.png)
+
+Based on the number of crashes per day, we observe that there are fewer crashes during the winter season than in the summer. Furthermore, there are also spikes during the end of summer and the beginning of autumn.![acc_per_day](./images/bike_crashes_per_day.png)
+
+Regarding the hours for crushes, it seems like there are a lot during the evening and night compared with the afternoon or morning.![acc_per_hour](./images/bike_crashes_per_hour.png)
+
+Based on the days, the most crushes are registered on Friday.![acc_per_weekday](./images/bike_crashes_per_weekday.png)
+
+Lastly, to understand the data better, we also checked during what part of the day we had the most bike crashes.![acc_per_weekday](./images/bike_accidents_part_of_day.png)
+
+
+
 
 ### Related work
 

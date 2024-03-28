@@ -121,6 +121,8 @@ _General initial statistics of the datasets:_
   </table>
 </span>
 
+The pickle preprocessed datasets can be downloaded here: TODO
+
 ### Problematic
 
 In this project, we want to show how the pandemic influences human behavior in terms of 2 public means of transport, taxis, and bikes, in a big metropole such as New York City (NYC). From different perspectives, we present human patterns in terms of using taxis or bikes. Analyzing datasets related to taxis, public bikes, and bike accidents over different periods (pre-pandemic, pandemic, and post-pandemic) can provide insights into the pandemic's impact on transportation patterns, urban mobility, and road safety. Thus, we split our motivation part into 2 main directions:

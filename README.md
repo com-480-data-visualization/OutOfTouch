@@ -155,6 +155,10 @@ Then, we glance over the duration and distance time series for the rides, also s
 
 ![](/images/average_duration_per_month.png)
 
+Looking into the confusion matrix of bike crashes, we can see that the riskiest day to hop on a bike is on Friday evening. It is much safer to travel in the mornings though.
+
+![](/images/accidents_weekday_time_of_day.png)
+
 Throughout this project we will also dive deeper into zones and boroughs of NYC analyzing specific trends for specific parts of the city. Here is an overview of the spread of NYC zones and a list of the busiest regions in terms of bike rides.
 
 ![](/images/Zones_NYC.png)

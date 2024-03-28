@@ -121,9 +121,11 @@ _General initial statistics of the datasets:_
   </table>
 </span>
 
-The pickle preprocessed datasets can be downloaded here: TODO
+The pickle preprocessed datasets can be downloaded [here](https://drive.google.com/drive/folders/1hmMFQZv9bhhLF59HKuDqunWa0mdX2IEA?usp=sharing)!
 
 ### Problematic
+
+<span align='justify'>
 
 In this project, we want to show how the pandemic influences human behavior in terms of 2 public means of transport, taxis, and bikes, in a big metropole such as New York City (NYC). From different perspectives, we present human patterns in terms of using taxis or bikes. Analyzing datasets related to taxis, public bikes, and bike accidents over different periods (pre-pandemic, pandemic, and post-pandemic) can provide insights into the pandemic's impact on transportation patterns, urban mobility, and road safety. Thus, we split our motivation part into 2 main directions:
 
@@ -134,62 +136,37 @@ In this project, we want to show how the pandemic influences human behavior in t
 
 ### Exploratory Data Analysis
 
-The code associated with the data analysis can be found under the `\src` folder. For the current milestone, each dataset is processed in a separate notebook file. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC. One obvious expectation is that the number of taxi trips decreased during the pandemic as can be seen below.![taxi_trips](./images/timeseries_trip.png) 
+The notebooks associated with the data analysis are located under the `\src` folder. For the current milestone, each dataset is processed in a separate notebook file, but the main visualizations displayed in this section are done in the ```Milestone1``` notebook. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC, specifically during the COVID period.
 
-However, the pattern for bikes appears to be symmetric for each year with a steady increase each year. ![bike_trips](./images/rides_per_day_month.png)
+First, it is clear that the number of taxi rides drastically drops at the start of the pandemic, with the trend of decrease continuing to 2022. On the other hand, the number of bike rides has slightly increased, having a recurrent pattern of rises and falls depending on the season.
 
-Additionally, we included the heatmaps for pickup points for taxis before the pandemic. For more details about the distribution of these points, the heatmaps for drop-off points, please verify the notebooks.
-<table>
-  <tr>
-    <td>
-      <img src="./images/pickup.png" alt="Pickup points taxi" style="width: 1500px; height: 400px;">
-    </td>
-    <td>
-      <img src="./images/before_covid.png" alt="Pickup points bikes">
-    </td>
-  </tr>
-</table>
+![](/images/rides_per_year_month.png)
+
+Here we plot a heatmap over a NYC geomap which shows the distribution of the taxi (left) and bike (right) start locations before COVID. We can see that taxi rides span a bigger area of the city. Further in this project, we will analyze how the trend of this distribution changes.
+
+<div style="display: flex">
+    <img src="/images/taxi_heatmap_before_covid.png" width="49%" height="500" />
+    <img src="/images/bike_heatmap_before_covid.png" width="50%" height="500"/>
+</div>
+<br>
 
 
-At first glance, we can see that changes in the ranking for each year exist.
-<table>
-  <tr>
-    <td>
-      <img src="./images/zone_crashes_2019.png" alt="Bike Accidents per region 2019">
-    </td>
-    <td>
-      <img src="./images/zone_crashes_2020.png" alt="Bike Accidents per region 2020">
-    </td>
-  </tr>
-</table>
+Then, we glance over the duration and distance time series for the rides, also showing the average monthly crashes on the right y-axis. It is noticeable that during summer the bike rides are longer, but so is the number of crashes bigger. The average duration of the taxi rides does not seem to follow a pattern. Notice how in March 2020, the bike duration is the longest, but there are the least accidents.
 
-<table>
-  <tr>
-    <td>
-      <img src="./images/zone_crashes_2021.png" alt="Bike Accidents per region 2021">
-    </td>
-    <td>
-      <img src="./images/zone_crashes_2022.png" alt="Bike Accidents per region 2022">
-    </td>
-  </tr>
-</table>
+![](/images/average_duration_per_month.png)
 
-Moreover, we also have a map that illustrates all the bike accident locations in NYC.
-![heatmap_acc](./images/bike_accidents_points_NYC.png)
+Throughout this project we will also dive deeper into zones and boroughs of NYC analyzing specific trends for specific parts of the city. Here is an overview of the spread of NYC zones and a list of the busiest regions in terms of bike rides.
 
-Additionally, if we look at the number of crashes per year, we can observe that the number of accidents increases, but this is not surprising since the number of public bike trips increases, and there is a high chance that people are using more bikes after the pandemic.
+![](/images/Zones_NYC.png)
 
-![acc_per_year](./images/bike_crashes_per_year.png)
+<div style="display: flex">
+    <img src="/images/top_10_boroughs_most_rides.png" width="49%" height="300" />
+    <img src="/images/top_10_zones_most_rides.png" width="50%" height="300"/>
+</div>
+<br>
 
-Based on the number of crashes per day, we observe that there are fewer crashes during the winter season than in the summer. Furthermore, there are also spikes during the end of summer and the beginning of autumn.![acc_per_day](./images/bike_crashes_per_day.png)
-
-Regarding the hours for crushes, it seems like there are a lot during the evening and night compared with the afternoon or morning.![acc_per_hour](./images/bike_crashes_per_hour.png)
-
-Based on the days, the most crushes are registered on Friday.
-Lastly, to understand the data better, we also checked during what part of the day we had the most bike crashes.![acc_per_weekday](./images/bike_accidents_part_of_day.png)
-
-
-
+For a more detailed analysis, please look at the provided notebooks. All plots can be found under the folder ```\images``` and the HTML version of the maps are available under ```\maps```. <br>
+_Note: GitHub does not render the maps. Either run the notebooks locally or open the HTML versions to see the interactive maps in high quality._
 
 ### Related work
 

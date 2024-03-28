@@ -182,7 +182,9 @@ At first glance, we can see that changes in the ranking for each year exist.
 Moreover, we also have a map that illustrates all the bike accident locations in NYC.
 ![heatmap_acc](./images/bike_accidents_points_NYC.png)
 
-Additionally, if we look at the number of crashes per year, we can observe that the number of accidents increases, but this is not surprising since the number of public bike trips increases, and there is a high chance that people are using more bikes after the pandemic.![acc_per_year](./images/bike_crashes_per_year.png)
+Additionally, if we look at the number of crashes per year, we can observe that the number of accidents increases, but this is not surprising since the number of public bike trips increases, and there is a high chance that people are using more bikes after the pandemic.
+
+![acc_per_year](./images/bike_crashes_per_year.png)
 
 Based on the number of crashes per day, we observe that there are fewer crashes during the winter season than in the summer. Furthermore, there are also spikes during the end of summer and the beginning of autumn.![acc_per_day](./images/bike_crashes_per_day.png)
 

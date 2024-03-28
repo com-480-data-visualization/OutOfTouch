@@ -165,6 +165,11 @@ At first glance, we can see that changes in the ranking for each year exist.
     <td>
       <img src="./images/zone_crashes_2020.png" alt="Bike Accidents per region 2020">
     </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td>
       <img src="./images/zone_crashes_2021.png" alt="Bike Accidents per region 2021">
     </td>
@@ -174,7 +179,8 @@ At first glance, we can see that changes in the ranking for each year exist.
   </tr>
 </table>
 
-Moreover, we also have a map that illustrates all the bike accident locations in NYC.![heatmap_acc](./images/bike_accidents_points_NYC.png)
+Moreover, we also have a map that illustrates all the bike accident locations in NYC.
+![heatmap_acc](./images/bike_accidents_points_NYC.png)
 
 Additionally, if we look at the number of crashes per year, we can observe that the number of accidents increases, but this is not surprising since the number of public bike trips increases, and there is a high chance that people are using more bikes after the pandemic.![acc_per_year](./images/bike_crashes_per_year.png)
 
@@ -182,8 +188,7 @@ Based on the number of crashes per day, we observe that there are fewer crashes 
 
 Regarding the hours for crushes, it seems like there are a lot during the evening and night compared with the afternoon or morning.![acc_per_hour](./images/bike_crashes_per_hour.png)
 
-Based on the days, the most crushes are registered on Friday.![acc_per_weekday](./images/bike_crashes_per_weekday.png)
-
+Based on the days, the most crushes are registered on Friday.
 Lastly, to understand the data better, we also checked during what part of the day we had the most bike crashes.![acc_per_weekday](./images/bike_accidents_part_of_day.png)
 
 

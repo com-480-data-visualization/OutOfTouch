@@ -26,7 +26,7 @@
 <span align="justify">
 
 ### Dataset
-We will visualize 2 means of transport in New York City, taxi and bike rides. The analysis and visualizations will be complementary focused on the following 3 periods: pre, during and post COVID pandemic.
+We will visualize 2 means of transport in New York City, taxis and bikes. The analysis and visualizations will be complementary focused on the following 3 periods: pre, during and post COVID pandemic.
 
 _Note: The datasets were filtered to contain entries only between 2019-2022 corresponding to the COVID pandemic period._
 
@@ -52,7 +52,7 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
   </table>
 
 
-  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we kept the entries, where the trip_distance is between 0 and 100 miles. This dataset includes 2 special zones (**Unkown** and **Outside of NY**), which were removed from the final dataset.
+  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we kept the entries, where the trip_distance is between 0 and 100 miles. This dataset includes 2 special zones (**Unknown** and **Outside of NY**), which were removed from the final dataset.
     
 - **Bike Rides**: [City Bike NYC](https://s3.amazonaws.com/tripdata/index.html)
 
@@ -69,7 +69,7 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
     </tr>
   </table>
 
-  The size of this dataset was initially 10Gb, restraining our storage capacities. Therefore, we decide to load every 10th row, but still represent an equivalent data distribution as the original dataset, shrkinging the dataset to 1Gb. In order to compare the statistics with the taxi dataset, based on the geolocations, 5 new fields are computed and added as part of the final dataset: start/end zone and borough and distance travelled. The dataset contains very little NaN and duplicate values.
+  The size of this dataset was initially 10Gb, restraining our storage capacities. Therefore, we decide to load every 10th row, but still represent an equivalent data distribution as the original dataset, shrkinging the dataset to 1Gb. In order to compare the statistics with the taxi dataset, based on the geolocations, 5 new fields are computed and added as part of the final dataset: start/end zone and borough and distance travelled. The dataset contains very little NaN and duplicate values. Moreover, the original dataset contained different formats to store the data. So, we processed the data to be represented in one format.
   
 - **Bike Accidents**: [Crashes From NYC](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
 

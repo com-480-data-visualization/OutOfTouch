@@ -122,7 +122,7 @@ _General initial statistics of the datasets:_
   </table>
 </span>
 
-The pickle preprocessed datasets can be downloaded [here](https://drive.google.com/drive/folders/1hmMFQZv9bhhLF59HKuDqunWa0mdX2IEA?usp=sharing)!
+The preprocessed pickle datasets and original CSV files can be downloaded [here](https://drive.google.com/drive/folders/1hmMFQZv9bhhLF59HKuDqunWa0mdX2IEA?usp=sharing)!
 
 ### Problematic
 

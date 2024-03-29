@@ -26,13 +26,14 @@
 <span align="justify">
 
 ### Dataset
-We will visualize 2 means of transport in New York City, taxis and bikes. The analysis and visualizations will be complementary focused on the following 3 periods: pre, during and post COVID pandemic.
+We will visualize 2 means of transport in New York City: taxis and bikes. The analysis and visualizations will be complementary focused on the following 3 periods: pre-, during, and post-COVID-19 pandemic.
 
-_Note: The datasets were filtered to contain entries only between 2019-2022 corresponding to the COVID pandemic period._
+_Note: The datasets were filtered to contain entries only between 2019-2022 corresponding to the COVID-19 pandemic period._
 
 - **Taxi Rides**: [NYC Open Data](https://opendata.cityofnewyork.us/data/) ([2019](https://data.cityofnewyork.us/Transportation/2019-Green-Taxi-Trip-Data/q5mz-t52e/about_data), [2020](https://data.cityofnewyork.us/Transportation/2020-Green-Taxi-Trip-Data/pkmi-4kfn/about_data), [2021](https://data.cityofnewyork.us/Transportation/2021-Green-Taxi-Trip-Data/djnb-wcxt/about_data), [2022](https://data.cityofnewyork.us/Transportation/2022-Green-Taxi-Trip-Data/8nfn-ifaj/about_data))
 
-  Contains the zones/timestamps for pickup and dropoff as well as the cost of the ride, broke in multiple parts such as **fare_amount**, **tolls_amount**, **tip_amount** and others:
+  Contains the zones and timestamps for pickup and dropoff as well as the cost of the ride, broken into multiple parts such as ``fare_amount``, ``tolls_amount``, ``tip_amount``, and others:
+
   
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
     <tr>
@@ -51,12 +52,12 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
     </tr>
   </table>
 
+  The above columns are final after filtering out the data related to gender and type of payment. To maintain the correctness of our data, we kept the entries where the ``trip_distance`` is between 0 and 100 miles. This dataset includes 2 special zones (**Unknown** and **Outside of NY**), which were removed from the final dataset.
 
-  The above columns are final, after filtering out the data related to the gender and type of payment. In order to maintain the corectness of our data, we kept the entries, where the trip_distance is between 0 and 100 miles. This dataset includes 2 special zones (**Unknown** and **Outside of NY**), which were removed from the final dataset.
     
 - **Bike Rides**: [City Bike NYC](https://s3.amazonaws.com/tripdata/index.html)
 
-  Contains precise timestamp and geolocation of the start and end of a bike ride.
+  Contains precise timestamps and geolocation of the start and end of a bike ride.
 
   <table border="0" cellspacing="0" cellpadding="0" bgcolor="#fff">
     <tr>
@@ -69,7 +70,7 @@ _Note: The datasets were filtered to contain entries only between 2019-2022 corr
     </tr>
   </table>
 
-  The size of this dataset was initially 10Gb, restraining our storage capacities. Therefore, we decide to load every 10th row, but still represent an equivalent data distribution as the original dataset, shrkinging the dataset to 1Gb. In order to compare the statistics with the taxi dataset, based on the geolocations, 5 new fields are computed and added as part of the final dataset: start/end zone and borough and distance travelled. The dataset contains very little NaN and duplicate values. Moreover, the original dataset contained different formats to store the data. So, we processed the data to be represented in one format.
+  The size of this dataset was initially 10Gb, restraining our storage capacities. Therefore, we decided to load every 10th row, but still represent an equivalent data distribution as the original dataset, shrinking the dataset to 1Gb. To compare the statistics with the taxi dataset, based on the geolocations, 5 new fields are computed and added as part of the final dataset: start/end zone, borough, and distance traveled. Moreover, the original dataset contained different formats to store the data. So, we processed the data to be represented in one format.
   
 - **Bike Accidents**: [Crashes From NYC](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
 
@@ -136,13 +137,13 @@ In this project, we want to show how the pandemic influences human behavior in t
 
 ### Exploratory Data Analysis
 
-The notebooks associated with the data analysis are located under the `\src` folder. For the current milestone, each dataset is processed in a separate notebook file, but the main visualizations displayed in this section are done in the ```Milestone1``` notebook. The analysis revolves around the idea of changing behaviors in terms of means of transport in NYC, specifically during the COVID period.
+The notebooks associated with the data analysis are located under the ``/src`` folder. Each dataset is processed in a separate notebook file for the current milestone, but the main visualizations displayed in this section are done in the ```Milestone 1``` notebook. The analysis focuse around changing behaviors in terms of means of transport in NYC, specifically during the COVID-19 pandemic period.
 
-First, it is clear that the number of taxi rides drastically drops at the start of the pandemic, with the trend of decrease continuing to 2022. On the other hand, the number of bike rides has slightly increased, having a recurrent pattern of rises and falls depending on the season.
+Clearly, the number of taxi rides drastically dropped at the start of the pandemic, with the decrease trend continuing to 2022. However, the number of bike rides has slightly increased, with a recurrent pattern of rises and falls depending on the season.
 
 ![](/images/rides_per_year_month.png)
 
-Here we plot a heatmap over a NYC geomap which shows the distribution of the taxi (left) and bike (right) start locations before COVID. We can see that taxi rides span a bigger area of the city. Further in this project, we will analyze how the trend of this distribution changes.
+We plot a heatmap over an NYC map, showing the distribution of the taxi (left) and bike (right) start locations before COVID-19. We see that taxi rides span a bigger area of the city. In this project, we will analyze how this distribution trend changes.
 
 <div style="display: flex">
     <img src="/images/taxi_heatmap_before_covid.png" width="49%" height="500" />
@@ -150,16 +151,15 @@ Here we plot a heatmap over a NYC geomap which shows the distribution of the tax
 </div>
 <br>
 
-
-Then, we glance over the duration and distance time series for the rides, also showing the average monthly crashes on the right y-axis. It is noticeable that during summer the bike rides are longer, but so is the number of crashes bigger. The average duration of the taxi rides does not seem to follow a pattern. Notice how in March 2020, the bike duration is the longest, but there are the least accidents.
+We also want to see if the number of bike crashes influences the renting of public bikes and taxis. So, we check if there is a correlation between the renting duration service and bike crashes. Even if most bike accidents were in the summer, people still used the public bike service, registering the longest trips occurring during this period. The average duration of the taxi rides does not follow a pattern.
 
 ![](/images/average_duration_per_month.png)
 
-Looking into the confusion matrix of bike crashes, we can see that the riskiest day to hop on a bike is on Friday evening. It is much safer to travel in the mornings though.
+Based on the confusion matrix of bike crashes, we see that Friday evening is the riskiest day to hop on a bike, and it is much safer to travel in the mornings.
 
 ![](/images/accidents_weekday_time_of_day.png)
 
-Throughout this project we will also dive deeper into zones and boroughs of NYC analyzing specific trends for specific parts of the city. Here is an overview of the spread of NYC zones and a list of the busiest regions in terms of bike rides.
+Throughout this project, we will also dive deeper into the zones and boroughs of NYC, analyzing specific trends for specific parts of the city. Here is an overview of the spread of NYC zones and a list of the busiest regions regarding bike rides.
 
 ![](/images/Zones_NYC.png)
 
@@ -169,18 +169,18 @@ Throughout this project we will also dive deeper into zones and boroughs of NYC 
 </div>
 <br>
 
-For a more detailed analysis, please look at the provided notebooks. All plots can be found under the folder ```\images``` and the HTML version of the maps are available under ```\maps```. <br>
-_Note: GitHub does not render the maps. Either run the notebooks locally or open the HTML versions to see the interactive maps in high quality._
+For a more detailed analysis, please look at the provided notebooks. All plots can be found under the folder ```/images``` and the HTML version of the maps are available under ```/maps```. <br>
+_Note: GitHub does not render the maps. Run the notebooks locally or open the HTML versions to see the high-quality interactive maps._
 
 ### Related work
 
 <span align="justify">
 
-The data we are working with originates from public datasets where taxi drivers and bicycle riders have given consent to store per-ride statistics in an open NYC database. Numerous companies involved in transportation services may utilize this information for various purposes, such as improving service quality, predicting ride prices, or identifying busy and profitable regions [[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis). Additionally, analyses have often focused on enhancing drivers' experiences by helping them locate the most profitable zones and busiest hours throughout the day [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e). Some show simple exploratory analysis of the dataset (similar to what we are doing in Milestone 1) [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730). These existing analyses have provided us with valuable insights into the dataset's potential, guiding our approach and visualizations.
+The data we are working with originates from public datasets where taxi drivers and bicycle riders have given consent to store per-ride statistics in an open NYC database. Numerous companies involved in transportation services may utilize this information for various purposes, such as improving service quality, predicting ride prices, or identifying busy and profitable regions [[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis). Additionally, analyses have often focused on enhancing drivers' experiences by helping them locate the most profitable zones and busiest hours throughout the day [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e). Some show simple exploratory analysis of the dataset (similar to what we are doing in ```Milestone 1```) [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730). These existing analyses have provided us with valuable insights into the dataset's potential, guiding our approach and visualizations.
 
 Our project's uniqueness lies in its inclusive approach. Beyond merely analyzing taxi rides, we also incorporate data on bicycle rides and examine how the COVID-19 crisis impacted both modes of transportation. Furthermore, we explore trends in shifting between these modes of transport in recent years. An innovative aspect of our analysis is the integration of bicycle accident data. We investigate whether shifting trends in transportation modes have led to an increase in severe accidents.
 
-We drew inspiration from various sources to craft our approach, including previous analyses, research, and visualizations found in other online domains ([[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis), [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e), [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730) ). While existing analyses provided a foundation, our project expands upon this by offering a comprehensive examination of the interplay between taxi and bicycle transportation and the impact of external factors such as the COVID-19 crisis.
+We drew inspiration from various sources to craft our approach, including previous analyses, research, and visualizations found in other online domains ([[1]](https://github.com/doshiharmish/NYC-Green-Taxi-Trip-Analysis), [[2]](https://medium.com/web-mining-is688-spring-2021/green-taxi-analysis-nyc-bb67b482d9e), [[3]](https://medium.com/@fathurizkym27/analysis-of-the-nyc-green-taxi-data-e37640534730)). While existing analyses provided a foundation, our project expands upon this by offering a comprehensive examination of the interplay between taxi and bicycle transportation and the impact of external factors such as the COVID-19 crisis.
 
 </span>
 

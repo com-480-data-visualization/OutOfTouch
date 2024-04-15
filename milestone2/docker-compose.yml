@@ -1,0 +1,47 @@
+version: '3'
+services:
+  app:
+    build: ./server
+    container_name: server
+    command: python3 -u server.py
+    restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "False"
+      APP_PORT: 5000
+      MONGODB_USERNAME: student
+      MONGODB_PASSWORD: student
+      MONGODB_HOSTNAME: mongodb
+    ports:
+      - "5000:5000"
+    volumes:
+      - serverdata:/server/data
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  mongodb:
+    image: mongo:4.0.8
+    container_name: mongodb
+    restart: unless-stopped
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: student
+      MONGO_INITDB_ROOT_PASSWORD: student
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mongodbdata:
+    driver: local
+  serverdata:
+    driver: local

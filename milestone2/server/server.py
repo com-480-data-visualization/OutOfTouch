@@ -1,7 +1,8 @@
-from flask import Flask, jsonify
-import pymongo
 import os
+import pymongo
+
 from pymongo import MongoClient
+from flask import Flask, jsonify
 
 def get_db():
     client = MongoClient(host=os.environ['MONGODB_HOSTNAME'],

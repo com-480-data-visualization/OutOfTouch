@@ -9,15 +9,15 @@ def get_db():
                          username=os.environ['MONGODB_USERNAME'], 
                          password=os.environ['MONGODB_PASSWORD'],
                         authSource="admin")
-    return client
-
+    return client[os.environ['MONGODB_DATABASE']]
 
 app = Flask(__name__)
-client_db = get_db()
+db = get_db()
 
 @app.route('/')
 def ping_server():
     return "Welcome to Data Viz."
+
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

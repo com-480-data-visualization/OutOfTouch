@@ -41,7 +41,6 @@ db.createCollection("accidents", {
    }
 });
 
-
 EOF
 
 mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv

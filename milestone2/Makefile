@@ -1,7 +1,7 @@
 all: start
 
 start:
-	sudo docker-compose up --build
+	sudo docker-compose up --build 
 
 deploy: start
 	xdg-open http://localhost:3000
@@ -11,3 +11,5 @@ stop:
 
 clean: stop
 	sudo docker volume rm $$(sudo docker volume ls | awk '{print $$2}' | tail -n +2)
+
+

@@ -1,6 +1,7 @@
 import os
 import pymongo
 
+from flask_cors import CORS
 from datetime import datetime
 from pymongo import MongoClient
 from flask import Flask, jsonify, render_template, make_response
@@ -14,6 +15,7 @@ def get_db():
     return client[os.environ['MONGODB_DATABASE']]
 
 app = Flask(__name__)
+CORS(app)
 db = get_db()
 
 def timeseries_retrieval(collection_name, field_date, start_date=datetime(2018,12,31), end_date=datetime(2023,1,1), region=None):

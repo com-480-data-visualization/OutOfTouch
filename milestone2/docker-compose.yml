@@ -37,21 +37,19 @@ services:
       - serverdata:/server/data
     depends_on:
       - mongodb
+      - frontend
     networks:
       - backend
       - frontend
   
   frontend:
     build: ./frontend
+    restart: always
     container_name: ui
     ports:
       - "3000:80"
-    volumes:
-      - ./frontend:/app
     networks:
       - frontend
-    depends_on:
-      - server
 
 
 networks:

@@ -3,14 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Means Of Transport NYC</title>
+    <!-- Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    
+    <title>Ride Sharing Impact</title>
+    <style>
+        /* Basic styling for the header */
+        header {
+            background-color: #a0841f;
+            color: #000000;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        /* Styling for the title */
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+         .quote {
+            font-style: italic;
+            margin: 20px auto; /* Center the quote horizontally */
+            padding: 20px; /* Add padding to create space around the quote */
+            max-width: 600px; /* Set maximum width to control text wrapping */
+            background-color: #f9f9f9; /* Background color for the quote box */
+            border: 1px solid #ccc; /* Border for the quote box */
+            border-radius: 8px; /* Rounded corners for the quote box */
+            text-align: center; /* Center-align the text */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+         /* Container for the main content */
+         .container {
+            display: flex;
+        }
+
+        /* Style for the left column */
+        .left-column {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Style for the right column */
+        .right-column {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Placeholder style for the plot */
+        #myPlot {
+            width: 100%;
+            height: 300px;
+            background-color: lightgray;
+        }
+    </style>
 </head>
 <body>
-    <h1 id="greeting"></h1>
-
-    <h2>Data from Backend:</h2>
-    <pre id="data"></pre>
+    <header>
+        <h1>Ride Sharing Impact</h1>
+    </header>
+    <div class="quote">
+        <p>"Four wheels move the body; two wheels move the soul. Life is short, buy the motorcycle, have a ride, live your dreams. You don't stop riding when you get old; you get old when you stop riding."</p>
+    </div>
+    <div class="container">
+        <div class="left-column">
+            <p>...Magic Spells Potions and Secrets...</p>
+        </div>
+        <div class="right-column">
+            <h2>Timeseries accidents</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
     
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

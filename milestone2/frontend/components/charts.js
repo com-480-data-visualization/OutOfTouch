@@ -11,34 +11,12 @@ export async function loadTimeSeriesChart(ctx, dates, counts) {
             }]
         },
         options: {
-            plugins: {
-                tooltip: {
-                    enabled: true,
-                    intersect: false
-                },
-                zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'x'
-                    },
-                    zoom: {
-                        wheel: {
-                            enabled: true
-                        },
-                        pinch: {
-                            enabled: true
-                        }
-                    }
-                }
-            },
             scales: {
                 x: {
                     type: 'time',
                     time: {
                         unit: 'day'
-                    },
-                    min: dates[0], // Set minimum date
-                    max: dates[dates.length - 1] // Set maximum date
+                    }
                 },
                 y: {
                     beginAtZero: true
@@ -46,4 +24,6 @@ export async function loadTimeSeriesChart(ctx, dates, counts) {
             }
         }
     });
+
+    
 }

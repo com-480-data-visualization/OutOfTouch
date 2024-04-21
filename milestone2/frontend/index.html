@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="./assets/slider.css">
+
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmap.js/build/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap/leaflet-heatmap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     
     <title>Ride Sharing Impact</title>
     <style>
@@ -57,6 +68,11 @@
             height: 300px;
             background-color: lightgray;
         }
+
+        #map-canvas { 
+            height: 650px; 
+            width: 700px;    
+        }
     </style>
 </head>
 <body>
@@ -74,6 +90,24 @@
             <h2>Timeseries accidents</h2>
             <canvas id="myChart"></canvas>
         </div>
+    </div>
+    
+    
+    <div>
+        <label for="resource">Select Resource:</label>
+        <select id="resource">
+            <option value="taxis">Taxis</option>
+            <option value="bikes">Bikes</option>
+            <option value="accidents">Accidents</option>
+        </select>
+    </div>
+    
+    <div id="map-canvas"></div> 
+
+    <div id="slider-container">
+        <svg id="slider">
+            <text x="50%" y="100%" text-anchor="middle" alignment-baseline="middle">Choose timeframe</text>
+        </svg>
     </div>
     
     <script type="module" src="main.js"></script>

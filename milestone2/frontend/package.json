@@ -18,6 +18,8 @@
   "description": "",
   "dependencies": {
     "chart.js": "^4.4.2",
+    "d3": "^7.9.0",
+    "leaflet": "^1.9.4",
     "ng2-charts": "^6.0.0"
   }
 }

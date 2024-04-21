@@ -1,0 +1,49 @@
+/* Apply styles directly to the body to reset margin and padding */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Hide overflow content to prevent scrolling */
+}
+
+/* Basic styling for the header */
+header {
+    background-color: #a0841f;
+    color: #000001;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.quote {
+    font-style: italic;
+    margin: 20px auto; /* Center the quote horizontally */
+    padding: 20px; /* Add padding to create space around the quote */
+    max-width: 600px; /* Set maximum width to control text wrapping */
+    background-color: #f9f9f9; /* Background color for the quote box */
+    border: 1px solid #ccc; /* Border for the quote box */
+    border-radius: 8px; /* Rounded corners for the quote box */
+    text-align: center; /* Center-align the text */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the title */
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Placeholder style for the plot */
+#chart-container {
+    width: 100vw; /* Set width to fill the entire viewport width */
+    height: 700px; /* Set height to fill the entire viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide overflow content to prevent scrolling */
+}
+
+#myChart {
+    max-width: 100%; /* Ensure the chart does not exceed the viewport width */
+    max-height: 100%; /* Ensure the chart does not exceed the viewport height */
+    margin: auto; /* Center the chart horizontally */
+}

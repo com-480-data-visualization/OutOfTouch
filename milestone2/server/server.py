@@ -50,24 +50,34 @@ def timeseries_retrieval(collection_name, field_date, start_date=datetime(2018,1
                     region_name: region
                 }
             })
-        
-
 
     return list(db[collection_name].aggregate(pipeline))
 
 
 def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name, start_date=None, end_date=None):
     query = {}
-    projection = {
-        "_id": 0,          # Exclude the MongoDB document id
-        latitude_name: 1,    # Include the 'start_lat' field
-        longitude_name: 1     # Include the 'start_lng' field
-    }
-
     if start_date is not None and end_date is not None:
-        query[field_date] = {"$gte": start_date, "$lte": end_date}
+        query["field_date"] = {"$gte": start_date, "$lte": end_date}
 
-    result = db[collection_name].find(query, projection)
+    pipeline = [
+        {"$match": query},  # Filter documents based on query
+        {"$group": {
+            "_id": {
+                "date": {"$dateToString": {"format": "%Y-%m-%d", "date": f"${field_date}"}},
+                "latitude": f"${latitude_name}",
+                "longitude": f"${longitude_name}"
+            },
+            "count": {"$sum": 1}  # Count number of documents for each group
+        }},
+        {"$project": {
+            "_id": 0,
+            "date": "$_id.date",
+            "lat": "$_id.latitude",
+            "long": "$_id.longitude",
+            "count": "$count"
+        }}
+    ]
+    result = db[collection_name].aggregate(pipeline)
     return list(result)
 
 @app.route('/')

@@ -3,6 +3,12 @@ set -e
 mongo <<EOF
 db = db.getSiblingDB('project')
 
+db.adminCommand(
+   {
+     enableSharding: "project"
+   }
+);
+
 // Create the collection for accidents with schema validation
 db.createCollection("accidents", {
    validator: {

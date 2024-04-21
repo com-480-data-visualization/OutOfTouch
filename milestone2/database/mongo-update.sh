@@ -59,4 +59,20 @@ db.accidents.updateMany(
    { \$unset: { crash_date: "" } }
 )
 
+db.taxis.createIndex(
+    {
+        starttime: 1,
+        latitude_source: 1,
+        longitude_source: 1
+    }
+);
+
+db.bikes.createIndex(
+    {
+        starttime: 1,
+        start_lat: 1,
+        start_lng: 1
+    }
+);
+
 EOF

@@ -77,8 +77,54 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
             "count": "$count"
         }}
     ]
+
     result = db[collection_name].aggregate(pipeline)
     return list(result)
+
+def top_zones(collection_name, field_date, field_zone):
+    pipeline = [
+        # Extract month and year from the timestamp field
+        {
+            "$addFields": {
+                "month": {"$month": f"${field_date}"},
+                "year": {"$year": f"${field_date}"}
+            }
+        },
+        # Group documents by month, year, and zone
+        {
+            "$group": {
+                "_id": {"month": "$month", "year": "$year", "zone": f"${field_zone}"},
+                "total": {"$sum": 1}  # Aggregate any relevant metric
+            }
+        },
+        # Sort by month, year, and total in descending order
+        {
+            "$sort": {
+                "_id.year": -1,
+                "_id.month": -1,
+                "total": -1
+            }
+        },
+        # Group again by month and year, and push top 10 zones into an array
+        {
+            "$group": {
+                "_id": {"month": "$_id.month", "year": "$_id.year"},
+                "zones": {"$push": {"zone": "$_id.zone", "total": "$total"}}
+            }
+        },
+        # Project to reshape the document
+        {
+            "$project": {
+                "_id": 0,
+                "month": "$_id.month",
+                "year": "$_id.year",
+                "top10Zones": {"$slice": ["$zones", 10]}  # Extract top 10 zones
+            }
+        }
+    ]
+
+    result = list(db[collection_name].aggregate(pipeline))
+    return result
 
 @app.route('/')
 def home_page():
@@ -129,6 +175,7 @@ def get_accidents_by_zone(zone_id):
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
+
 @app.route('/api/bikes', methods=['GET'])
 def retrieve_bikes():
     try:
@@ -141,6 +188,20 @@ def retrieve_bikes():
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/bikes/race', methods=['GET'])
+def get_top_zones_bikes():
+    try:
+        # Query accidents collection
+        bikes = top_zones(collection_name='bikes', field_date='starttime', field_zone='start_zone')
+        
+        # Return formatted data as JSON response with success status
+        return jsonify({'success': True, 'bikes': bikes}), 200
+    
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 
 @app.route('/api/bikes/coordinates', methods=['GET'])
 def retrieve_bike_coordinates():
@@ -186,6 +247,18 @@ def retrieve_taxis():
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/taxis/race', methods=['GET'])
+def get_top_zones_taxis():
+    try:
+        # Query accidents collection
+        taxis = top_zones(collection_name='taxis', field_date='starttime', field_zone='source_zone')
+        
+        # Return formatted data as JSON response with success status
+        return jsonify({'success': True, 'taxis': taxis}), 200
+    
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/taxis/coordinates', methods=['GET'])
 def retrieve_taxi_coordinates():
@@ -200,7 +273,6 @@ def retrieve_taxi_coordinates():
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
-
 
     result = heatmap_retrieval('taxis', 'starttime', 'latitude_source', 'longitude_source')
 

@@ -78,7 +78,7 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
         }}
     ]
 
-    result = db[collection_name].aggregate(pipeline)
+    result = db[collection_name].aggregate(pipeline, allowDiskUse=True)
     return list(result)
 
 def top_zones(collection_name, field_date, field_zone):

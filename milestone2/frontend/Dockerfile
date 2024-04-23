@@ -8,6 +8,8 @@ COPY package*.json .
 COPY main.js .
 COPY index.html .
 
+RUN rm -rf ./components
+RUN rm -rf ./assets
 RUN mkdir -p components
 RUN mkdir -p assets
 COPY ./components ./components

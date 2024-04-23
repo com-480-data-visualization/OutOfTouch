@@ -38,7 +38,7 @@ export async function loadHeatMap(data) {
     });
 
     var cfg = {
-        radius: 0.0025,
+        radius: 0.009,
         maxOpacity: .8,
         scaleRadius: true,
         useLocalExtrema: true,
@@ -63,8 +63,11 @@ export async function loadHeatMap(data) {
     var map = new L.Map(mapCanvas, {
         center: new L.LatLng(40.7128, -74.0060),
         zoom: 10,
-        layers: [baseLayer, heatmapLayer]
+        layers: [baseLayer, heatmapLayer],
+        gradient: { 0.4: 'blue', 0.65: 'green', 0.8: 'yellow', 0.95: 'orange', 1: 'red' }
     });
+
+    L.control.scale({ imperial: true }).addTo(map);
 
     // Initialize resource select box
     var resourceSelect = document.getElementById('resource');

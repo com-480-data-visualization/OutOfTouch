@@ -4,7 +4,8 @@ function removeTimeComponent(date) {
 
 export async function loadTimeSeriesChart(containerId, dates, counts) {
     // Convert date strings to JavaScript Date objects
-    const parseDate = d3.timeParse("%m/%d/%Y");
+    const parseDate = d3.timeParse("%d/%m/%Y");
+
     const formattedData = dates.map((date, index) => ({
         date: parseDate(date),
         count: counts[index]
@@ -15,6 +16,7 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
 
     const minDateString = minDate.toISOString().split('T')[0];
     const maxDateString = maxDate.toISOString().split('T')[0];
+
 
     createChart(formattedData);
 
@@ -55,13 +57,9 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
         data.sort((a, b) => (a.date < b.date ? -1 : 1));
 
         // Set up dimensions
-        const container = document.getElementById(`chart-container`);
-        const parentWidth = container.clientWidth;
-        const parentHeight = window.innerHeight - container.offsetTop; // Adjusted for page scroll and header height
-
         const margin = { top: 20, right: 30, bottom: 20, left: 30 };
-        const width = parentWidth - margin.left - margin.right;
-        const height = parentHeight - margin.top - margin.bottom;
+        const width = 1200 - margin.left - margin.right;
+        const height = 800 - margin.top - margin.bottom;
 
         // Clear the svg container to draw a chart from scratch
         d3.selectAll('g > *').remove();
@@ -99,7 +97,7 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
             .append('text')
             .attr('text-anchor', 'end')
             .attr('transform', 'rotate(-90)')
-            .attr('y', -margin.left + 20)
+            .attr('y', -margin.left)
             .attr('x', -margin.top)
             .text('Occurrences');
 

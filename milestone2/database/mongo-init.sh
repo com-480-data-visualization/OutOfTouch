@@ -148,9 +148,34 @@ db.createCollection("bikes", {
    }
 });
 
+db.createCollection("race_taxi", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            date: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            name: {
+               bsonType: "string",
+               description: ""
+            },
+            value: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
 
 EOF
 
 mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
 mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
 mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
+mongoimport --db project --collection race_taxi --type csv --headerline --file /docker-entrypoint-initdb.d/race_taxi.csv

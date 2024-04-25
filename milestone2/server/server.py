@@ -1,3 +1,4 @@
+import json
 import os
 import pymongo
 
@@ -126,6 +127,9 @@ def top_zones(collection_name, field_date, field_zone):
     result = list(db[collection_name].aggregate(pipeline))
     return result
 
+def taxi_race(collection_name):
+    return list(db[collection_name].find())
+
 @app.route('/')
 def home_page():
     return "Welcome to Data Viz Server."
@@ -251,10 +255,10 @@ def retrieve_taxis():
 def get_top_zones_taxis():
     try:
         # Query accidents collection
-        taxis = top_zones(collection_name='taxis', field_date='starttime', field_zone='source_zone')
+        taxis = taxi_race(collection_name='race_taxi')
         
         # Return formatted data as JSON response with success status
-        return jsonify({'success': True, 'taxis': taxis}), 200
+        return json.dumps(taxis, default=str), 200
     
     except Exception as e:
         # Return error message with appropriate HTTP status code

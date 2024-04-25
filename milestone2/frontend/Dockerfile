@@ -28,4 +28,4 @@ FROM nginx:alpine
 # Copy built files from the previous stage
 COPY --from=builder /app /usr/share/nginx/html
 COPY --from=builder /app/components /usr/share/nginx/html/components
-
+COPY --from=builder /app/assets /usr/share/nginx/html/assets

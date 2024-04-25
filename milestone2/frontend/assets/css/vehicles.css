@@ -1,0 +1,14 @@
+.vehicle-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.vehicle-icon {
+    width: 400px;
+    margin: 0 20px;
+    transition: transform 0.3s;
+}
+.vehicle-icon:hover {
+    transform: scale(1.1); /* Enlarge on hover */
+}

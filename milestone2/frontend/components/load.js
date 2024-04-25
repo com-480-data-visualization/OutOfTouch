@@ -11,8 +11,8 @@ function formatDate(toFormatDate) {
     return day + '/' + month + '/' + year;
 }
 
-export async function loadTimeSeriesData() {
-    return fetch('http://localhost:5000/api/accidents')
+export async function loadTimeSeriesData(resource) {
+    return fetch(`http://localhost:5000/api/${resource}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -20,7 +20,7 @@ export async function loadTimeSeriesData() {
             return response.json();
         })
         .then(data => {
-            data = data.accidents
+            data = data[`${resource}`]
             // Extract dates and counts from the data
             const dates = data.map(entry => formatDate(entry));
             const counts = data.map(entry => entry.count);

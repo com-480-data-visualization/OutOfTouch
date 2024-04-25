@@ -1,33 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <title>Ride Sharing Impact</title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="assets/styless.css" />
+  </head>
+  <body>
     <header>
-        <h1>Ride Sharing Impact</h1>
+      <h1>Ride Sharing Impact</h1>
     </header>
     <div class="quote">
-        <p>"Four wheels move the body; two wheels move the soul. Life is short, buy the motorcycle, have a ride, live your dreams. You don't stop riding when you get old; you get old when you stop riding."</p>
+      <p>
+        "Four wheels move the body; two wheels move the soul. Life is short, buy
+        the motorcycle, have a ride, live your dreams. You don't stop riding
+        when you get old; you get old when you stop riding."
+      </p>
     </div>
     <div id="chart-container">
-        <h2>Timeseries accidents - test</h2>
+      <h2>Timeseries accidents - test</h2>
+      <select id="ds-select">
+        <option value="ds1">Dataset 1</option>
+        <option value="ds2">Dataset 2</option>
+        <option value="ds3">Dataset 3</option>
+      </select>
+      <div id="svg-container">
         <svg id="myChart"></svg>
-        <div id="date-selection">
-            <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date" value="2019-01-01">
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date" value="2022-12-31">
+      </div>
+      <div id="date-selection">
+        <div>
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" value="2019-01-01" />
         </div>
+        <div>
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date" value="2022-12-31" />
+        </div>
+      </div>
     </div>
-    
+
     <script type="module" src="main.js"></script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/map.css">
+    <link rel="stylesheet" href="../assets/css/slider.css">
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmap.js/build/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap/leaflet-heatmap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<nav class="menu">
+    <div class="menu">
+        <ul class="menu-bar">
+            <li class="toolbar-title">Ride Sharing Impact</li>
+            <li class="toolbar-separator"></li>
+            <li><a class="nav-link" href="../index.html"><img src="../assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
+            <li><a class="nav-link" href="heatmaps.html"><img src="../assets/img/heatmap.png" alt="Heat Maps" aria-hidden="true" class="menu-icon">HeatMaps</a></li>
+            <li><a class="nav-link" href="timeseries.html"><img src="../assets/img/timeseries.png" alt="Time Series" aria-hidden="true" class="menu-icon">TimeSeries</a></li>
+            <li><a class="nav-link" href="race.html"><img src="../assets/img/race.png" alt="Race" aria-hidden="true" class="menu-icon">Race</a></li>
+            <li><a class="nav-link" href="predictions.html"><img src="../assets/img/predictions.png" alt="Predictions" aria-hidden="true" class="menu-icon">Predictions</a></li>
+        </ul>
+    </div>
+</nav>
+<hr style="height:2px;border-width:0;color:rgb(176, 176, 176);background-color:rgb(176, 176, 176)">
+<body>
+    <div class="map-container">
+        <div class="post-its left">
+            <div class="post-it">
+                Some information about bikes which can be observed from the heatmap
+            </div>
+            <div class="post-it">
+                Some information about taxis which can be observer from the heatmap
+            </div>
+        </div>
+
+        <div class="placement-heatmap">
+            <div>
+                <label for="resource">Select Resource:</label>
+                <select id="resource">
+                    <option value="accidents">Accidents</option>
+                    <option value="taxis">Taxis</option>
+                    <option value="bikes">Bikes</option>
+                </select>
+            </div>
+        
+            <div id="map-canvas"></div> 
+
+            <div id="slider-container">
+                <svg id="slider">
+                    <text x="50%" y="100%" text-anchor="middle" alignment-baseline="middle">Choose timeframe</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="post-its right">
+            <div class="post-it">
+                Some information about ACCIDENTS which can be observed from the heatmap 
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./heatmap.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-modules-commonjs"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.2.0"
+  },
+  "author": "OutOfTouch",
+  "license": "ISC",
+  "main": "main.js",
+  "description": "",
+  "dependencies": {
+    "chart.js": "^4.4.2",
+    "d3": "^7.9.0",
+    "leaflet": "^1.9.4",
+    "ng2-charts": "^6.0.0"
+  }
+}

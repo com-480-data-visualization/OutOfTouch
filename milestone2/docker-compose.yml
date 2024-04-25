@@ -1,0 +1,67 @@
+version: '3.7'
+services:
+  mongodb:
+    image: mongo:4.2.2
+    container_name: mongodb
+    restart: on-failure
+    command: mongod --auth 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: student
+      MONGO_INITDB_ROOT_PASSWORD: student
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../data/crashes.csv:/docker-entrypoint-initdb.d/crashes.csv
+      - ../data/bike_dataset.csv:/docker-entrypoint-initdb.d/bike_dataset.csv
+      - ../data/taxi_dataset.csv:/docker-entrypoint-initdb.d/taxi_dataset.csv
+      - ./database/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./database/mongo-update.sh:/docker-entrypoint-initdb.d/mongo-update.sh:ro
+      - mongodbdata:/data/db
+    networks:
+      - backend
+
+  server:
+    build: ./server
+    container_name: server
+    hostname: backend
+    command: python3 -u server.py
+    restart: always
+    environment:
+      MONGODB_USERNAME: student
+      MONGODB_PASSWORD: student
+      MONGODB_HOSTNAME: mongodb
+      MONGODB_DATABASE: project
+    ports:
+      - "5000:5000"
+    volumes:
+      - serverdata:/server/data
+    depends_on:
+      - mongodb
+      - frontend
+    networks:
+      - backend
+      - frontend
+  
+  frontend:
+    build: ./frontend
+    restart: always
+    container_name: ui
+    ports:
+      - "3000:80"
+    networks:
+      - frontend
+
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+volumes:
+  mongodbdata:
+    driver: local
+  serverdata:
+    driver: local

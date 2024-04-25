@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="./assets/css/slider.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/vehicles.css">
+    <link rel="stylesheet" href="./assets/css/timeseries.css">
+
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmap.js/build/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap/leaflet-heatmap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
+    
     <title>Ride Sharing Impact</title>
-    <link rel="stylesheet" href="assets/styless.css" />
-  </head>
-  <body>
-    <header>
-      <h1>Ride Sharing Impact</h1>
-    </header>
+</head>
+
+<nav class="menu">
+    <div class="menu">
+        <ul class="menu-bar">
+            <li class="toolbar-title">Ride Sharing Impact</li>
+            <li class="toolbar-separator"></li>
+            <li><a class="nav-link" href="index.html"><img src="./assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
+            <li><a class="nav-link" href="./components/heatmaps.html"><img src="./assets/img/heatmap.png" alt="Heat Maps" aria-hidden="true" class="menu-icon">HeatMaps</a></li>
+            <li><a class="nav-link" href="./components/timeseries.html"><img src="./assets/img/timeseries.png" alt="Time Series" aria-hidden="true" class="menu-icon">TimeSeries</a></li>
+            <li><a class="nav-link" href="./components/race.html"><img src="./assets/img/race.png" alt="Race" aria-hidden="true" class="menu-icon">Race</a></li>
+            <li><a class="nav-link" href="./components/predictions.html"><img src="./assets/img/predictions.png" alt="Predictions" aria-hidden="true" class="menu-icon">Predictions</a></li>
+        </ul>
+    </div>
+</nav>
+<hr style="height:2px;border-width:0;color:rgb(176, 176, 176);background-color:rgb(176, 176, 176)">
+<body>
+
+    <section class="vehicle-container">
+        <!-- Taxi Icon -->
+        <div class="vehicle">
+          <img src="./assets/img/taxi_hailing.jpeg" alt="Taxi" class="vehicle-icon">
+        </div>
+        <!-- Bike Icon -->
+        <div class="vehicle">
+          <img src="./assets/img/bike.jpg" alt="Bike" class="vehicle-icon">
+        </div>
+    </section>
+
     <div class="quote">
       <p>
         "Four wheels move the body; two wheels move the soul. Life is short, buy
@@ -22,27 +56,26 @@
       </p>
     </div>
     <div id="chart-container">
-      <h2>Timeseries accidents - test</h2>
-      <select id="ds-select">
-        <option value="ds1">Dataset 1</option>
-        <option value="ds2">Dataset 2</option>
-        <option value="ds3">Dataset 3</option>
-      </select>
-      <div id="svg-container">
-        <svg id="myChart"></svg>
-      </div>
-      <div id="date-selection">
-        <div>
-          <label for="start-date">Start Date:</label>
-          <input type="date" id="start-date" value="2019-01-01" />
+        <h2>Timeseries accidents - test</h2>
+        <select id="ds-select">
+          <option value="ds1">Dataset 1</option>
+          <option value="ds2">Dataset 2</option>
+          <option value="ds3">Dataset 3</option>
+        </select>
+        <div id="svg-container">
+          <svg id="myChart"></svg>
         </div>
-        <div>
-          <label for="end-date">End Date:</label>
-          <input type="date" id="end-date" value="2022-12-31" />
+        <div id="date-selection">
+          <div>
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" value="2019-01-01" />
+          </div>
+          <div>
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" value="2022-12-31" />
+          </div>
         </div>
-      </div>
     </div>
-
     <script type="module" src="main.js"></script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 all: start
 
 start:
-	sudo docker-compose up --force-recreate
+	sudo docker-compose up --build
 
 deploy: start
 	xdg-open http://localhost:3000

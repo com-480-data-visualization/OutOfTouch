@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   mongodb:
-    image: mongo:4.2.22
+    image: mongo:4.2.2
     container_name: mongodb
     restart: on-failure
     command: mongod --auth 
@@ -27,7 +27,7 @@ services:
     container_name: server
     hostname: backend
     command: python3 -u server.py
-    restart: unless-stopped
+    restart: always
     environment:
       MONGODB_USERNAME: student
       MONGODB_PASSWORD: student

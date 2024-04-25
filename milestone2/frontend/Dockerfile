@@ -8,10 +8,16 @@ COPY package*.json .
 COPY main.js .
 COPY index.html .
 
+RUN rm -rf ./components
+RUN rm -rf ./assets
 RUN mkdir -p components
 RUN mkdir -p assets
+RUN mkdir -p assets/css
+RUN mkdir -p assets/img
+
 COPY ./components ./components
-COPY ./assets ./assets
+COPY ./assets/css ./assets/css
+COPY ./assets/img ./assets/img
 
 # Install dependencies
 RUN npm install --production
@@ -22,4 +28,4 @@ FROM nginx:alpine
 # Copy built files from the previous stage
 COPY --from=builder /app /usr/share/nginx/html
 COPY --from=builder /app/components /usr/share/nginx/html/components
-
+COPY --from=builder /app/assets /usr/share/nginx/html/assets

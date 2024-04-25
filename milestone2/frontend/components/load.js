@@ -32,25 +32,6 @@ export async function loadTimeSeriesData() {
         });
 }
 
-export async function loadHeatMapData(resource) {
-    return fetch(`http://localhost:5000/api/${resource}/coordinates?start_date=2019-01-01&end_date=2023-01-01`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }).then(data => {
-            const result = {
-                "data" : data
-            }
-            return result
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error
-        });
-}
-
 export async function loadRaceData(resource) {
     return fetch(`http://localhost:5000/api/${resource}/race`)
         .then(response => {

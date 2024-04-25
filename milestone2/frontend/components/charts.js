@@ -1,31 +1,5 @@
-import { loadHeatMapData } from "./load.js";
-
-export async function loadTimeSeriesChart(ctx, dates, counts) {
-    const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: 'Occurrences',
-                data: counts,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'day'
-                    }
-                },
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+function removeTimeComponent(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 export async function loadRaceChart(datax){
@@ -212,167 +186,150 @@ export async function loadRaceChart(datax){
     }
 }
 
-export async function loadHeatMap(data) {
-    var mapCanvas = document.getElementById('map-canvas');
 
-    var baseLayer = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '...',
-        maxZoom: 18
+export async function loadTimeSeriesChart(containerId, dates, counts) {
+    // Convert date strings to JavaScript Date objects
+    const parseDate = d3.timeParse("%d/%m/%Y");
+
+    const formattedData = dates.map((date, index) => ({
+        date: parseDate(date),
+        count: counts[index]
+    }));
+
+    const minDate = new Date(Math.min(...formattedData.map((data) => data.date)));
+    const maxDate = new Date(Math.max(...formattedData.map((data) => data.date)));
+
+    const minDateString = minDate.toISOString().split('T')[0];
+    const maxDateString = maxDate.toISOString().split('T')[0];
+
+
+    createChart(formattedData);
+
+    // Get the input elements
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+    startDateInput.value = minDateString;
+    endDateInput.value = maxDateString;
+
+    let selectedStartDate = new Date(startDateInput.value);
+    let selectedEndDate = new Date(endDateInput.value);
+
+    // Add input event listeners to update the chart
+    startDateInput.addEventListener('input', (e) => {
+        selectedStartDate = removeTimeComponent(new Date(e.target.value));
+        const filteredData = formattedData.filter((d) => {
+            const dateToCompare = removeTimeComponent(d.date);
+            return (
+                selectedStartDate <= dateToCompare && dateToCompare <= selectedEndDate
+            );
+        });
+
+        createChart(filteredData);
+    });
+    endDateInput.addEventListener('input', (e) => {
+        selectedEndDate = removeTimeComponent(new Date(e.target.value));
+        const filteredData = formattedData.filter((d) => {
+            const dateToCompare = removeTimeComponent(d.date);
+            return (
+                selectedStartDate <= dateToCompare && dateToCompare <= selectedEndDate
+            );
+        });
+
+        createChart(filteredData);
     });
 
-    var cfg = {
-        radius: 0.0025,
-        maxOpacity: .8,
-        scaleRadius: true,
-        useLocalExtrema: true,
-        latField: 'lat',
-        lngField: 'long',
-        valueField: 'count'
-    };
+    function createChart(data) {
+        data.sort((a, b) => (a.date < b.date ? -1 : 1));
 
+        // Set up dimensions
+        const margin = { top: 20, right: 30, bottom: 20, left: 30 };
+        const width = 1200 - margin.left - margin.right;
+        const height = 800 - margin.top - margin.bottom;
 
-    // Define the range and initial values (as dates)
-    var startDate = new Date("2019-01-01");
-    var endDate = new Date("2023-01-01");
-    var values = [startDate, endDate]; // Initial values
+        // Clear the svg container to draw a chart from scratch
+        d3.selectAll('g > *').remove();
 
-    // Set up SVG dimensions
-    var width = 700;
-    var height = 50;
-    var padding = 15;
+        // Create SVG element
+        const svg = d3
+            .select(`#${containerId}`)
+            .append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    var heatmapLayer = new HeatmapOverlay(cfg);
+        // Create scales
+        const xScale = d3
+            .scaleTime()
+            .domain(d3.extent(data, (d) => d.date))
+            .range([0, width]);
 
-    var map = new L.Map(mapCanvas, {
-        center: new L.LatLng(40.7128, -74.0060),
-        zoom: 10,
-        layers: [baseLayer, heatmapLayer]
-    });
+        const yScale = d3
+            .scaleLinear()
+            .domain([0, d3.max(data, (d) => d.count)])
+            .nice()
+            .range([height, 0]);
 
-    // Initialize resource select box
-    var resourceSelect = document.getElementById('resource');
-    resourceSelect.addEventListener('change', function () {
-        var resource = this.value; // Get selected resource
-        var startDate = values[0]
-        var endDate = values[1]
-        fetchDataAndUpdateHeatmap(startDate, endDate, resource);
-    });
+        // Add axis labels
+        svg
+            .append('text')
+            .attr('text-anchor', 'end')
+            .attr('x', width)
+            .attr('y', height + margin.top + 20)
+            .text('Date');
 
-    // Fetch data and update heatmap
-    async function fetchDataAndUpdateHeatmap(startDate, endDate, resource) {
-        try {
-            data = await loadHeatMapData(resource)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        svg
+            .append('text')
+            .attr('text-anchor', 'end')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', -margin.left)
+            .attr('x', -margin.top)
+            .text('Occurrences');
 
-        const filteredData = filterDataByDateRange(data, startDate, endDate)
-        updateHeatmap(filteredData)
-    }
+        // Define axis generators
+        const xAxis = d3
+            .axisBottom(xScale)
+            .ticks(5)
+            .tickFormat(d3.timeFormat('%Y-%m-%d'));
+        const yAxis = d3.axisLeft(yScale).ticks(5);
 
-    updateHeatmap(data);
+        // Draw axes
+        svg
+            .append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0, ${height})`)
+            .call(xAxis);
 
-    // Function to filter data by date range
-    function filterDataByDateRange(data, startDate, endDate) {
-        return {
-            "data": data.data.filter(function (point) {
-                var pointDate = new Date(point.date)
-                return pointDate >= startDate && pointDate <= endDate
-            })
-        }
-    }
+        svg.append('g').attr('class', 'y-axis').call(yAxis);
 
-    // Function to update heatmap data
-    function updateHeatmap(data) {
-        heatmapLayer.setData(data);
-    }
+        // Create line generator
+        const line = d3
+            .line()
+            .x((d) => xScale(d.date))
+            .y((d) => yScale(d.count))
+            .curve(d3.curveMonotoneX);
 
-    // Create SVG
-    var svg = d3.select("#slider")
-        .attr("width", width)
-        .attr("height", height);
+        // Draw line
+        svg
+            .append('path')
+            .datum(data)
+            .attr('fill', 'none')
+            .attr('stroke', 'rgb(75, 192, 192)')
+            .attr('stroke-width', 2)
+            .attr('d', line);
 
-    // Set up scales for dates
-    var x = d3.scaleTime()
-        .domain([startDate, endDate])
-        .range([padding, width - padding])
-        .clamp(true);
-
-    // Create slider track
-    svg.append("line")
-        .attr("class", "slider-segment slider-segment1")
-        .attr("x1", padding)
-        .attr("x2", x(values[0]))
-        .attr("y1", height / 2)
-        .attr("y2", height / 2);
-
-    svg.append("line")
-        .attr("class", "slider-segment slider-segment2")
-        .attr("x1", x(values[0]))
-        .attr("x2", x(values[1]))
-        .attr("y1", height / 2)
-        .attr("y2", height / 2);
-
-    svg.append("line")
-        .attr("class", "slider-segment slider-segment3")
-        .attr("x1", x(values[1]))
-        .attr("x2", width - padding)
-        .attr("y1", height / 2)
-        .attr("y2", height / 2);
-
-    // Create handles
-    var handles = svg.selectAll(".slider-handle")
-        .data(values)
-        .enter()
-        .append("circle")
-        .attr("class", "slider-handle")
-        .attr("cx", function(d) { return x(d); })
-        .attr("cy", height / 2)
-        .attr("r", 10)
-        .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
-
-    // Drag functions
-    function dragstarted(event, d) {
-        d3.select(this).raise().classed("active", true);
-    }
-
-    function dragged(event, d, i) {
-        var xValue = x.invert(event.x);
-        xValue = new Date(Math.max(startDate.getTime(), Math.min(endDate.getTime(), xValue.getTime()))); // Clamp value within range
-        if (d.getTime() == startDate.getTime()) {
-            xValue = Math.min(xValue, values[1])
-            values[0] = xValue
-            const filteredData = filterDataByDateRange(data, values[0], values[1])
-            updateHeatmap(filteredData)
-        } else if (d.getTime() == endDate.getTime()) {
-            xValue = Math.max(xValue, values[0])
-            values[1] = xValue
-            const filteredData = filterDataByDateRange(data, values[0], values[1])
-            updateHeatmap(filteredData)
-        }
-
-        svg.selectAll(".slider-segment")
-            .data([{
-            x1: padding,
-            x2: x(values[0])
-            }, {
-            x1: x(values[0]),
-            x2: x(values[1])
-            }, {
-            x1: x(values[1]),
-            x2: width - padding
-            }])
-            .attr("x1", d => d.x1)
-            .attr("x2", d => d.x2);
-
-        d3.select(this).attr("cx", x(xValue));
-    }
-
-    function dragended(event, d) {
-        d3.select(this).classed("active", false);
+        // Draw circles for data points
+        svg
+            .selectAll('.dot')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('class', 'dot')
+            .attr('cx', (d) => xScale(d.date))
+            .attr('cy', (d) => yScale(d.count))
+            .attr('r', 5)
+            .attr('fill', 'rgb(75, 192, 192)')
+            .attr('stroke', 'white')
+            .attr('stroke-width', 2);
     }
 }

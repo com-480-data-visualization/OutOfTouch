@@ -184,7 +184,7 @@ We drew inspiration from various sources to craft our approach, including previo
 
 </span>
 
-## Milestone 2 (26th April, 5pm)
+## Milestone 2
 
 ### Architecture
 

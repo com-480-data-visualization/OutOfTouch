@@ -23,3 +23,5 @@ To be sure that the website started and the database contains everything. Please
 ```
 NETWORK  [conn1] received client metadata from 172.18.0.3:60712 conn1: { driver: { name: "PyMongo", version: "4.1.1" }, os: { type: "Linux", name: "Linux", architecture: "x86_64", version: "6.5.0-27-generic" }, platform: "CPython 3.6.15.final.0" }
 ```
+
+The website is accessible at the following address: [http://localhost:3000]

@@ -186,6 +186,16 @@ We drew inspiration from various sources to craft our approach, including previo
 
 ## Milestone 2 (26th April, 5pm)
 
+### Architecture
+
+The architecture of our web-page contains the following components:
+
+* **Backend Server** - implemented in `Python` using the `Flask` framework. This component handles requests coming from the frontend server and converts them into queries to retrieve data from the database.
+* **Frontend** - implemented in `Javascript`, leveraging static assets specified in `HTML` and `CSS`. Moreover, it handles preprocessed data from the server and implements a caching strategy to limit unnecessary server and database calls, thereby enhancing efficiency.
+* **MongoDB** - database used for storing data and efficient search. 
+
+### Deliverables
+
 The implementation of our prototype website can be found in folder [milestone2](https://github.com/com-480-data-visualization/OutOfTouch/tree/master/milestone2).
 
 To reproduce our website please follow the instructions from [here](https://github.com/com-480-data-visualization/OutOfTouch/blob/master/milestone2/README.md).

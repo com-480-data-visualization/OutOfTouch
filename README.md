@@ -16,7 +16,7 @@
   
   *As part of the course "Data Visualization COM-480" at EPFL*
   
-  [**Milestone 1**](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+  [**Milestone 1**](#milestone-1) • [**Milestone 2**](#milestone-2) • [Milestone 3](#milestone-3)
   
 </span>
 

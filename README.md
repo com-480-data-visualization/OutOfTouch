@@ -200,7 +200,7 @@ The implementation of our prototype website can be found in folder [milestone2](
 
 To reproduce our website please follow the instructions from [here](https://github.com/com-480-data-visualization/OutOfTouch/blob/master/milestone2/README.md).
 
-The report for this milestone can be found [here]().
+The report for this milestone can be found [here](https://github.com/com-480-data-visualization/OutOfTouch/blob/master/milestone2/Milestone2.pdf).
 
 ## Milestone 3 (31st May, 5pm)
 

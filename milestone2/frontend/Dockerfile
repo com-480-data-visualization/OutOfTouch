@@ -5,7 +5,6 @@ FROM node:alpine AS builder
 WORKDIR /app
 
 COPY package*.json .
-COPY main.js .
 COPY index.html .
 
 RUN rm -rf ./components

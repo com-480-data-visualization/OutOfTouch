@@ -53,3 +53,5 @@ NETWORK  [conn1] received client metadata from 172.18.0.3:60712 conn1: { driver:
 ```
 
 The website is accessible at the following address: [http://localhost:3000]()
+
+In case of problems with the docker configuration, please contact us for a live demo.

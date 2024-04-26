@@ -187,7 +187,9 @@ We drew inspiration from various sources to craft our approach, including previo
 ## Milestone 2 (26th April, 5pm)
 
 The implementation of our prototype website can be found in folder [milestone2](https://github.com/com-480-data-visualization/OutOfTouch/tree/master/milestone2).
+
 To reproduce our website please follow the instructions from [here](https://github.com/com-480-data-visualization/OutOfTouch/blob/master/milestone2/README.md).
+
 The report for this milestone can be found [here]().
 
 ## Milestone 3 (31st May, 5pm)

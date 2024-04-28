@@ -1,0 +1,36 @@
+#book {
+    display: flex;
+    width: 100vw;
+    height: 900px;
+    padding: 20px;
+}
+
+.page {
+    flex: 1;
+    background-color: #fff; /* White background for the pages */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect for the pages */
+    margin: 0 10px; /* Add margin between the pages */
+    overflow: hidden; /* Hide any overflow content */
+}
+
+#map {
+    height: calc(900px - 40px); /* Set the height of the map */
+    margin: 20px; /* Add margin inside the page */
+}
+
+#prediction-box {
+    padding: 20px;
+    height: 100%;
+}
+
+#prediction-box h2 {
+    margin-top: 0;
+    font-size: 24px; /* Increase font size for the title */
+    color: #333; /* Dark gray text color */
+}
+
+#coordinates, #prediction {
+    margin-bottom: 10px;
+    font-size: 18px; /* Font size for the coordinates and prediction */
+    color: #666; /* Gray text color */
+}

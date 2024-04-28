@@ -5,7 +5,9 @@ This milestone includes our 2-page report and a basic web skeleton with the init
 
 To be able to reproduce our environment, the following utilities should be installed:
 
-1. Docker 
+1.`Docker`
+
+To install `Docker`, run these commands: 
 - setup Docker's apt repository:
 ```bash
 # Add Docker's official GPG key:
@@ -23,12 +25,14 @@ echo \
 sudo apt-get update
 ```
 
-- Install the Docker packages.
+- install the Docker packages.
 ```bash
  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-2. docker-compose
+2. `docker-compose`
+   
+To install `docker-compose`, run this command:
 ```bash
 sudo apt-get install docker-compose
 ```

@@ -6,6 +6,7 @@ WORKDIR /app
 
 COPY package*.json .
 COPY index.html .
+COPY main.js .
 
 RUN rm -rf ./components
 RUN rm -rf ./assets
@@ -13,10 +14,12 @@ RUN mkdir -p components
 RUN mkdir -p assets
 RUN mkdir -p assets/css
 RUN mkdir -p assets/img
+RUN mkdir -p assets/data
 
 COPY ./components ./components
 COPY ./assets/css ./assets/css
 COPY ./assets/img ./assets/img
+COPY ./assets/data ./assets/data
 
 # Install dependencies
 RUN npm install --production

@@ -185,7 +185,6 @@ export async function loadHeatMap(data) {
     }
 }
 
-
 export async function initHeatMap() {
     try {
         const resourceOption = document.getElementById('resource')

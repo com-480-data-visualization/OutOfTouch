@@ -1,31 +1,26 @@
-/* Apply styles directly to the body to reset margin and padding */
-  
-  /* Placeholder style for the plot */
-  #chart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50;
-  }
-  
-  #myChart {
-    width: 1200px;
-    height: 700px;
-  }
-  
-  #date-selection {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 50px;
-    gap: 30px;
-  }
-  
-  #start-date,
-  #end-date,
-  #ds-select {
-    padding: 10px;
-    border-radius: 10px;
-  }
-  
+#chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#myChart {
+  width: 1200px;
+  height: 700px;
+}
+
+#date-selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  color: white;
+}
+
+.chart-svg-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+}

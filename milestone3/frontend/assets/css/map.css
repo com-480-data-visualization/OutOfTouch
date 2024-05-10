@@ -36,13 +36,31 @@
 }
 
 .post-it {
-  width: 40%;
+  width: 70%;
   padding: 15px;
   background-color: #ecba17;
   border-radius: 10px;
   text-align: center;
   line-height: 1.5;
 }
+
+.post-it button {
+    width: 100px; /* Set the width of the buttons */
+    height: 40px; /* Set the height of the buttons */
+    margin: 5px; /* Add some margin between buttons */
+    padding: 10px; /* Add padding inside buttons */
+    background-color: #c69c00; /* Darker shade of yellow */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    display: inline-block; /* Display buttons next to each other */
+  }
+  
+  .post-it button:hover {
+    background-color: #a37f00; /* Darker shade of yellow on hover */
+  }
+  
 
 .resource-container {
   display: flex;
@@ -86,6 +104,12 @@
 .slider-segment3 {
   stroke: #e3e2e2; /* Lighter color for outside segments */
 }
+
+#date-info {
+    bottom: 20px;
+    text-align: center; /* Center the content horizontally */
+}
+
 
 #date-info p {
     align-items: center;
@@ -152,8 +176,3 @@
     }
 }
  */
-
-#date-info {
-    bottom: 20px;
-    text-align: center; /* Center the content horizontally */
-}

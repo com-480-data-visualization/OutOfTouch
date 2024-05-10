@@ -1,6 +1,7 @@
 #zoneMap {
-    height: 650px; 
-    width: 700px; 
+    height: 300px; 
+    width: 200%; 
     display: flex;
     align-items: center;
+    border-radius: 10px; /* Adjust the value to control the roundness of the edges */
 }

@@ -45,5 +45,4 @@ async function init() {
 // Example usage:
 // drawWavyRoad('roadCanvas', 300, 3, 0.1, 20, 100);
 
-
 window.onload = init;

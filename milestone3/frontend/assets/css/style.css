@@ -30,6 +30,7 @@ h1 {
 
 #nav-menu {
   border-bottom: var(--border);
+  background-color: #061856; /* Darker background color on hover */
 }
 
 .menu {

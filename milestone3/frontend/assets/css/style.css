@@ -1,58 +1,36 @@
 header {
-    background-color: #a0841f;
-    color: #000000;
-    padding: 10px 0;
-    text-align: center;
+  background-color: #a0841f;
+  color: #000000;
+  padding: 10px 0;
+  text-align: center;
 }
 
 /* Styling for the title */
 h1 {
-    margin: 0;
-    font-size: 24px;
+  margin: 0;
+  font-size: 24px;
 }
 
- .quote {
-    font-style: italic;
-    margin: 20px auto; /* Center the quote horizontally */
-    padding: 20px; /* Add padding to create space around the quote */
-    max-width: 600px; /* Set maximum width to control text wrapping */
-    background-color: #f9f9f9; /* Background color for the quote box */
-    border: 1px solid #ccc; /* Border for the quote box */
-    border-radius: 8px; /* Rounded corners for the quote box */
-    text-align: center; /* Center-align the text */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
- /* Container for the main content */
- .container {
-    display: flex;
+/* Container for the main content */
+.container {
+  display: flex;
 }
 
 /* Style for the left column */
 .left-column {
-    flex: 1;
-    padding: 20px;
+  flex: 1;
+  padding: 20px;
 }
 
 /* Style for the right column */
 .right-column {
-    flex: 1;
-    padding: 20px;
+  flex: 1;
+  padding: 20px;
 }
 
-ul {
-    list-style: none;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  #nav-menu {
-    border-bottom: var(--border);
-  }
-
+#nav-menu {
+  border-bottom: var(--border);
+}
 
 .menu {
   position: fixed;
@@ -84,26 +62,24 @@ ul {
 }
 
 .nav-link:hover {
-    background-color: #b0b0b0; /* Darker background color on hover */
+  background-color: #b0b0b0; /* Darker background color on hover */
 }
 
 .nav-link:active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) inset; /* Shadow effect when pressed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) inset; /* Shadow effect when pressed */
 }
 
 .toolbar-title {
-    font-size: 24px; /* Larger font size */
-    font-weight: bold; /* Bold font weight */
+  font-size: 24px; /* Larger font size */
+  font-weight: bold; /* Bold font weight */
 }
 
-
 .toolbar-separator {
-    margin: 0 40px;
-    height: 30px;
-    width: 2px;
-    background-color: #afacac;
-  }
-
+  margin: 0 40px;
+  height: 30px;
+  width: 2px;
+  background-color: #afacac;
+}
 
 .nav-start,
 .nav-end,
@@ -114,16 +90,15 @@ ul {
   align-items: center;
 }
 
-  .right-container {
-    display: flex;
-    align-items: center;
-    column-gap: 1rem;
-  }
-
+.right-container {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
 
 .menu-icon {
-    width: 30px; /* Set the width as needed */
-    height: 30px; /* Set the height as needed */
-    margin-right: 5px; /* Optional: Add some space between the image and the text */
-    vertical-align: middle;
+  width: 30px; /* Set the width as needed */
+  height: 30px; /* Set the height as needed */
+  margin-right: 5px; /* Optional: Add some space between the image and the text */
+  vertical-align: middle;
 }

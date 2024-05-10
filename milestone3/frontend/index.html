@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="./assets/css/slider.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/vehicles.css">
-    <link rel="stylesheet" href="./assets/css/timeseries.css">
-    <link rel="stylesheet" href="./assets/css/zones.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <link rel="stylesheet" href="./assets/css/nav.css" />
+    <link rel="stylesheet" href="./assets/css/footer.css" />
+
+    <link rel="stylesheet" href="./assets/css/home.css" />
+    <link rel="stylesheet" href="./assets/css/slider.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
+    <link rel="stylesheet" href="./assets/css/timeseries.css" />
 
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
@@ -18,46 +25,234 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    
     <title>Ride Sharing Impact</title>
-</head>
 
-<nav class="menu">
-    <div class="menu">
-        <ul class="menu-bar">
-            <li class="toolbar-title">Ride Sharing Impact</li>
-            <li class="toolbar-separator"></li>
-            <li><a class="nav-link" href="/"><img src="./assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
-            <li><a class="nav-link" href="./components/heatmaps.html"><img src="./assets/img/heatmap.png" alt="Heat Maps" aria-hidden="true" class="menu-icon">HeatMaps</a></li>
-            <li><a class="nav-link" href="./components/timeseries.html"><img src="./assets/img/timeseries.png" alt="Time Series" aria-hidden="true" class="menu-icon">TimeSeries</a></li>
-            <li><a class="nav-link" href="./components/race.html"><img src="./assets/img/race.png" alt="Race" aria-hidden="true" class="menu-icon">Race</a></li>
-            <li><a class="nav-link" href="./components/predictions.html"><img src="./assets/img/predictions.png" alt="Predictions" aria-hidden="true" class="menu-icon">Predictions</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="menu-bar-divider"></div>
-<body>
+    <style>
+      #finisher-canvas {
+        min-height: 100vh;
+        min-width: 100vw;
+        height: auto;
+      }
+    </style>
+  </head>
 
-    <section class="vehicle-container">
+  <body>
+    <div class="body-content">
+      <div id="nav-placeholder"></div>
+
+      <section class="vehicle-container">
         <!-- Taxi Icon -->
         <div class="vehicle">
-          <img src="./assets/img/taxi_hailing.jpeg" alt="Taxi" class="vehicle-icon">
+          <img
+            src="https://media.istockphoto.com/id/519870714/photo/taxi.jpg?s=612x612&w=0&k=20&c=mzlqm5eisvu-B7hCyOK3LAsR4ugFTsHtC2kMWUmbA0Y="
+            alt="Taxi"
+            class="vehicle-icon"
+          />
         </div>
         <!-- Bike Icon -->
         <div class="vehicle">
-          <img src="./assets/img/bike.jpg" alt="Bike" class="vehicle-icon">
+          <img
+            src="https://t3.ftcdn.net/jpg/04/11/99/58/360_F_411995858_YIIVaaSGLLjjCBnWXDxj3TCRMaN3cCY0.jpg"
+            alt="Bike"
+            class="vehicle-icon"
+          />
         </div>
-    </section>
+      </section>
 
-    <div class="quote">
-      <p>
-        "Four wheels move the body; two wheels move the soul. Life is short, buy
-        the motorcycle, have a ride, live your dreams. You don't stop riding
-        when you get old; you get old when you stop riding."
-      </p>
+      <div class="quote">
+        <p>
+          "Four wheels move the body; two wheels move the soul. Life is short,
+          buy the motorcycle, have a ride, live your dreams. You don't stop
+          riding when you get old; you get old when you stop riding."
+        </p>
+      </div>
+
+      <div class="features">
+        <span class="features-title">Explore</span>
+
+        <div class="feature-container">
+          <img
+            src="./assets/gif/heatmap.gif"
+            alt="Heatmap"
+            class="feature-image"
+          />
+          <div class="feature-text-container">
+            <span class="feature-title">HeatMap</span>
+
+            <br />
+            <br />
+            <br />
+
+            <span class="feature-text">
+              Discover the heartbeat of ride-sharing with our heatmap
+              visualization. See where demand pulses, traffic flows, and
+              opportunities await. Uncover insights to optimize operations and
+              enhance service. Dive into data, drive impact.
+            </span>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="feature-button">
+              <a class="feature-link" href="./components/heatmap.html">
+                <span>Explore HeatMap</span>
+                <span class="material-symbols-outlined"> arrow_right_alt </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-container">
+          <div class="feature-text-container">
+            <span class="feature-title">TimeSeries</span>
+            <br />
+            <br />
+            <br />
+            <span class="feature-text">
+              Explore ride-sharing trends over time with our time-series charts.
+              See how demand shifts, peaks, and trends. These insights guide
+              smarter decisions, anticipating needs and optimizing operations.
+              Ride the wave of data, shape your strategy.
+            </span>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="feature-button">
+              <a class="feature-link" href="./components/timeseries.html">
+                <span>Explore TimeSeries</span>
+                <span class="material-symbols-outlined"> arrow_right_alt </span>
+              </a>
+            </div>
+          </div>
+
+          <img
+            src="https://i.pinimg.com/originals/2e/e6/99/2ee6998e34c3e2eff7b894c66cfc5267.jpg"
+            alt="TimeSeries"
+            class="feature-image"
+          />
+        </div>
+
+        <div class="feature-container">
+          <img
+            src="https://i.pinimg.com/originals/3d/6b/a4/3d6ba4e4d490d09b0667abba73a6970b.gif"
+            alt="Race"
+            class="feature-image"
+          />
+          <div class="feature-text-container">
+            <span class="feature-title">Race</span>
+
+            <br />
+            <br />
+            <br />
+            <span class="feature-text">
+              Zoom into ride-sharing action with our race charts. See who's
+              leading, where trends are heading, and how things change over
+              time. It's like a live race, but with data. Stay ahead of the
+              curve, make smarter moves.
+            </span>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="feature-button">
+              <a class="feature-link" href="./components/race.html">
+                <span>Explore Race</span>
+                <span class="material-symbols-outlined"> arrow_right_alt </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-container">
+          <div class="feature-text-container">
+            <span class="feature-title">Predictions</span>
+
+            <br />
+            <br />
+            <br />
+            <span class="feature-text">
+              See what's coming next in ride-sharing with our predictions. We
+              use data to forecast trends and help you stay ahead. It's like
+              peeking into the future of rides. Stay ahead, ride with
+              confidence.
+            </span>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="feature-button">
+              <a class="feature-link" href="./components/predictions.html">
+                <span>Explore Predictions</span>
+                <span class="material-symbols-outlined"> arrow_right_alt </span>
+              </a>
+            </div>
+          </div>
+
+          <img
+            src="https://i.pinimg.com/originals/7e/0b/dd/7e0bdda6534cc68c4e8258ad1c6ea183.gif"
+            alt="Predictions"
+            class="feature-image"
+          />
+        </div>
+      </div>
+
+      <footer id="footer-placeholder"></footer>
     </div>
-    <div id="zoneMap"></div>
-    <script type="module" src="main.js"></script>
+
+    <div
+      class="header finisher-header"
+      style="display: flex; flex: 1; flex-direction: column"
+    ></div>
+
+    <script>
+      fetch('components/basic/nav.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('nav-placeholder').innerHTML = html;
+        });
+      fetch('components/basic/footer.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('footer-placeholder').innerHTML = html;
+        });
+    </script>
+    <!-- <div id="zoneMap"></div> -->
+    <script src="finisher-header.es5.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      new FinisherHeader({
+        count: 10,
+        size: {
+          min: 400,
+          max: 1000,
+          pulse: 1,
+        },
+        speed: {
+          x: {
+            min: 0.6,
+            max: 3,
+          },
+          y: {
+            min: 0.6,
+            max: 3,
+          },
+        },
+        colors: {
+          background: '#450098',
+          particles: ['#01a3b7'],
+        },
+        blending: 'lighten',
+        opacity: {
+          center: 0.6,
+          edge: 0,
+        },
+        skew: 0,
+        shapes: ['c'],
+      });
+    </script>
   </body>
 </html>

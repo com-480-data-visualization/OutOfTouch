@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./assets/css/slider.css" />
     <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
     <link rel="stylesheet" href="./assets/css/timeseries.css" />
+    <link rel="stylesheet" href="./assets/css/zones.css" />
 
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
@@ -69,6 +70,19 @@
 
       <div class="features">
         <span class="features-title">Explore</span>
+        <div class="feature-container">
+          <div class="feature-text-container">
+            <span class="feature-text">
+              Empowering users with the ability to zoom into the map and hover over 
+              each region, our interactive experience provides a gateway to 
+              discovering pertinent information about each zone within New York City.
+              In the context of understanding people's behaviors through the lens of 
+              transportation, these zones hold significant relevance. Each zone 
+              within New York City offers valuable insights into commuting patterns.
+            </span>
+          </div>
+          <div id="zoneMap"></div>
+        </div>
 
         <div class="feature-container">
           <img
@@ -221,7 +235,7 @@
           document.getElementById('footer-placeholder').innerHTML = html;
         });
     </script>
-    <!-- <div id="zoneMap"></div> -->
+    <script type="module" src="main.js"></script>
     <script src="finisher-header.es5.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       new FinisherHeader({

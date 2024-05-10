@@ -68,4 +68,4 @@ export async function drawZones() {
     });
 }
 
-window.addEventListener('DOMContentLoaded', drawZones);
+window.onload = drawZones;

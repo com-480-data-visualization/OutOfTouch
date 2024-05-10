@@ -431,6 +431,50 @@ export async function loadHeatMap(data) {
       heatmapLayer.setData(data);
   }
 
+  const buttons = document.querySelectorAll('.post-it button');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      handleButtonClick(this);
+    });
+  });
+
+  function handleButtonClick(button) {
+    const buttonId = button.id;
+    const category = button.getAttribute('category-button');
+
+    var startDateEnd;
+    var endDateEnd;
+    // Perform actions based on the button clicked and the category
+    switch (buttonId) {
+        case 'button1':
+          console.log('Button 1 clicked for category: ' + category);
+          // Update the slider to value between 2019-01-01 and 2020-04-01
+          startDateEnd = new Date('2019-01-01');
+          endDateEnd = new Date('2020-04-01');
+          break;
+        case 'button2':
+          console.log('Button 2 clicked for category: ' + category);
+          // Add your code here for Button 2 action
+          startDateEnd = new Date('2022-02-01');
+          endDateEnd = new Date('2023-01-01');
+          break;
+        case 'button3':
+          console.log('Button 3 clicked for category: ' + category);
+          // Add your code here for Button 3 action
+          startDateEnd = new Date('2020-04-01');
+          endDateEnd = new Date('2022-01-01');
+          break;
+        default:
+          console.log('Unknown button clicked');
+          return;
+    }
+    updateSlider(startDateEnd, endDateEnd);
+    // Set the resource select box value to "Accidents"
+    document.getElementById('resource').value = category;
+    // Fetch data and update heatmap with the selected resource and date range
+    fetchDataAndUpdateHeatmap(startDateEnd, endDateEnd, category);
+  }
+
   // Create SVG
   var svg = d3.select("#slider")
       .attr("width", width)
@@ -483,6 +527,41 @@ export async function loadHeatMap(data) {
       d3.select(this).raise().classed("active", true);
   }
 
+  function updateSlider(startDateEnd, endDateEnd) {
+    const xScale = d3.scaleTime()
+        .domain([startDate, endDate])
+        .range([padding, width - padding])
+        .clamp(true);
+
+    handles.each(function(d, i) {
+        const handle = d3.select(this);
+        const handleDate = i === 0 ? startDateEnd : endDateEnd; // Get the date for each handle
+        handle.attr('cx', xScale(handleDate)); // Update the x position of the handle
+        values[i] = handleDate; // Update the values array
+    });
+
+    const startDateSpan = document.getElementById('start-date');
+    const endDateSpan = document.getElementById('end-date');
+    startDateSpan.textContent = startDateEnd.toLocaleDateString();
+    endDateSpan.textContent = endDateEnd.toLocaleDateString();
+
+    // Update the slider segments
+  
+    svg.selectAll('.slider-segment')
+        .data([{
+            x1: padding,
+            x2: xScale(startDateEnd)
+        }, {
+            x1: xScale(startDateEnd),
+            x2: xScale(endDateEnd)
+        }, {
+            x1: xScale(endDateEnd),
+            x2: width - padding
+        }])
+        .attr('x1', d => d.x1)
+        .attr('x2', d => d.x2);
+  }
+
   function dragged(event, d, i) {
       const startDateSpan = document.getElementById('start-date');
       const endDateSpan = document.getElementById('end-date');
@@ -504,8 +583,6 @@ export async function loadHeatMap(data) {
       // Update the start and end date spans whenever the slider values change
       startDateSpan.textContent = new Date(values[0]).toLocaleDateString()
       endDateSpan.textContent = new Date(values[1]).toLocaleDateString()
- 
-
 
       svg.selectAll(".slider-segment")
           .data([{

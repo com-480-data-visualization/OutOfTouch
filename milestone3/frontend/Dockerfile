@@ -6,6 +6,7 @@ WORKDIR /app
 
 COPY package*.json .
 COPY index.html .
+COPY main.js .
 COPY finisher-header.es5.min.js .
 
 RUN rm -rf ./components

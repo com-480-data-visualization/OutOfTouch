@@ -33,8 +33,19 @@ h1 {
 }
 
 .menu {
-  position: relative;
-  background: var(--light-grey);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff; /* Set background color to white */
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Increase the shadow effect */
+}
+
+/* Style for the bar below the menu */
+.menu-bar-divider {
+    height: 2px;
+    background-color: #afacac; /* Color of the bar */
 }
 
 .menu-bar .nav-link {

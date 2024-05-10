@@ -42,7 +42,6 @@
 
         <div class="placement-heatmap">
           <div class="resource-container">
-            <!-- <label for="resource">Select Resource:</label> -->
             <select id="resource">
               <option value="accidents">Accidents</option>
               <option value="taxis">Taxis</option>
@@ -53,17 +52,11 @@
           <div id="map-canvas"></div>
 
           <div id="slider-container">
-            <svg id="slider">
-              <text
-                x="50%"
-                y="100%"
-                text-anchor="middle"
-                alignment-baseline="middle"
-              >
-                Choose timeframe
-              </text>
-            </svg>
+            <svg id="slider"></svg>
           </div>
+          <div id="date-info">
+            <p>Start Date: <span id="start-date">[date]</span>    End Date: <span id="end-date">[date]</span></p>
+          </div>  
         </div>
 
         <div class="post-its right">

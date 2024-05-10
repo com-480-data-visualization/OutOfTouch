@@ -1,0 +1,35 @@
+#slider-container {
+  width: 80%;
+}
+
+.slider-handle {
+  fill: #4488ee;
+  stroke: #2266cc;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.slider-handle:hover {
+  fill: #66aaff;
+}
+
+.slider-handle.active {
+  fill: #66aaff;
+}
+
+.slider-segment {
+  stroke-width: 6; /* Adjusted thinner stroke width */
+  stroke-linecap: round;
+}
+
+.slider-segment1 {
+  stroke: #e3e2e2; /* Lighter color for outside segments */
+}
+
+.slider-segment2 {
+  stroke: #a19e9e; /* Color for segment between handles */
+}
+
+.slider-segment3 {
+  stroke: #e3e2e2; /* Lighter color for outside segments */
+}

@@ -32,7 +32,7 @@ async function loadRaceChart(datax){
     const names = new Set(data.map(d => d.name));
 
     const formatNumber = d3.format(',d');
-    const formatDate = d3.utcFormat("%Y")
+    const formatDate = d3.utcFormat("%m-%Y")
 
     function rank(value) {
         const data = Array.from(names, name => ({name, value: value(name)}));
@@ -63,13 +63,21 @@ async function loadRaceChart(datax){
     const updateLabels = labels(svg);
     const updateTicker = ticker(svg);
 
+    let colors = d3.scaleOrdinal(d3.schemeCategory10); // Initialize with default colors
+
     const color = (data) => {
-        const scale = d3.scaleOrdinal(d3.schemeTableau10);
-        //     const categoryByName = new Map(data.map(d => [d.name, d.category]));
-        //     scale.domain(Array.from(categoryByName.values()));
-        //     return d => scale(categoryByName.get(d.name));
-        return "#1f77b4"
-    }
+        const existingNames = new Set(colors.domain()); // Get existing names in the color scale
+        const names = data.map(d => d.name); // Extract names from data
+        names.forEach(name => {
+            if (!existingNames.has(name)) {
+                existingNames.add(name);
+                colors.domain([...existingNames]); // Extend the domain with new names
+            }
+        });
+        return d => colors(d.name); // Return color based on the name
+    };
+
+
 
     function bars(svg) {
         let bar = svg.append('g')
@@ -80,7 +88,7 @@ async function loadRaceChart(datax){
             .data(data.slice(0, n), d => d.name)
             .join(
                 enter => enter.append("rect")
-                    .attr("fill", color)
+                    .attr("fill", d => color(data)(d))
                     .attr("height", y.bandwidth())
                     .attr("x", x(0))
                     .attr("y", d => y((prev.get(d) || d).rank))
@@ -154,21 +162,21 @@ async function loadRaceChart(datax){
 
     function ticker(svg) {
         const now = svg.append('text')
-            .style('font', `bold ${barSize}px var(--sans-serif)`)
+            .style('font', `bold ${Math.floor(barSize * 0.8)}px var(--sans-serif)`) // Adjusted font size
             .style('font-variant-numeric', 'tabular-nums')
             .attr('text-anchor', 'end')
             .attr('class', 'label-down')
-            .style('font-size', '45px')
             .style('font-weight', 'bold')
             .attr('x', width - 6)
             .attr('y', margin.top + barSize * (n - 0.45))
             .attr('dy', '0.32em')
             .text(formatDate(keyframes[0][0]));
-
+    
         return ([date], transition) => {
             transition.end().then(() => now.text(formatDate(date)));
         };
     }
+    
 
     for (const keyframe of keyframes) {
         const transition = svg.transition()

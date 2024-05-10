@@ -1,4 +1,4 @@
-  #slider-container {
+#slider-container {
   width: 80%;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .slider-segment {
-  stroke-width: 10;
+  stroke-width: 6; /* Adjusted thinner stroke width */
   stroke-linecap: round;
 }
 

@@ -21,10 +21,15 @@
     margin-top: 50px;
     gap: 30px;
   }
+
+  #ds-select {
+    margin-top: 90px;
+    padding: 10px;
+    border-radius: 10px;
+  }
   
   #start-date,
-  #end-date,
-  #ds-select {
+  #end-date {
     padding: 10px;
     border-radius: 10px;
   }

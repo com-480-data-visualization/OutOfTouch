@@ -14,9 +14,11 @@
     width: 700px; /* Set the width of the container */
     margin: 50px auto; /* Center the container horizontally */
     padding: 20px;
+    justify-content: center;
     background-color: #fff; /* Background color of the container */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    margin-top: 80px;
 }
 
 .map-container {
@@ -28,10 +30,10 @@
     padding: 20px;
 }
 
-.post-its.left {
+/* .post-its.left {
     display: flex;
     flex-direction: column;
-    margin-top: 200px; /* Adjust the upper margin for the left post-its */
+    margin-top: 200px; 
     margin-right: 100px;
     margin-left: -250px;
 }
@@ -46,10 +48,80 @@
 .post-it {
     width: 200px;
     padding: 15px;
-    background-color: #ffd000; /* Yellow background */
-    border: 2px solid #ffbf00; /* Yellow border */
+    background-color: #ffd000; 
+    border: 2px solid #ffbf00;
     border-radius: 10px;
-    margin: 100px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    margin: 90px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
+} */
+
+#date-info {
+    bottom: 20px;
+    text-align: center; /* Center the content horizontally */
 }
+
+#date-info p {
+    align-items: center;
+    margin: 0; /* Reset margin */
+}
+
+#date-info p span {
+    display: inline-block;
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 0 10px; /* Adjusted margin */
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid black; /* Black border */
+}
+
+#resource {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.selector-heatmap {
+    text-align: center;
+    font-size: 16px;
+}
+
+.road {
+    width: 100%;
+    height: 400px; /* Adjust the height of the road */
+    background-color: #d3d3d3; /* Default road color */
+    overflow: hidden; /* Hide overflow to prevent snake overflow */
+    position: relative;
+}
+
+.snake {
+    position: absolute;
+    width: 50px; /* Adjust the width of the snake */
+    height: 100%; /* Match the height of the road */
+    background-color: #808080; /* Color of the snake */
+    animation: snakeAnimation 10s linear infinite; /* Adjust the animation duration */
+}
+
+@keyframes snakeAnimation {
+    0% {
+        left: 0;
+    }
+    25% {
+        left: 25%;
+        transform: translateY(-20px); /* Adjust the vertical movement */
+    }
+    50% {
+        left: 50%;
+        transform: translateY(20px); /* Adjust the vertical movement */
+    }
+    75% {
+        left: 75%;
+        transform: translateY(-20px); /* Adjust the vertical movement */
+    }
+    100% {
+        left: 100%;
+    }
+}
+

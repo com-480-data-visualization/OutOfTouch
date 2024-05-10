@@ -23,7 +23,7 @@
         <ul class="menu-bar">
             <li class="toolbar-title">Ride Sharing Impact</li>
             <li class="toolbar-separator"></li>
-            <li><a class="nav-link" href="../index.html"><img src="../assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
+            <li><a class="nav-link" href="../"><img src="../assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
             <li><a class="nav-link" href="heatmaps.html"><img src="../assets/img/heatmap.png" alt="Heat Maps" aria-hidden="true" class="menu-icon">HeatMaps</a></li>
             <li><a class="nav-link" href="timeseries.html"><img src="../assets/img/timeseries.png" alt="Time Series" aria-hidden="true" class="menu-icon">TimeSeries</a></li>
             <li><a class="nav-link" href="race.html"><img src="../assets/img/race.png" alt="Race" aria-hidden="true" class="menu-icon">Race</a></li>
@@ -31,20 +31,20 @@
         </ul>
     </div>
 </nav>
-<hr style="height:2px;border-width:0;color:rgb(176, 176, 176);background-color:rgb(176, 176, 176)">
+<div class="menu-bar-divider"></div>
 <body>
     <div class="map-container">
-        <div class="post-its left">
+        <!-- <div class="post-its left">
             <div class="post-it">
                 Some information about bikes which can be observed from the heatmap
             </div>
             <div class="post-it">
                 Some information about taxis which can be observer from the heatmap
             </div>
-        </div>
+        </div> -->
 
         <div class="placement-heatmap">
-            <div>
+            <div class="selector-heatmap">
                 <label for="resource">Select Resource:</label>
                 <select id="resource">
                     <option value="accidents">Accidents</option>
@@ -56,18 +56,14 @@
             <div id="map-canvas"></div> 
 
             <div id="slider-container">
-                <svg id="slider">
-                    <text x="50%" y="100%" text-anchor="middle" alignment-baseline="middle">Choose timeframe</text>
-                </svg>
+                <svg id="slider"></svg>              
             </div>
-        </div>
-
-        <div class="post-its right">
-            <div class="post-it">
-                Some information about ACCIDENTS which can be observed from the heatmap 
-            </div>
+            <div id="date-info">
+                <p>Start Date: <span id="start-date">[date]</span>    End Date: <span id="end-date">[date]</span></p>
+            </div>  
         </div>
     </div>
+    <canvas id="roadCanvas"></canvas>
 
     <script type="module" src="./heatmap.js"></script>
 </body>

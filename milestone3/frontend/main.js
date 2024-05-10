@@ -49,8 +49,19 @@ export async function drawZones() {
                 var popupContent = `<b>Zone:</b> ${feature.properties.zone}<br><b>Borough:</b> ${feature.properties.borough}`;
                 // Bind the popup to the layer
                 layer.bindPopup(popupContent);
+                
+                // Show popup on mouseover
+                layer.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+                
+                // Close popup on mouseout
+                layer.on('mouseout', function (e) {
+                    this.closePopup();
+                });
             }
         }).addTo(map);
+
     })
     .catch(error => {
         console.error('Error loading GeoJSON data:', error);

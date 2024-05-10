@@ -17,6 +17,7 @@ export async function loadHeatMapData(resource) {
         });
 }
 
+
 export async function loadHeatMap(data) {
     var mapCanvas = document.getElementById('map-canvas');
 
@@ -41,6 +42,14 @@ export async function loadHeatMap(data) {
     var startDate = new Date("2019-01-01");
     var endDate = new Date("2023-01-01");
     var values = [startDate, endDate]; // Initial values
+
+    // Select the start and end date spans
+    const startDateSpan = document.getElementById('start-date');
+    const endDateSpan = document.getElementById('end-date');
+
+    // Update the start and end date spans with the initial values
+    startDateSpan.textContent = startDate.toLocaleDateString();
+    endDateSpan.textContent = endDate.toLocaleDateString();
 
     // Set up SVG dimensions
     var width = 700;
@@ -149,6 +158,9 @@ export async function loadHeatMap(data) {
     }
 
     function dragged(event, d, i) {
+        const startDateSpan = document.getElementById('start-date');
+        const endDateSpan = document.getElementById('end-date');
+
         var xValue = x.invert(event.x);
         xValue = new Date(Math.max(startDate.getTime(), Math.min(endDate.getTime(), xValue.getTime()))); // Clamp value within range
         if (d.getTime() == startDate.getTime()) {
@@ -162,6 +174,12 @@ export async function loadHeatMap(data) {
             const filteredData = filterDataByDateRange(data, values[0], values[1])
             updateHeatmap(filteredData)
         }
+
+        // Update the start and end date spans whenever the slider values change
+        startDateSpan.textContent = new Date(values[0]).toLocaleDateString()
+        endDateSpan.textContent = new Date(values[1]).toLocaleDateString()
+   
+
 
         svg.selectAll(".slider-segment")
             .data([{
@@ -185,7 +203,49 @@ export async function loadHeatMap(data) {
     }
 }
 
+
+function drawWavyRoad(canvasId, roadWidth, numLanes, perspectiveFactor, amplitude, frequency) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+
+    function drawRoad() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < numLanes; i++) {
+            var laneOffset = i * (roadWidth / numLanes);
+            var laneWidthAtDistance = (roadWidth / numLanes) + i * perspectiveFactor * (roadWidth / numLanes);
+            
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+
+            for (var x = 0; x <= canvas.width; x += 10) {
+                var y = amplitude * Math.sin(x / frequency) + canvas.height / 2;
+                ctx.lineTo(x, y);
+            }
+
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
+            
+            ctx.fillStyle = 'gray';
+            ctx.fill();
+        }
+    }
+
+    drawRoad();
+}
+
+// Example usage:
+drawWavyRoad('myCanvas', 300, 3, 0.1, 20, 100);
+
+
+
+
+
 export async function initHeatMap() {
+    
+drawWavyRoad('roadCanvas', 300, 3, 0.1, 20, 100);
+
     try {
         const resourceOption = document.getElementById('resource')
         const dataHeatMap = await loadHeatMapData(`${resourceOption.value}`)

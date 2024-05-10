@@ -1,2 +1,4 @@
 src/.ipynb_checkpoints/
 milestone2/frontend/node_modules
+.idea
+data

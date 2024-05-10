@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+
+    <link rel="stylesheet" href="../assets/css/index.css" />
+    <link rel="stylesheet" href="../assets/css/nav.css" />
+    <link rel="stylesheet" href="../assets/css/footer.css" />
+    <link rel="stylesheet" href="../assets/css/map.css" />
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heatmap.js/build/heatmap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-heatmap/leaflet-heatmap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.2.0/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+
+  <body>
+    <div class="body-content">
+      <div id="nav-placeholder"></div>
+
+      <div class="map-container">
+        <div class="post-its left">
+          <div class="post-it">
+            Some information about bikes which can be observed from the heatmap
+          </div>
+          <div class="post-it">
+            Some information about taxis which can be observer from the heatmap
+          </div>
+        </div>
+
+        <div class="placement-heatmap">
+          <div class="resource-container">
+            <!-- <label for="resource">Select Resource:</label> -->
+            <select id="resource">
+              <option value="accidents">Accidents</option>
+              <option value="taxis">Taxis</option>
+              <option value="bikes">Bikes</option>
+            </select>
+          </div>
+
+          <div id="map-canvas"></div>
+
+          <div id="slider-container">
+            <svg id="slider">
+              <text
+                x="50%"
+                y="100%"
+                text-anchor="middle"
+                alignment-baseline="middle"
+              >
+                Choose timeframe
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="post-its right">
+          <div class="post-it">
+            Some information about ACCIDENTS which can be observed from the
+            heatmap
+          </div>
+        </div>
+      </div>
+
+      <footer id="footer-placeholder"></footer>
+    </div>
+
+    <script>
+      fetch('basic/nav.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('nav-placeholder').innerHTML = html;
+        });
+      fetch('basic/footer.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('footer-placeholder').innerHTML = html;
+        });
+    </script>
+
+    <script type="module" src="./heatmap.js"></script>
+  </body>
+</html>

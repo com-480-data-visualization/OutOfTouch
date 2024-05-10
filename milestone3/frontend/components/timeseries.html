@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/timeseries.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/timeseries.css" />
+
+    <link rel="stylesheet" href="../assets/css/index.css" />
+    <link rel="stylesheet" href="../assets/css/nav.css" />
+    <link rel="stylesheet" href="../assets/css/footer.css" />
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-</head>
+  </head>
 
-<nav class="menu">
-    <div class="menu">
-        <ul class="menu-bar">
-            <li class="toolbar-title">Ride Sharing Impact</li>
-            <li class="toolbar-separator"></li>
-            <li><a class="nav-link" href="../index.html"><img src="../assets/img/home.png" alt="Home" aria-hidden="true" class="menu-icon">Home</a></li>
-            <li><a class="nav-link" href="heatmaps.html"><img src="../assets/img/heatmap.png" alt="Heat Maps" aria-hidden="true" class="menu-icon">HeatMaps</a></li>
-            <li><a class="nav-link" href="timeseries.html"><img src="../assets/img/timeseries.png" alt="Time Series" aria-hidden="true" class="menu-icon">TimeSeries</a></li>
-            <li><a class="nav-link" href="race.html"><img src="../assets/img/race.png" alt="Race" aria-hidden="true" class="menu-icon">Race</a></li>
-            <li><a class="nav-link" href="predictions.html"><img src="../assets/img/predictions.png" alt="Predictions" aria-hidden="true" class="menu-icon">Predictions</a></li>
-        </ul>
-    </div>
-</nav>
-<hr style="height:2px;border-width:0;color:rgb(176, 176, 176);background-color:rgb(176, 176, 176)">
-<body>
-    <div id="chart-container">
+  <body>
+    <div class="body-content">
+      <div id="nav-placeholder"></div>
+
+      <div id="chart-container">
         <select id="ds-select">
           <option value="accidents">Accidents</option>
           <option value="taxis">Taxis</option>
           <option value="bikes">Bikes</option>
         </select>
-        <svg id="myChart"></svg>
+
+        <div class="chart-svg-container">
+          <svg id="myChart"></svg>
+        </div>
+
         <div id="date-selection">
           <div>
             <label for="start-date">Start Date:</label>
@@ -41,8 +38,24 @@
             <input type="date" id="end-date" value="2022-12-31" />
           </div>
         </div>
+      </div>
+
+      <footer id="footer-placeholder"></footer>
     </div>
-    <script type="module" src="./time_series.js"></script>
-</body>
-</body>
+
+    <script>
+      fetch('basic/nav.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('nav-placeholder').innerHTML = html;
+        });
+      fetch('basic/footer.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('footer-placeholder').innerHTML = html;
+        });
+    </script>
+
+    <script type="module" src="./timeseries.js"></script>
+  </body>
 </html>

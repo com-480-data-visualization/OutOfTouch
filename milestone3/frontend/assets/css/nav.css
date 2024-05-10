@@ -1,0 +1,86 @@
+.nav-title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  gap: 20px;
+  color: white;
+}
+
+.nav-title {
+  font-size: 36pt;
+  font-weight: bold;
+}
+
+.nav-buttons-container {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.nav-icon {
+  width: 25px;
+  aspect-ratio: 1;
+  display: none;
+}
+
+/*  */
+
+.nav-buttons-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(206, 206, 206);
+}
+
+.nav-buttons-container ul li {
+  padding: 0 0.5em 0.25em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.nav-buttons-container ul li:hover {
+  color: #fff;
+}
+
+.nav-buttons-container ul li:before {
+  content: '';
+  position: absolute;
+  inset: calc(100% - 3px) 0 0 0; /* 3px = the thickness */
+  background: #ecba17; /* the color */
+  scale: 0 1;
+  transition: 0.3s, translate 0s 0.3s;
+}
+
+.nav-buttons-container ul:hover li:before {
+  scale: 1;
+}
+
+.nav-buttons-container ul li:hover:before {
+  translate: 0;
+  transition: 0.3s;
+}
+.nav-buttons-container ul:hover li:has(~ li:hover):before {
+  translate: 100% 0;
+  transition: 0.2s 0.2s, scale 0s 0.4s;
+}
+
+.nav-buttons-container ul:hover li:hover ~ li:before {
+  translate: -101% 0;
+  transition: 0.2s 0.2s, scale 0s 0.4s;
+}

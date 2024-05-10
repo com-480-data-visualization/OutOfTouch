@@ -1,0 +1,85 @@
+.vehicle-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.vehicle-icon {
+  width: 400px;
+  margin: 0 20px;
+  transition: transform 0.3s;
+  border-radius: 20px;
+}
+
+.vehicle-icon:hover {
+  transform: scale(1.05); /* Enlarge on hover */
+}
+
+.quote {
+  font-style: italic;
+  align-self: center;
+  font-size: 14pt;
+  margin: 20px;
+  padding: 40px; /* Add padding to create space around the quote */
+  max-width: 600px; /* Set maximum width to control text wrapping */
+  background-color: #25006a; /* Background color for the quote box */
+  border-radius: 20px; /* Rounded corners for the quote box */
+  text-align: center; /* Center-align the text */
+  color: rgb(232, 232, 232);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  align-self: center;
+  gap: 50px;
+}
+
+.features-title {
+  text-align: center;
+  color: white;
+  font-size: 30pt;
+  margin: 50px;
+  font-weight: bold;
+  align-self: center;
+}
+
+.feature-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  gap: 100px;
+}
+
+.feature-image {
+  width: 40%;
+  border-radius: 20px;
+}
+
+.feature-title {
+  color: white;
+  font-size: 26pt;
+}
+
+.feature-text {
+  color: white;
+  font-size: 14pt;
+}
+
+.feature-button {
+  background-color: #25006a;
+  color: white;
+  border-radius: 10px;
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+}
+
+.feature-link {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

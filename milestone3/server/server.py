@@ -127,7 +127,7 @@ def top_zones(collection_name, field_date, field_zone):
     result = list(db[collection_name].aggregate(pipeline))
     return result
 
-def taxi_race(collection_name):
+def race(collection_name):
     return list(db[collection_name].find())
 
 @app.route('/')
@@ -179,6 +179,18 @@ def get_accidents_by_zone(zone_id):
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/accidents/race', methods=['GET'])
+def get_top_zones_accidents():
+    try:
+        # Query accidents collection
+        crashes = race(collection_name='race_crashes')
+
+        # Return formatted data as JSON response with success status
+        return json.dumps(crashes, default=str), 200
+
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/bikes', methods=['GET'])
 def retrieve_bikes():
@@ -197,11 +209,11 @@ def retrieve_bikes():
 def get_top_zones_bikes():
     try:
         # Query accidents collection
-        bikes = top_zones(collection_name='bikes', field_date='starttime', field_zone='start_zone')
-        
+        bikes = race(collection_name='race_bikes')
+
         # Return formatted data as JSON response with success status
-        return jsonify({'success': True, 'bikes': bikes}), 200
-    
+        return json.dumps(bikes, default=str), 200
+
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -255,7 +267,7 @@ def retrieve_taxis():
 def get_top_zones_taxis():
     try:
         # Query accidents collection
-        taxis = taxi_race(collection_name='race_taxi')
+        taxis = race(collection_name='race_taxi')
         
         # Return formatted data as JSON response with success status
         return json.dumps(taxis, default=str), 200

@@ -172,6 +172,53 @@ db.createCollection("race_taxi", {
    }
 });
 
+db.createCollection("race_bikes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            date: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            name: {
+               bsonType: "string",
+               description: ""
+            },
+            value: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+db.createCollection("race_crashes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            date: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            name: {
+               bsonType: "string",
+               description: ""
+            },
+            value: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
 
 EOF
 
@@ -179,3 +226,5 @@ mongoimport --db project --collection accidents --type csv --headerline --file /
 mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
 mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
 mongoimport --db project --collection race_taxi --type csv --headerline --file /docker-entrypoint-initdb.d/race_taxi.csv
+mongoimport --db project --collection race_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/race_bikes.csv
+mongoimport --db project --collection race_crashes --type csv --headerline --file /docker-entrypoint-initdb.d/race_crashes.csv

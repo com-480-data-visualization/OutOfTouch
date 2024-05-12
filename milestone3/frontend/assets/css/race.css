@@ -1,6 +1,6 @@
 .map-container {
     width: 1200px; /* Set the width of the container */
-    margin: 50px auto; /* Center the container horizontally */
+    margin: 20px auto; /* Center the container horizontally */
     padding: 20px;
     border-radius: 10px; /* Rounded corners */
 }
@@ -11,5 +11,32 @@
 
 .label-down {
     font-size: 50px;
+    font-weight: bold;
+}
+
+.icon {
+    width: 50px;
+    margin-right: 1em;
+
+}
+
+.race_controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.race_navigation {
+    display: flex;
+    align-items: center;
+}
+
+.new_races {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+#resource {
+    font-size: 12pt;
     font-weight: bold;
 }

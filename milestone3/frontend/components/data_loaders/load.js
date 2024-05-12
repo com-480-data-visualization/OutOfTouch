@@ -54,6 +54,7 @@ export async function loadHeatMapData(resource) {
 }
 
 export async function loadRaceData(resource) {
+    console.log("RESOURCE: ", resource);
   return fetch(`http://localhost:5000/api/${resource}/race`)
     .then((response) => {
       if (!response.ok) {

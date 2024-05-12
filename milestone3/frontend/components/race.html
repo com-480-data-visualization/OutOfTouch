@@ -16,6 +16,21 @@
     <div class="body-content">
       <div id="nav-placeholder"></div>
 
+      <div class="race_controls">
+        <div class="race_navigation">
+            <img class="icon" id="start" src="../assets/img/playbutton.svg">
+            <img class="icon" id="stop" src="../assets/img/pausebutton.svg">
+            <img class="icon" id="reset" src="../assets/img/restartbutton.svg">
+        </div>
+        <div class="new_races">
+            <label for="resource">Select Resource:</label>
+            <select id="resource">
+                <option id="taxi_race">Taxis</option>
+                <option id="bike_race">Bikes</option>
+                <option id="crashes_race">Accidents</option>
+            </select>
+        </div>
+    </div>
       <div class="map-container">
         <svg id="bar-chart-race"></svg>
       </div>

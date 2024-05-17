@@ -8,6 +8,12 @@ function init() {
 
   var marker; // Variable to store the currently active marker
 
+  let selectedTime;
+
+  document.getElementById('time').addEventListener('input', (e) => {
+    selectedTime = e.target.value;
+  });
+
   map.on('click', function (e) {
     // Remove the previously added marker, if any
     if (marker) {
@@ -20,13 +26,13 @@ function init() {
     // Update the prediction box with the selected coordinates
     document.getElementById(
       'coordinates'
-    ).innerText = `Latitude: ${lat}, Longitude: ${lng}`;
+    ).innerText = `Latitude: ${lat}\nLongitude: ${lng}`;
     // Here you can generate a prediction based on the selected point
     // For demonstration purposes, let's generate a random prediction
     var prediction = Math.random() < 0.5 ? 'Low' : 'High';
-    document.getElementById(
-      'prediction'
-    ).innerText = `Accident prediction: ${prediction}`;
+    document.getElementById('prediction').innerText = `${prediction}`;
+    document.getElementById('prediction').className =
+      prediction == 'Low' ? 'prediction-low' : 'prediction-high';
   });
 }
 

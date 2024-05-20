@@ -40,4 +40,26 @@ async function init() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+  const switchInput = document.getElementById('timeframe-switch');
+  const sliderTextOn = document.getElementById('slider-text-on');
+  const sliderTextOff = document.getElementById('slider-text-off');
+
+  function updateSliderText() {
+    if (switchInput.checked) {
+      sliderTextOn.style.visibility = 'visible';
+      sliderTextOff.style.visibility = 'hidden';
+    } else {
+      sliderTextOn.style.visibility = 'hidden';
+      sliderTextOff.style.visibility = 'visible';
+    }
+  }
+
+  // Initialize the slider text
+  updateSliderText();
+
+  // Add event listener for switch state change
+  switchInput.addEventListener('change', updateSliderText);
+});
+
 window.onload = init;

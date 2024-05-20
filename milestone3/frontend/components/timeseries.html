@@ -17,12 +17,24 @@
     <div class="body-content">
       <div id="nav-placeholder"></div>
 
+      
       <div id="chart-container">
-        <select id="ds-select">
-          <option value="accidents">Accidents</option>
-          <option value="taxis">Taxis</option>
-          <option value="bikes">Bikes</option>
-        </select>
+        <div class="controls">
+          <select id="ds-select">
+            <option value="accidents">Accidents</option>
+            <option value="taxis">Taxis</option>
+            <option value="bikes">Bikes</option>
+          </select>
+          <div id="slider-container">
+            <label class="switch">
+              <input type="checkbox" id="timeframe-switch">
+              <span class="slider">
+                <span class="slider-text" id="slider-text-off">Months</span>
+                <span class="slider-text" id="slider-text-on">Days</span>
+              </span>
+            </label>
+          </div>
+        </div>
 
         <div class="chart-svg-container">
           <svg id="myChart"></svg>

@@ -240,12 +240,23 @@ export async function loadRaceChart(datax){
 
 export async function loadTimeSeriesChart(containerId, dates, counts) {
   // Convert date strings to JavaScript Date objects
-    const parseDate = d3.timeParse('%d/%m/%Y');
+  const parseDate = d3.timeParse('%d/%m/%Y');
 
   const formattedData = dates.map((date, index) => ({
     date: parseDate(date),
     count: counts[index],
   }));
+
+  const switchInput = document.getElementById('timeframe-switch');
+  switchInput.addEventListener('change', (event) => {
+    const filteredData = formattedData.filter((d) => {
+        const dateToCompare = removeTimeComponent(d.date);
+        return (
+          selectedStartDate <= dateToCompare && dateToCompare <= selectedEndDate
+        );
+    });
+    createChart(filteredData)
+  });
 
   const minDate = new Date(Math.min(...formattedData.map((data) => data.date)));
   const maxDate = new Date(Math.max(...formattedData.map((data) => data.date)));
@@ -288,7 +299,47 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
     createChart(filteredData);
   });
 
+  function aggregateByMonth(data) {
+    const aggregatedData = {};
+  
+    // Loop through the array
+    data.forEach(item => {
+      const monthYear = `${item.date.getFullYear()}-${(item.date.getMonth() + 1).toString().padStart(2, '0')}`;
+      
+      // Check if the month exists in the aggregated data, if not, initialize it
+      if (!aggregatedData[monthYear]) {
+        aggregatedData[monthYear] = 0;
+      }
+      
+      // Increment the count for the month
+      aggregatedData[monthYear] += item.count;
+    });
+
+    const aggregatedArray = Object.entries(aggregatedData).map(([key, value]) => ({
+        date: new Date(key + '-01'),
+        count: value
+    }));
+  
+    return aggregatedArray;
+  }
+
+  function formatYAxisTicks(d) {
+    if (d >= 1e9) {
+        return (d / 1e9).toFixed(0) + 'B'; // Convert to billion with one decimal place
+    } else if (d >= 1e6) {
+        return (d / 1e6).toFixed(0) + 'M'; // Convert to million with one decimal place
+    } else if (d >= 1e3) {
+        return (d / 1e3).toFixed(0) + 'K'; // Convert to thousand with one decimal place
+    } else {
+        return d.toString(); // Default formatting for smaller numbers
+    }
+  }
+
   function createChart(data) {
+    if (switchInput.checked) {
+        data = aggregateByMonth(data)
+    }
+    
     data.sort((a, b) => (a.date < b.date ? -1 : 1));
 
     // Set up dimensions
@@ -332,7 +383,7 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
       .append('text')
       .attr('text-anchor', 'end')
       .attr('transform', 'rotate(-90)')
-      .attr('y', -margin.left / 2)
+      .attr('y', -margin.left * 3 / 4)
       .attr('x', -height / 2 + margin.left)
       .text('Occurrences');
 
@@ -341,7 +392,7 @@ export async function loadTimeSeriesChart(containerId, dates, counts) {
       .axisBottom(xScale)
       .ticks(5)
       .tickFormat(d3.timeFormat('%Y-%m-%d'));
-    const yAxis = d3.axisLeft(yScale).ticks(5);
+    const yAxis = d3.axisLeft(yScale).ticks(5).tickFormat(formatYAxisTicks);
 
     // Draw axes
     svg

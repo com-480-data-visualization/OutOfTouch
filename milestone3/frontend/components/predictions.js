@@ -16,6 +16,12 @@ function init() {
     }
   }).addTo(map);
 
+  let selectedTime;
+
+  document.getElementById('time').addEventListener('input', (e) => {
+    selectedTime = e.target.value;
+  });
+
   map.on('click', function (e) {
     // Remove the previously added marker, if any
     if (marker) {

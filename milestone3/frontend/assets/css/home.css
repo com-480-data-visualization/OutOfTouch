@@ -15,14 +15,20 @@
   transform: scale(1.05); /* Enlarge on hover */
 }
 
+.quote-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
 .quote {
+  display: flex;
   font-style: italic;
-  align-self: center;
   font-size: 14pt;
   margin: 20px;
   padding: 40px; /* Add padding to create space around the quote */
   max-width: 600px; /* Set maximum width to control text wrapping */
-  background-color: #25006a; /* Background color for the quote box */
+  background-color: #465c8a; /* Background color for the quote box */
   border-radius: 20px; /* Rounded corners for the quote box */
   text-align: center; /* Center-align the text */
   color: rgb(232, 232, 232);
@@ -31,9 +37,10 @@
 .features {
   display: flex;
   flex-direction: column;
-  width: 75%;
   align-self: center;
   gap: 50px;
+  padding-right: 15%;
+  padding-left: 15%;
 }
 
 .features-title {
@@ -69,7 +76,7 @@
 }
 
 .feature-button {
-  background-color: #25006a;
+  background-color: #465c8a;
   color: white;
   border-radius: 10px;
   align-items: center;
@@ -82,4 +89,16 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #282e3a;
+  z-index: 10000;
+}
+
+body {
+  margin-top: 300px;
 }

@@ -5,8 +5,7 @@
 }
 
 body {
-  background-color: #450098;
-  /* border: 1px solid cyan; */
+  background-color: #282e3a;
 }
 
 ul {
@@ -19,9 +18,7 @@ a {
 }
 
 .body-content {
-  display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 input,

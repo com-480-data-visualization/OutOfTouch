@@ -17,6 +17,14 @@ services:
       - ../data/bike_dataset.csv:/docker-entrypoint-initdb.d/bike_dataset.csv
       - ../data/taxi_dataset.csv:/docker-entrypoint-initdb.d/taxi_dataset.csv
       - ../data/race_taxi.csv:/docker-entrypoint-initdb.d/race_taxi.csv
+      - ../data/race_bikes.csv:/docker-entrypoint-initdb.d/race_bikes.csv
+      - ../data/race_crashes.csv:/docker-entrypoint-initdb.d/race_crashes.csv
+      - ../data/taxi_timeseries.csv:/docker-entrypoint-initdb.d/taxi_timeseries.csv
+      - ../data/bike_timeseries.csv:/docker-entrypoint-initdb.d/bike_timeseries.csv
+      - ../data/crashes_timeseries.csv:/docker-entrypoint-initdb.d/crashes_timeseries.csv
+      - ../data/taxi_heatmap.csv:/docker-entrypoint-initdb.d/taxi_heatmap.csv
+      - ../data/bike_heatmap.csv:/docker-entrypoint-initdb.d/bike_heatmap.csv
+      - ../data/crashes_heatmap.csv:/docker-entrypoint-initdb.d/crashes_heatmap.csv
       - ./database/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - ./database/mongo-update.sh:/docker-entrypoint-initdb.d/mongo-update.sh:ro
       - mongodbdata:/data/db

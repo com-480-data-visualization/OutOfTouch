@@ -19,6 +19,11 @@ app = Flask(__name__)
 CORS(app)
 db = get_db()
 
+
+def retrieve_all_timeseries(collection_name):
+    return list(db[collection_name].find({}, {"_id": 0}))
+
+
 def timeseries_retrieval(collection_name, field_date, start_date=datetime(2018,12,31), end_date=datetime(2023,1,1), region_name="", region=None):
     date_id = '$' + field_date
     pipeline = []
@@ -56,31 +61,28 @@ def timeseries_retrieval(collection_name, field_date, start_date=datetime(2018,1
 
 
 def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name, start_date=None, end_date=None):
-    query = {}
+    pipeline = []
+
+    # Match stage
+    match_stage = {}
     if start_date is not None and end_date is not None:
-        query["field_date"] = {"$gte": start_date, "$lte": end_date}
+        match_stage[field_date] = {"$gte": start_date, "$lte": end_date}
+    if match_stage:
+        pipeline.append({"$match": match_stage})
 
-    pipeline = [
-        {"$match": query},  # Filter documents based on query
-        {"$group": {
-            "_id": {
-                "date": {"$dateToString": {"format": "%Y-%m-%d", "date": f"${field_date}"}},
-                "latitude": f"${latitude_name}",
-                "longitude": f"${longitude_name}"
-            },
-            "count": {"$sum": 1}  # Count number of documents for each group
-        }},
-        {"$project": {
+    # Project stage
+    pipeline.append({
+        "$project": {
             "_id": 0,
-            "date": "$_id.date",
-            "lat": "$_id.latitude",
-            "long": "$_id.longitude",
+            "date": f"${field_date}",
+            "lat": f"${latitude_name}",
+            "long": f"${longitude_name}",
             "count": "$count"
-        }}
-    ]
+        }
+    })
 
-    result = db[collection_name].aggregate(pipeline, allowDiskUse=True)
-    return list(result)
+    result = list(db[collection_name].aggregate(pipeline, allowDiskUse=True))
+    return result
 
 def top_zones(collection_name, field_date, field_zone):
     pipeline = [
@@ -127,7 +129,7 @@ def top_zones(collection_name, field_date, field_zone):
     result = list(db[collection_name].aggregate(pipeline))
     return result
 
-def taxi_race(collection_name):
+def race(collection_name):
     return list(db[collection_name].find())
 
 @app.route('/')
@@ -138,8 +140,8 @@ def home_page():
 def retrieve_accidents():
     try:
         # Query accidents collection
-        accidents = timeseries_retrieval(collection_name='accidents', field_date='accident_date')
-        
+        accidents = retrieve_all_timeseries(collection_name='timeseries_accidents')
+
         # Return formatted data as JSON response with success status
         return jsonify({'success': True, 'accidents': accidents}), 200
     
@@ -161,8 +163,7 @@ def retrieve_accident_coordinates():
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
-
-    result = heatmap_retrieval('accidents', 'accident_date', 'latitude', 'longitude')
+    result = heatmap_retrieval('heatmap_accidents', 'starttime', 'latitude', 'longitude')
 
     return jsonify(result), 200
 
@@ -179,12 +180,24 @@ def get_accidents_by_zone(zone_id):
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/accidents/race', methods=['GET'])
+def get_top_zones_accidents():
+    try:
+        # Query accidents collection
+        crashes = race(collection_name='race_crashes')
+
+        # Return formatted data as JSON response with success status
+        return json.dumps(crashes, default=str), 200
+
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/bikes', methods=['GET'])
 def retrieve_bikes():
     try:
         # Query accidents collection
-        bikes = timeseries_retrieval(collection_name='bikes', field_date='starttime')
+        bikes = retrieve_all_timeseries(collection_name='timeseries_bikes')
 
         # Return formatted data as JSON response with success status
         return jsonify({'success': True, 'bikes': bikes}), 200
@@ -197,11 +210,11 @@ def retrieve_bikes():
 def get_top_zones_bikes():
     try:
         # Query accidents collection
-        bikes = top_zones(collection_name='bikes', field_date='starttime', field_zone='start_zone')
-        
+        bikes = race(collection_name='race_bikes')
+
         # Return formatted data as JSON response with success status
-        return jsonify({'success': True, 'bikes': bikes}), 200
-    
+        return json.dumps(bikes, default=str), 200
+
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -222,7 +235,7 @@ def retrieve_bike_coordinates():
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
 
-    result = heatmap_retrieval('bikes', 'starttime', 'start_lat', 'start_lng')
+    result = heatmap_retrieval('heatmap_bikes', 'starttime', 'latitude', 'longitude')
 
     return jsonify(result), 200
 
@@ -243,7 +256,7 @@ def get_bikes_by_zones(zone_id):
 def retrieve_taxis():
     try:
         # Query accidents collection
-        taxis = timeseries_retrieval(collection_name='taxis', field_date='starttime')
+        taxis = retrieve_all_timeseries(collection_name='timeseries_taxis')
         # Return formatted data as JSON response with success status
         return jsonify({'success': True, 'taxis': taxis}), 200
     
@@ -255,7 +268,7 @@ def retrieve_taxis():
 def get_top_zones_taxis():
     try:
         # Query accidents collection
-        taxis = taxi_race(collection_name='race_taxi')
+        taxis = race(collection_name='race_taxi')
         
         # Return formatted data as JSON response with success status
         return json.dumps(taxis, default=str), 200
@@ -278,7 +291,7 @@ def retrieve_taxi_coordinates():
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
-    result = heatmap_retrieval('taxis', 'starttime', 'latitude_source', 'longitude_source')
+    result = heatmap_retrieval('heatmap_taxis', 'starttime', 'latitude', 'longitude')
 
     return jsonify(result), 200
 

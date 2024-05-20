@@ -172,10 +172,215 @@ db.createCollection("race_taxi", {
    }
 });
 
+db.createCollection("race_bikes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            date: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            name: {
+               bsonType: "string",
+               description: ""
+            },
+            value: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+db.createCollection("race_crashes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            date: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            name: {
+               bsonType: "string",
+               description: ""
+            },
+            value: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+db.createCollection("timeseries_taxis", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "count"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            pickup_count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+
+db.createCollection("timeseries_bikes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "count"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            bike_count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+
+db.createCollection("timeseries_accidents", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "count"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            crash_count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+
+db.createCollection("heatmap_bikes", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            latitude: {
+               bsonType: "double",
+               description: ""
+            },
+            longitude: {
+               bsonType: "double",
+               description: ""
+            },
+            count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+db.createCollection("heatmap_taxis", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            latitude: {
+               bsonType: "double",
+               description: ""
+            },
+            longitude: {
+               bsonType: "double",
+               description: ""
+            },
+            count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
+
+db.createCollection("heatmap_accidents", {
+   validator: {
+      \$jsonSchema: {
+         bsonType: "object",
+         required: ["date", "name", "value"],
+         properties: {
+            starttime: {
+               bsonType: "string",
+               pattern: "^[0-9]{4}-([0-9]{2}$",
+               description: ""
+            },
+            latitude: {
+               bsonType: "double",
+               description: ""
+            },
+            longitude: {
+               bsonType: "double",
+               description: ""
+            },
+            count: {
+               bsonType: "double",
+               description: ""
+            },
+         }
+      }
+   }
+});
 
 EOF
 
 mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
 mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
 mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
+
 mongoimport --db project --collection race_taxi --type csv --headerline --file /docker-entrypoint-initdb.d/race_taxi.csv
+mongoimport --db project --collection race_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/race_bikes.csv
+mongoimport --db project --collection race_crashes --type csv --headerline --file /docker-entrypoint-initdb.d/race_crashes.csv
+
+mongoimport --db project --collection timeseries_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_timeseries.csv
+mongoimport --db project --collection timeseries_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_timeseries.csv
+mongoimport --db project --collection timeseries_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_timeseries.csv
+
+mongoimport --db project --collection heatmap_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_heatmap.csv
+mongoimport --db project --collection heatmap_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_heatmap.csv
+mongoimport --db project --collection heatmap_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_heatmap.csv

@@ -6,7 +6,7 @@ db.accidents.updateMany(
     {
       \$set: {
         accident_date: {
-          \$toDate: "\$crash_date"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$crash_date" } }
         }
       }
     }
@@ -19,10 +19,10 @@ db.taxis.updateMany(
     {
       \$set: {
         starttime: {
-          \$toDate: "\$lpep_pickup_datetime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$lpep_pickup_datetime" } }
         },
         stoptime: {
-          \$toDate: "\$lpep_dropoff_datetime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$lpep_dropoff_datetime" } }
         }
       },
     }
@@ -35,10 +35,10 @@ db.bikes.updateMany(
     {
       \$set: {
         starttime: {
-          \$toDate: "\$starttime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$starttime" } }
         },
         stoptime: {
-          \$toDate: "\$stoptime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$stoptime" } }
         }
       },
     }

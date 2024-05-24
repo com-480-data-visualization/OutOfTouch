@@ -369,9 +369,9 @@ db.createCollection("heatmap_accidents", {
 
 EOF
 
-mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
-mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
-mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
+# mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
+# mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
+# mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
 
 mongoimport --db project --collection race_taxi --type csv --headerline --file /docker-entrypoint-initdb.d/race_taxi.csv
 mongoimport --db project --collection race_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/race_bikes.csv

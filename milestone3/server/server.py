@@ -16,7 +16,7 @@ def get_db():
     return client[os.environ['MONGODB_DATABASE']]
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 db = get_db()
 
 
@@ -60,29 +60,56 @@ def timeseries_retrieval(collection_name, field_date, start_date=datetime(2018,1
     return list(db[collection_name].aggregate(pipeline))
 
 
-def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name, start_date=None, end_date=None):
+def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name, start_date=None, end_date=None, weekly=False):
     pipeline = []
 
     # Match stage
     match_stage = {}
     if start_date is not None and end_date is not None:
         match_stage[field_date] = {"$gte": start_date, "$lte": end_date}
-    if match_stage:
         pipeline.append({"$match": match_stage})
 
-    # Project stage
-    pipeline.append({
+    if not weekly:
+        # Project stage
+        pipeline.append({
+            "$project": {
+                "_id": 0
+            }
+        })
+
+        result = list(db[collection_name].find({}, {'_id': 0, f"{field_date}": 1, f"{latitude_name}": 1, f"{longitude_name}": 1, f"count": 1}))
+        return result
+    
+    # Group stage to group by week, latitude, and longitude
+    group_stage = {
+        "$group": {
+            "_id": {
+                "week": "$week",
+                latitude_name: f"${latitude_name}",
+                longitude_name: f"${longitude_name}"
+            },
+            "count": {"$sum": "$count"}
+        }
+    }
+    pipeline.append(group_stage)
+
+    # Final project stage to format the output
+    final_project_stage = {
         "$project": {
             "_id": 0,
-            "date": f"${field_date}",
-            "lat": f"${latitude_name}",
-            "long": f"${longitude_name}",
-            "count": "$count"
+            field_date: "$_id.week",
+            latitude_name: f"$_id.{latitude_name}",
+            longitude_name: f"$_id.{longitude_name}",
+            "count": 1
         }
-    })
+    }
+    pipeline.append(final_project_stage)
 
-    result = list(db[collection_name].aggregate(pipeline, allowDiskUse=True))
+    # Execute the aggregation pipeline
+    result = list(db[collection_name].aggregate(pipeline))
+
     return result
+
 
 def top_zones(collection_name, field_date, field_zone):
     pipeline = [
@@ -163,7 +190,7 @@ def retrieve_accident_coordinates():
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
-    result = heatmap_retrieval('heatmap_accidents', 'starttime', 'latitude', 'longitude')
+    result = heatmap_retrieval('heatmap_accidents', 'date', 'latitude', 'longitude')
 
     return jsonify(result), 200
 
@@ -219,7 +246,6 @@ def get_top_zones_bikes():
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
-
 @app.route('/api/bikes/coordinates', methods=['GET'])
 def retrieve_bike_coordinates():
     start_date_str = request.args.get("start_date")
@@ -234,8 +260,7 @@ def retrieve_bike_coordinates():
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
-
-    result = heatmap_retrieval('heatmap_bikes', 'starttime', 'latitude', 'longitude')
+    result = heatmap_retrieval('heatmap_bikes', 'date', 'latitude', 'longitude', weekly=True)
 
     return jsonify(result), 200
 
@@ -291,7 +316,7 @@ def retrieve_taxi_coordinates():
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD."}), 400
 
-    result = heatmap_retrieval('heatmap_taxis', 'starttime', 'latitude', 'longitude')
+    result = heatmap_retrieval('heatmap_taxis', 'date', 'latitude', 'longitude', weekly=True)
 
     return jsonify(result), 200
 
@@ -307,6 +332,32 @@ def get_taxis_by_zones(zone_id):
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/routes', methods=['GET'])
+def get_top_routes():
+    try:
+        # Retrieve data from the 'matrix' collection
+        pre_pandemic_data = list(db.pre_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+        pandemic_data = list(db.pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+        post_pandemic_data = list(db.post_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+
+        # Retrieve data from the 'zones' collection
+        pre_pandemic_zones_data = list(db.pre_pandemic_zones.find({}, {'_id': 0}))[0]['data']
+        pandemic_zones_data = list(db.pandemic_zones.find({}, {'_id': 0}))[0]['data']
+        post_pandemic_zones_data = list(db.post_pandemic_zones.find({}, {'_id': 0}))[0]['data']
+
+
+        return jsonify({
+            'pre_pandemic_matrix': pre_pandemic_data,
+            'pandemic_matrix': pandemic_data,
+            'post_pandemic_matrix': post_pandemic_data,
+            'pre_pandemic_zones': pre_pandemic_zones_data,
+            'pandemic_zones': pandemic_zones_data,
+            'post_pandemic_zones': post_pandemic_zones_data
+        }), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify({'error': str(e)}), 500
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

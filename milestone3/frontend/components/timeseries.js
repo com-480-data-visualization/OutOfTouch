@@ -1,5 +1,5 @@
 import { loadTimeSeriesData } from './data_loaders/load.js';
-import { loadTimeSeriesChart } from './charts.js';
+import { loadSpiralChart, loadTimeSeriesChart } from './charts.js';
 
 
 
@@ -18,6 +18,9 @@ async function init() {
     // const counts = [...new Array(nr)].map((n, i) => i);
     // // }
 
+    console.log(dates);
+    console.log(counts);
+
     loadTimeSeriesChart('myChart', dates, counts);
     const selectDropdown = document.getElementById('ds-select');
 
@@ -33,7 +36,9 @@ async function init() {
       // );
       // const counts = [...new Array(nr)].map((n, i) => i);
       // }
+
       loadTimeSeriesChart('myChart', dates, counts);
+      // await loadSpiralChart();
     });
   } catch (error) {
     console.error('Error initializing chart:', error);

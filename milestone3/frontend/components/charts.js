@@ -238,6 +238,193 @@ export async function loadRaceChart(datax){
     startAnimation();
 }
 
+
+
+export async function loadSpiralChart() {
+    const width = 800;
+    const height = 800;
+    const zeroRadius = 125;
+    const oneRadius = 200;
+    const months = [
+        "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+        "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"
+    ];
+
+    const data = await d3.csv("../assets/data/crashes_spiral.csv");
+    console.log(data);
+
+    // Find the maximum anomaly value for scaling
+    const maxAnomaly = d3.max(data, d => d3.max(months, month => parseFloat(d[month])));
+    const minAnomaly = d3.min(data, d => d3.min(months, month => parseFloat(d[month])));
+
+    // Scaling functions
+    const radiusScale = d3.scaleLinear()
+        .domain([minAnomaly, maxAnomaly])
+        .range([zeroRadius, oneRadius]);
+
+    // Three.js setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+    document.getElementById('climate-spiral').appendChild(renderer.domElement);
+
+    camera.position.set(0, 500, 0);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // Create the spiral cylinder
+    const geometry = new THREE.CylinderGeometry(zeroRadius, zeroRadius, height, 64, 64, true);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+    const cylinder = new THREE.Mesh(geometry, material);
+    scene.add(cylinder);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        cylinder.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // D3.js 2D spiral representation
+    const svg = d3.select('#climate-spiral')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    let currentRow = 1;
+    let currentMonth = 0;
+    let previousAnomaly = null;
+
+    function draw() {
+        svg.selectAll('*').remove();
+
+        svg.append('circle')
+            .attr('cx', width / 2)
+            .attr('cy', height / 2)
+            .attr('r', zeroRadius)
+            .attr('fill', 'none')
+            .attr('stroke', '#ccc')
+            .attr('stroke-width', 2);
+
+        svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', height / 2 + zeroRadius + 16)
+            .attr('fill', '#fff')
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'middle')
+            .attr('font-size', 16)
+            .text(`${minAnomaly.toFixed(2)}`);
+
+        svg.append('circle')
+            .attr('cx', width / 2)
+            .attr('cy', height / 2)
+            .attr('r', oneRadius)
+            .attr('fill', 'none')
+            .attr('stroke', '#ccc')
+            .attr('stroke-width', 2);
+
+        svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', height / 2 + oneRadius + 16)
+            .attr('fill', '#fff')
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'middle')
+            .attr('font-size', 16)
+            .text(`${maxAnomaly.toFixed(2)}`);
+
+        for (let i = 0; i < months.length; i++) {
+            let angle = (i / months.length) * 2 * Math.PI;
+            let x = width / 2 + 264 * Math.cos(angle);
+            let y = height / 2 + 264 * Math.sin(angle);
+            svg.append('text')
+                .attr('x', x)
+                .attr('y', y)
+                .attr('transform', `rotate(${angle * (180 / Math.PI) + 90}, ${x}, ${y})`)
+                .attr('fill', '#fff')
+                .attr('text-anchor', 'middle')
+                .attr('alignment-baseline', 'middle')
+                .attr('font-size', 24)
+                .text(months[i]);
+        }
+
+        const row = data[currentRow];
+        const year = row.Year;
+
+        svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', height / 2)
+            .attr('fill', '#fff')
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'middle')
+            .attr('font-size', 32)
+            .text(year);
+
+        let firstValue = true;
+        for (let j = 0; j < currentRow; j++) {
+            const row = data[j];
+
+            let totalMonths = months.length;
+            if (j === currentRow - 1) {
+                totalMonths = currentMonth;
+            }
+
+            for (let i = 0; i < totalMonths; i++) {
+                let anomaly = row[months[i]];
+
+                if (anomaly !== "***") {
+                    anomaly = parseFloat(anomaly);
+                    let angle = (i / months.length) * 2 * Math.PI - Math.PI / 3;
+                    let pr = previousAnomaly !== null ? radiusScale(previousAnomaly) : zeroRadius;
+                    let r = radiusScale(anomaly);
+
+                    let x1 = width / 2 + r * Math.cos(angle);
+                    let y1 = height / 2 + r * Math.sin(angle);
+                    let x2 = width / 2 + pr * Math.cos(angle - Math.PI / 6);
+                    let y2 = height / 2 + pr * Math.sin(angle - Math.PI / 6);
+
+                    if (!firstValue) {
+                        let avg = (anomaly + previousAnomaly) * 0.5;
+                        let cold = d3.rgb(0, 0, 255);
+                        let warm = d3.rgb(255, 0, 0);
+                        let zero = d3.rgb(255, 255, 255);
+                        let lineColor = d3.interpolateRgb(zero, avg < 0 ? cold : warm)(Math.abs(avg) / maxAnomaly);
+
+                        svg.append('line')
+                            .attr('x1', x1)
+                            .attr('y1', y1)
+                            .attr('x2', x2)
+                            .attr('y2', y2)
+                            .attr('stroke', lineColor)
+                            .attr('stroke-width', 2);
+                    }
+                    firstValue = false;
+                    previousAnomaly = anomaly;
+                }
+            }
+        }
+
+        currentMonth = currentMonth + 1;
+        if (currentMonth === months.length) {
+            currentMonth = 0;
+            currentRow = currentRow + 1;
+            if (currentRow === data.length) {
+              noLoop();
+            }
+        }
+    }
+
+    function noLoop() {
+        clearInterval(interval);
+    }
+
+    let interval = setInterval(draw, 100);
+}
+
+
+
+loadSpiralChart()
+
 export async function loadTimeSeriesChart(containerId, dates, counts) {
   // Convert date strings to JavaScript Date objects
   const parseDate = d3.timeParse('%d/%m/%Y');
@@ -449,8 +636,8 @@ export async function loadHeatMap(data) {
       maxOpacity: .9,
       scaleRadius: true,
       useLocalExtrema: true,
-      latField: 'lat',
-      lngField: 'long',
+      latField: 'latitude',
+      lngField: 'longitude',
       valueField: 'count'
   };
 
@@ -521,6 +708,10 @@ export async function loadHeatMap(data) {
 
   // Function to update heatmap data
   function updateHeatmap(data) {
+      var maxValue = Math.max.apply(Math, data.data.map(function(o) { return o.count; }));
+
+      // Update heatmap layer with data
+      heatmapLayer.max = maxValue;
       heatmapLayer.setData(data);
   }
 
@@ -543,19 +734,19 @@ export async function loadHeatMap(data) {
           console.log('Button 1 clicked for category: ' + category);
           // Update the slider to value between 2019-01-01 and 2020-04-01
           startDateEnd = new Date('2019-01-01');
-          endDateEnd = new Date('2020-04-01');
+          endDateEnd = new Date('2020-03-01');
           break;
         case 'button2':
           console.log('Button 2 clicked for category: ' + category);
           // Add your code here for Button 2 action
-          startDateEnd = new Date('2022-02-01');
+          startDateEnd = new Date('2021-07-01');
           endDateEnd = new Date('2023-01-01');
           break;
         case 'button3':
           console.log('Button 3 clicked for category: ' + category);
           // Add your code here for Button 3 action
-          startDateEnd = new Date('2020-04-01');
-          endDateEnd = new Date('2022-01-01');
+          startDateEnd = new Date('2020-03-01');
+          endDateEnd = new Date('2021-07-01');
           break;
         default:
           console.log('Unknown button clicked');

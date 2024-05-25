@@ -367,11 +367,20 @@ db.createCollection("heatmap_accidents", {
    }
 });
 
+
+db.createCollection("pre_pandemic_matrix")
+db.createCollection("pre_pandemic_zones")
+db.createCollection("pandemic_matrix")
+db.createCollection("pandemic_zones")
+db.createCollection("post_pandemic_matrix")
+db.createCollection("post_pandemic_zones")
+
+
 EOF
 
-mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
-mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
-mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
+# mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
+# mongoimport --db project --collection taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_dataset.csv
+# mongoimport --db project --collection bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_dataset.csv
 
 mongoimport --db project --collection race_taxi --type csv --headerline --file /docker-entrypoint-initdb.d/race_taxi.csv
 mongoimport --db project --collection race_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/race_bikes.csv
@@ -384,3 +393,11 @@ mongoimport --db project --collection timeseries_accidents --type csv --headerli
 mongoimport --db project --collection heatmap_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_heatmap.csv
 mongoimport --db project --collection heatmap_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_heatmap.csv
 mongoimport --db project --collection heatmap_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_heatmap.csv
+
+mongoimport --db project --collection pre_pandemic_matrix --file /docker-entrypoint-initdb.d/pre_pandemic_matrix.json --type json
+mongoimport --db project --collection pandemic_matrix --file /docker-entrypoint-initdb.d/pandemic_matrix.json  --type json
+mongoimport --db project --collection post_pandemic_matrix --file /docker-entrypoint-initdb.d/post_pandemic_matrix.json  --type json
+
+mongoimport --db project --collection pre_pandemic_zones --file /docker-entrypoint-initdb.d/pre_pandemic_zones.json --type json
+mongoimport --db project --collection pandemic_zones --file /docker-entrypoint-initdb.d/pandemic_zones.json --type json
+mongoimport --db project --collection post_pandemic_zones --file /docker-entrypoint-initdb.d/post_pandemic_zones.json --type json

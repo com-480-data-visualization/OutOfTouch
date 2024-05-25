@@ -37,9 +37,9 @@ export async function loadTimeSeriesData(resource) {
     });
 }
 
-export async function loadHeatMapData(resource) {
+export async function loadHeatMapData(resource, start_date="2019-01-01", end_date="2023-01-01") {
   return fetch(
-    `http://localhost:5000/api/${resource}/coordinates?start_date=2019-01-01&end_date=2023-01-01`
+    `http://localhost:5000/api/${resource}/coordinates?start_date=${start_date}&end_date=${end_date}`
   )
     .then((response) => {
       if (!response.ok) {

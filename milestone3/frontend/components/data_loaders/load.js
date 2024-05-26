@@ -60,8 +60,7 @@ export async function loadHeatMapData(resource) {
 }
 
 export async function loadRaceData(resource) {
-    console.log("RESOURCE: ", resource);
-  return fetch(`http://3.75.188.123:5000/api/${resource}/race`)
+  return fetch(`http://localhost:5000/api/${resource}/race`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

@@ -155,6 +155,10 @@ def top_zones(collection_name, field_date, field_zone):
     result = list(db[collection_name].aggregate(pipeline))
     return result
 
+def get_spiral_data(resource):
+    data = list(db[f"spiral_{resource}"].find({}, {'_id': 0}))
+    return data
+
 def race(collection_name):
     return list(db[collection_name].find())
 
@@ -331,6 +335,20 @@ def get_taxis_by_zones(zone_id):
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/timeseries/<resource>', methods=['GET'])
+def get_timeseries_data(resource):
+    try:
+        # Query accidents collection
+        data = get_spiral_data(resource)
+
+        # Return formatted data as JSON response with success status
+        return jsonify({'data': data}), 200
+    
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

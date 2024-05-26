@@ -1,4 +1,4 @@
-import { loadHeatMapData } from "./data_loaders/load.js";
+import { loadHeatMapData, loadSpiralData } from "./data_loaders/load.js";
 import { removeTimeComponent } from "./utils/dateUtils.js";
 
 
@@ -14,8 +14,6 @@ export async function loadRaceChart(datax){
             value: d.value
         }
     })
-
-    console.log("D", data)
 
     const svg = d3.select('#bar-chart-race');
     svg.attr('viewBox', [0, 0, 1000, 600]);
@@ -720,15 +718,11 @@ export async function loadSpiralChart(selectedValue) {
         "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"
     ];
 
-    let data;
-    if (selectedValue === 'bikes') {
-        data = await d3.csv("../assets/data/bike_spiral.csv");
-    } else if (selectedValue === 'taxis') {
-        data = await d3.csv("../assets/data/taxi_spiral.csv");
-    } else {
-        data = await d3.csv("../assets/data/crashes_spiral.csv");
-    }
-
+    let selectedData = await loadSpiralData(selectedValue);
+    console.log("_-----------------")
+    console.log(selectedData)
+    console.log("---------------------")
+    const data = selectedData.data.data;
 
     // // Clear the svg container to draw a chart from scratch
     d3.select('#climate-spiral').selectAll('*').remove();

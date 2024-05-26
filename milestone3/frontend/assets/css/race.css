@@ -1,8 +1,22 @@
 .map-container {
-    width: 1200px; /* Set the width of the container */
-    margin: 20px auto; /* Center the container horizontally */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#bar-chart-race {
+    width: 1400px;
+}
+
+#left-div, #right-div {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 10%;
+    font-size: 16pt;
+    margin: auto;
+    text-align: center;
 }
 
 .label-race-bold {
@@ -17,12 +31,18 @@
 .icon {
     width: 50px;
     margin-right: 1em;
+    filter: invert(1);
+    transition: 0.15s;
+}
 
+.icon:hover {
+    filter: invert(0.85);
+    transform: scale(1.1);
 }
 
 .race_controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .race_navigation {
@@ -33,10 +53,18 @@
 .new_races {
     display: flex;
     align-items: center;
-    margin-left: auto;
 }
 
 #resource {
     font-size: 12pt;
     font-weight: bold;
+    transition: 0.2s;
+}
+
+#resource:hover {
+    background-color: #d2d1d1;
+}
+
+.labelx {
+    color:red;
 }

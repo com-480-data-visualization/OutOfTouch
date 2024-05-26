@@ -38,7 +38,7 @@ export async function loadRaceChart(datax){
     const names = new Set(data.map(d => d.name));
 
     const formatNumber = d3.format(',d');
-    const formatDate = d3.utcFormat("%Y")
+    const formatDate = d3.utcFormat("%B %Y")
 
     function rank(value) {
         const data = Array.from(names, name => ({name, value: value(name)}));
@@ -124,6 +124,7 @@ export async function loadRaceChart(datax){
         .style("font-variant-numeric", "tabular-nums")
         .attr("text-anchor", "end")
         .attr("class", "label-down")
+        .style("color", "white")
         .selectAll("text");
 
     return ([date, data], transition) => label = label
@@ -164,8 +165,10 @@ export async function loadRaceChart(datax){
             .style('font-variant-numeric', 'tabular-nums')
             .attr('text-anchor', 'end')
             .attr('class', 'label-down')
+            .attr('class', 'labelx')
             .style('font-size', '45px')
             .style('font-weight', 'bold')
+            .style('color', 'white')
             .attr('x', width - 6)
             .attr('y', margin.top + barSize * (n - 0.45))
             .attr('dy', '0.32em')

@@ -730,8 +730,9 @@ export async function loadSpiralChart(selectedValue) {
     }
 
 
-    // Clear the svg container to draw a chart from scratch
-    d3.selectAll('svg > *').remove();
+    // // Clear the svg container to draw a chart from scratch
+    d3.select('#climate-spiral').selectAll('*').remove();
+
 
     // Find the maximum anomaly value for scaling
     const maxAnomaly = d3.max(data, d => d3.max(months, month => parseFloat(d[month])));

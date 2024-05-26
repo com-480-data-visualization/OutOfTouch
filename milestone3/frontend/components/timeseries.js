@@ -3,14 +3,11 @@ import { loadSpiralChart, loadTimeSeriesChart } from './charts.js';
 
 async function init() {
   try {
-    // TODO: uncomment this line
     const { dates, counts } = await loadTimeSeriesData('accidents');
-    await loadTimeSeriesChart('myChart', dates, counts);
-    console.log(dates);
-    console.log(counts);
 
+    loadSpiralChart("accidents");
+    loadTimeSeriesChart('myChart', dates, counts);
 
-    await loadSpiralChart("accidents");
     const selectDropdown = document.getElementById('ds-select');
     const watchAgain = document.getElementById('watch-again-btn');
 
@@ -18,15 +15,15 @@ async function init() {
       // timeseries
       const selectedValue = selectDropdown.value;
       const { dates, counts } = await loadTimeSeriesData(selectedValue);
-      loadTimeSeriesChart('myChart', dates, counts);
 
       // spiral
-      await loadSpiralChart(selectedValue);
+      loadSpiralChart(selectedValue);
+      loadTimeSeriesChart('myChart', dates, counts);
     });
 
     watchAgain.addEventListener('click', async function () {
       const selectedValue = selectDropdown.value;
-      await loadSpiralChart(selectedValue);
+      loadSpiralChart(selectedValue);
     });
 
   } catch (error) {

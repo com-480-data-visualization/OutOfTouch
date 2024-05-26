@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   mongodb:
     image: mongo:5
@@ -31,6 +30,9 @@ services:
       - ../data/pandemic_zones.json:/docker-entrypoint-initdb.d/pandemic_zones.json
       - ../data/pre_pandemic_zones.json:/docker-entrypoint-initdb.d/pre_pandemic_zones.json
       - ../data/post_pandemic_zones.json:/docker-entrypoint-initdb.d/post_pandemic_zones.json
+      - ../data/bike_spiral.csv:/docker-entrypoint-initdb.d/bike_spiral.csv
+      - ../data/taxi_spiral.csv:/docker-entrypoint-initdb.d/taxi_spiral.csv
+      - ../data/crashes_spiral.csv:/docker-entrypoint-initdb.d/crashes_spiral.csv
       - ./database/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - ./database/mongo-update.sh:/docker-entrypoint-initdb.d/mongo-update.sh:ro
       - mongodbdata:/data/db

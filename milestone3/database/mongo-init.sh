@@ -374,6 +374,9 @@ db.createCollection("pandemic_matrix")
 db.createCollection("pandemic_zones")
 db.createCollection("post_pandemic_matrix")
 db.createCollection("post_pandemic_zones")
+db.createCollection("spiral_bikes")
+db.createCollection("spiral_taxis")
+db.createCollection("spiral_accidents")
 
 
 EOF
@@ -401,3 +404,7 @@ mongoimport --db project --collection post_pandemic_matrix --file /docker-entryp
 mongoimport --db project --collection pre_pandemic_zones --file /docker-entrypoint-initdb.d/pre_pandemic_zones.json --type json
 mongoimport --db project --collection pandemic_zones --file /docker-entrypoint-initdb.d/pandemic_zones.json --type json
 mongoimport --db project --collection post_pandemic_zones --file /docker-entrypoint-initdb.d/post_pandemic_zones.json --type json
+
+mongoimport --db project --collection spiral_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_spiral.csv
+mongoimport --db project --collection spiral_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_spiral.csv
+mongoimport --db project --collection spiral_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_spiral.csv

@@ -79,7 +79,7 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
 
         result = list(db[collection_name].find({}, {'_id': 0, f"{field_date}": 1, f"{latitude_name}": 1, f"{longitude_name}": 1, f"count": 1}))
         return result
-    
+
     # Group stage to group by week, latitude, and longitude
     group_stage = {
         "$group": {
@@ -155,6 +155,10 @@ def top_zones(collection_name, field_date, field_zone):
 
     result = list(db[collection_name].aggregate(pipeline))
     return result
+
+def get_spiral_data(resource):
+    data = list(db[f"spiral_{resource}"].find({}, {'_id': 0}))
+    return data
 
 def race(collection_name):
     return list(db[collection_name].find())
@@ -359,5 +363,19 @@ def get_top_routes():
         print(str(e))
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/timeseries/<resource>', methods=['GET'])
+def get_timeseries_data(resource):
+    try:
+        # Query accidents collection
+        data = get_spiral_data(resource)
+
+        # Return formatted data as JSON response with success status
+        return jsonify({'data': data}), 200
+    
+    except Exception as e:
+        # Return error message with appropriate HTTP status code
+        return jsonify({'error': str(e)}), 500
+
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)
+

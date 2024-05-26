@@ -19,6 +19,8 @@
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
       crossorigin=""
     ></script>
+    <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   </head>
 
   <body>
@@ -29,13 +31,30 @@
         <div class="page">
           <div id="map"></div>
         </div>
+
         <div class="page">
+          <div class="select-time-container">
+            <div class="header-container">
+              <h2>Select time</h2>
+            </div>
+
+            <input type="time" id="time" />
+          </div>
+
           <div id="prediction-box">
-            <h2>Prediction</h2>
-            <p>Selected coordinates:</p>
-            <div id="coordinates"></div>
-            <p>Accident prediction:</p>
-            <div id="prediction"></div>
+            <div class="header-container">
+              <h2>Prediction</h2>
+            </div>
+
+            <div class="info-container">
+              <p>Selected coordinates:</p>
+              <div id="coordinates"></div>
+            </div>
+
+            <div class="info-container">
+              <p>Accident prediction:</p>
+              <div id="prediction"></div>
+            </div>
           </div>
         </div>
       </div>

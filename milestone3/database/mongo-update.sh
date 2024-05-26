@@ -6,7 +6,7 @@ db.accidents.updateMany(
     {
       \$set: {
         accident_date: {
-          \$toDate: "\$crash_date"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$crash_date" } }
         }
       }
     }
@@ -19,10 +19,10 @@ db.taxis.updateMany(
     {
       \$set: {
         starttime: {
-          \$toDate: "\$lpep_pickup_datetime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$lpep_pickup_datetime" } }
         },
         stoptime: {
-          \$toDate: "\$lpep_dropoff_datetime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$lpep_dropoff_datetime" } }
         }
       },
     }
@@ -35,10 +35,10 @@ db.bikes.updateMany(
     {
       \$set: {
         starttime: {
-          \$toDate: "\$starttime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$starttime" } }
         },
         stoptime: {
-          \$toDate: "\$stoptime"
+          \$dateToString: { format: "%Y-%m-%d", date: { \$toDate: "\$stoptime" } }
         }
       },
     }
@@ -59,20 +59,55 @@ db.accidents.updateMany(
    { \$unset: { crash_date: "" } }
 )
 
-db.taxis.createIndex(
+
+db.heatmap_bikes.updateMany(
+  {},
+  [
     {
-        starttime: 1,
-        latitude_source: 1,
-        longitude_source: 1
+      \$set: {
+        date: { \$toDate: "\$starttime" }
+      },
+    },
+    {
+      \$addFields: {
+        week: { \$dateTrunc: { date: "\$date", unit: "week" } }
+      }
     }
+
+  ]
 );
 
-db.bikes.createIndex(
+db.heatmap_taxis.updateMany(
+  {},
+  [
     {
-        starttime: 1,
-        start_lat: 1,
-        start_lng: 1
+      \$set: {
+        date: { \$toDate: "\$starttime" }
+      }
+    },
+    {
+      \$addFields: {
+        week: { \$dateTrunc: { date: "\$date", unit: "week" } }
+      }
     }
+  ]
 );
+
+db.heatmap_accidents.updateMany(
+  {},
+  [
+    {
+      \$set: {
+        date: { \$toDate: "\$starttime" }
+      },
+    }
+  ]
+);
+
+
+db.heatmap_bikes.createIndex({ "week": 1, "latitude": 1, "longitude": 1 });
+db.heatmap_taxis.createIndex({ "week": 1, "latitude": 1, "longitude": 1 });
+
 
 EOF
+

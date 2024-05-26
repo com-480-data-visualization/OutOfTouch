@@ -24,6 +24,12 @@ services:
       - ../data/taxi_heatmap.csv:/docker-entrypoint-initdb.d/taxi_heatmap.csv
       - ../data/bike_heatmap.csv:/docker-entrypoint-initdb.d/bike_heatmap.csv
       - ../data/crashes_heatmap.csv:/docker-entrypoint-initdb.d/crashes_heatmap.csv
+      - ../data/pandemic_matrix.json:/docker-entrypoint-initdb.d/pandemic_matrix.json
+      - ../data/pre_pandemic_matrix.json:/docker-entrypoint-initdb.d/pre_pandemic_matrix.json
+      - ../data/post_pandemic_matrix.json:/docker-entrypoint-initdb.d/post_pandemic_matrix.json
+      - ../data/pandemic_zones.json:/docker-entrypoint-initdb.d/pandemic_zones.json
+      - ../data/pre_pandemic_zones.json:/docker-entrypoint-initdb.d/pre_pandemic_zones.json
+      - ../data/post_pandemic_zones.json:/docker-entrypoint-initdb.d/post_pandemic_zones.json
       - ../data/bike_spiral.csv:/docker-entrypoint-initdb.d/bike_spiral.csv
       - ../data/taxi_spiral.csv:/docker-entrypoint-initdb.d/taxi_spiral.csv
       - ../data/crashes_spiral.csv:/docker-entrypoint-initdb.d/crashes_spiral.csv

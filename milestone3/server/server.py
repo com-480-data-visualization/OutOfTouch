@@ -110,6 +110,7 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
 
     return result
 
+
 def top_zones(collection_name, field_date, field_zone):
     pipeline = [
         # Extract month and year from the timestamp field
@@ -336,6 +337,32 @@ def get_taxis_by_zones(zone_id):
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/routes', methods=['GET'])
+def get_top_routes():
+    try:
+        # Retrieve data from the 'matrix' collection
+        pre_pandemic_data = list(db.pre_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+        pandemic_data = list(db.pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+        post_pandemic_data = list(db.post_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+
+        # Retrieve data from the 'zones' collection
+        pre_pandemic_zones_data = list(db.pre_pandemic_zones.find({}, {'_id': 0}))[0]['data']
+        pandemic_zones_data = list(db.pandemic_zones.find({}, {'_id': 0}))[0]['data']
+        post_pandemic_zones_data = list(db.post_pandemic_zones.find({}, {'_id': 0}))[0]['data']
+
+
+        return jsonify({
+            'pre_pandemic_matrix': pre_pandemic_data,
+            'pandemic_matrix': pandemic_data,
+            'post_pandemic_matrix': post_pandemic_data,
+            'pre_pandemic_zones': pre_pandemic_zones_data,
+            'pandemic_zones': pandemic_zones_data,
+            'post_pandemic_zones': post_pandemic_zones_data
+        }), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/timeseries/<resource>', methods=['GET'])
 def get_timeseries_data(resource):
     try:
@@ -348,7 +375,6 @@ def get_timeseries_data(resource):
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'error': str(e)}), 500
-
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

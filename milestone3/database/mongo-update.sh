@@ -93,6 +93,7 @@ db.heatmap_taxis.updateMany(
   ]
 );
 
+
 db.heatmap_accidents.updateMany(
   {},
   [
@@ -104,10 +105,8 @@ db.heatmap_accidents.updateMany(
   ]
 );
 
-
 db.heatmap_bikes.createIndex({ "week": 1, "latitude": 1, "longitude": 1 });
 db.heatmap_taxis.createIndex({ "week": 1, "latitude": 1, "longitude": 1 });
-
 
 EOF
 

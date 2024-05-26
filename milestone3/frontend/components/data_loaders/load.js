@@ -16,7 +16,7 @@ function formatDate(toFormatDate) {
 }
 
 export async function loadTimeSeriesData(resource) {
-  return fetch(`http://3.75.188.123:5000/api/${resource}`)
+  return fetch(`http://localhost:5000/api/${resource}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -39,7 +39,7 @@ export async function loadTimeSeriesData(resource) {
 
 export async function loadHeatMapData(resource) {
   return fetch(
-    `http://3.75.188.123:5000/api/${resource}/coordinates?start_date=2019-01-01&end_date=2023-01-01`
+    `http://localhost:5000/api/${resource}/coordinates?start_date=2019-01-01&end_date=2023-01-01`
   )
     .then((response) => {
       if (!response.ok) {
@@ -61,6 +61,26 @@ export async function loadHeatMapData(resource) {
 
 export async function loadRaceData(resource) {
   return fetch(`http://localhost:5000/api/${resource}/race`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const result = {
+        data: data,
+      };
+      return result;
+    })
+    .catch((error) => {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    });
+}
+
+export async function loadSpiralData(resource) {
+  return fetch(`http://localhost:5000/api/timeseries/${resource}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

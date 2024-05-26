@@ -367,6 +367,10 @@ db.createCollection("heatmap_accidents", {
    }
 });
 
+db.createCollection("spiral_bikes")
+db.createCollection("spiral_taxis")
+db.createCollection("spiral_accidents")
+
 EOF
 
 # mongoimport --db project --collection accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes.csv
@@ -384,3 +388,7 @@ mongoimport --db project --collection timeseries_accidents --type csv --headerli
 mongoimport --db project --collection heatmap_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_heatmap.csv
 mongoimport --db project --collection heatmap_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_heatmap.csv
 mongoimport --db project --collection heatmap_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_heatmap.csv
+
+mongoimport --db project --collection spiral_bikes --type csv --headerline --file /docker-entrypoint-initdb.d/bike_spiral.csv
+mongoimport --db project --collection spiral_taxis --type csv --headerline --file /docker-entrypoint-initdb.d/taxi_spiral.csv
+mongoimport --db project --collection spiral_accidents --type csv --headerline --file /docker-entrypoint-initdb.d/crashes_spiral.csv

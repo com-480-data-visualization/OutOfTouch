@@ -11,15 +11,29 @@
     <link rel="stylesheet" href="../assets/css/footer.css" />
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   </head>
 
   <body>
     <div class="body-content">
       <div id="nav-placeholder"></div>
 
-      
       <div id="chart-container">
+        <div class="columns">
+          <div class="column">
+            <button id="watch-again-btn">Watch again</button>
+            <svg id="climate-spiral" width="600" height="600"></svg>
+          </div>
+        </div>
+
+
+        <div class="column">
+          <textarea placeholder="Notes"></textarea>
+        </div>
+
         <div class="controls">
           <select id="ds-select">
             <option value="accidents">Accidents</option>
@@ -51,7 +65,6 @@
             <input type="date" id="end-date" value="2022-12-31" />
           </div>
         </div>
-        <svg id="climate-spiral" width="800" height="800"></svg>
       </div>
 
       <footer id="footer-placeholder"></footer>

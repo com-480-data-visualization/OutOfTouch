@@ -20,6 +20,8 @@ function init() {
 
   document.getElementById('time').addEventListener('input', (e) => {
     selectedTime = e.target.value;
+    console.log("AM SECLECTAT TIMPUL")
+    console.log(selectedTime)
   });
 
   map.on('click', function (e) {
@@ -46,9 +48,49 @@ function init() {
       var lng = e.latlng.lng.toFixed(6);
       // Update the prediction box with the selected coordinates
       document.getElementById('coordinates').innerText = `Latitude: ${lat}, Longitude: ${lng}`;
-      // Generate a prediction based on the selected point
-      var prediction = Math.random() < 0.5 ? 'Low' : 'High';
-      document.getElementById('prediction').innerText = `Accident prediction: ${prediction}`;
+
+      if (selectedTime) {
+        // Make a POST request to the Flask server
+        const data = {
+          latitude: parseFloat(lng),
+          longitude: parseFloat(lat),
+          time: selectedTime
+        };
+        console.log(data)
+        fetch('http://localhost:5000/api/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+              console.log("AM aici predictia")
+              console.log(result)
+              if (result.error) {
+                document.getElementById('prediction').innerText = `Error: ${result.error}`;
+              } else {
+                const probability = result;
+                let riskLevel = '';
+                let color = result;
+                if (color === 'red'){
+                  riskLevel = 'High';
+                }else if (color === 'orange'){
+                  riskLevel = 'Medium'
+                }else{
+                  riskLevel = 'Low';
+                }
+
+                document.getElementById('prediction').innerHTML = `Accident prediction: <span style="color:${color}">${riskLevel} risk </span>`;
+              }
+            })
+            .catch(error => {
+              document.getElementById('prediction').innerText = `Error: ${error.message}`;
+            });
+      } else {
+        document.getElementById('prediction').innerText = 'Please select a time.';
+      }
     } else {
       // If the point is outside the polygon, do not place a marker
       document.getElementById('coordinates').innerText = `Latitude: , Longitude: `;

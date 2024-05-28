@@ -16,7 +16,7 @@ export async function loadRaceChart(datax){
     })
 
     const svg = d3.select('#bar-chart-race');
-    svg.attr('viewBox', [0, 0, 1000, 600]);
+    svg.attr('viewBox', [0, 0, 1450, 1000]);
 
     const margin = {top: 0, right: 0, bottom: 0, left: 0};
     const width = 1000 - margin.left - margin.right;

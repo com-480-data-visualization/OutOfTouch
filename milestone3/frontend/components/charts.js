@@ -43,7 +43,13 @@ export async function loadRaceChart(datax){
     function rank(value) {
         const data = Array.from(names, name => ({name, value: value(name)}));
         data.sort((a, b) => d3.descending(a.value, b.value));
-        for (let i = 0; i < data.length; ++i) data[i].rank = Math.min(n, i);
+        for (let i = 0; i < data.length; ++i) {
+            if (i < n) {
+                data[i].rank = i;
+            } else {
+                data[i].rank = n + i % n;
+            }
+        }
         return data;
     }
 
@@ -68,13 +74,41 @@ export async function loadRaceChart(datax){
     const updateAxis = axis(svg);
     const updateLabels = labels(svg);
     const updateTicker = ticker(svg);
+    let seed = 5;
 
     const color = (data) => {
-        const scale = d3.scaleOrdinal(d3.schemeTableau10);
-        //     const categoryByName = new Map(data.map(d => [d.name, d.category]));
-        //     scale.domain(Array.from(categoryByName.values()));
-        //     return d => scale(categoryByName.get(d.name));
-        return "#ffffff";
+        function shuffle(array) {
+            Math.seedrandom(seed);
+            seed = (seed + 3) % 40;
+
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1)) % 40;
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return [...new Set(array)]; 
+        }
+        
+        // Define the customColors array
+        const customColors = [
+            "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
+            "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
+            "#aec7e8", "#ffbb78", "#98df8a", "#ff9896", "#c5b0d5",
+            "#c49c94", "#f7b6d2", "#c7c7c7", "#dbdb8d", "#9edae5",
+            "#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939",
+            "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39",
+            "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b",
+            "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"
+        ];
+        
+        
+        // Shuffle the customColors array
+        const shuffledColors = shuffle(customColors); // Slice to limit to 50 colors
+        
+        // Create the scale using shuffled colors
+        const scale = d3.scaleOrdinal(shuffledColors);
+        const categoryByName = new Map(data.map(d => [d.name, d.rank]));
+        scale.domain(Array.from(new Set(data.map(d => d.rank))));
+        return d => scale(categoryByName.get(d.name));
     }
 
     function bars(svg) {
@@ -86,7 +120,7 @@ export async function loadRaceChart(datax){
             .data(data.slice(0, n), d => d.name)
             .join(
                 enter => enter.append("rect")
-                    .attr("fill", color)
+                    .attr("fill", d => color(data)(d))
                     .attr("height", y.bandwidth())
                     .attr("x", x(0))
                     .attr("y", d => y((prev.get(d) || d).rank))
@@ -169,6 +203,7 @@ export async function loadRaceChart(datax){
             .style('font-size', '45px')
             .style('font-weight', 'bold')
             .style('color', 'white')
+            .attr('fill', 'white')
             .attr('x', width - 6)
             .attr('y', margin.top + barSize * (n - 0.45))
             .attr('dy', '0.32em')

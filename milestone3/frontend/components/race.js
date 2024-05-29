@@ -20,17 +20,17 @@ async function load(data) {
     try {
         if (data === "Taxis") {
             const svg = d3.select('#bar-chart-race');
-            svg.selectAll("*").remove(); // Remove all existing elemen
+            svg.selectAll("svg > *").remove(); // Remove all existing elemen
             loadRaceChart(taxiRaceData);
         }
         else if (data === "Bikes") {
             const svg = d3.select('#bar-chart-race');
-            svg.selectAll("*").remove(); // Remove all existing elemen
+            svg.selectAll("svg > *").remove(); // Remove all existing elemen
             loadRaceChart(bikeRaceData);
         }
         else {
             const svg = d3.select('#bar-chart-race');
-            svg.selectAll("*").remove(); // Remove all existing elemen
+            svg.selectAll("svg > *").remove(); // Remove all existing elemen
             loadRaceChart(crashesRaceData);
         }
     } catch (error) {

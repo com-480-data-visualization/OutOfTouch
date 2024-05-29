@@ -544,7 +544,7 @@ export async function loadHeatMap(data) {
       } catch (error) {
           console.error('Error fetching data:', error);
       }
-
+      
       const filteredData = filterDataByDateRange(data, startDate, endDate)
       updateHeatmap(filteredData)
   }

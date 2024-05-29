@@ -262,18 +262,18 @@ def get_taxis_by_zones(zone_id):
         # Return error message with appropriate HTTP status code
         return jsonify({'success': False, 'error': str(e)}), 500
 
-@app.route('/api/routes', methods=['GET'])
-def get_top_routes():
+@app.route('/api/routes/<resource>', methods=['GET'])
+def get_top_routes(resource):
     try:
         # Retrieve data from the 'matrix' collection
-        pre_pandemic_data = list(db.pre_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
-        pandemic_data = list(db.pandemic_matrix.find({}, {'_id': 0}))[0]['data']
-        post_pandemic_data = list(db.post_pandemic_matrix.find({}, {'_id': 0}))[0]['data']
+        pre_pandemic_data = list(db[f"pre_pandemic_matrix_{resource}"].find({}, {'_id': 0}))[0]['data']
+        pandemic_data = list(db[f"pandemic_matrix_{resource}"].find({}, {'_id': 0}))[0]['data']
+        post_pandemic_data = list(db[f"post_pandemic_matrix_{resource}"].find({}, {'_id': 0}))[0]['data']
 
         # Retrieve data from the 'zones' collection
-        pre_pandemic_zones_data = list(db.pre_pandemic_zones.find({}, {'_id': 0}))[0]['data']
-        pandemic_zones_data = list(db.pandemic_zones.find({}, {'_id': 0}))[0]['data']
-        post_pandemic_zones_data = list(db.post_pandemic_zones.find({}, {'_id': 0}))[0]['data']
+        pre_pandemic_zones_data = list(db[f"pre_pandemic_zones_{resource}"].find({}, {'_id': 0}))[0]['data']
+        pandemic_zones_data = list(db[f"pandemic_zones_{resource}"].find({}, {'_id': 0}))[0]['data']
+        post_pandemic_zones_data = list(db[f"post_pandemic_zones_{resource}"].find({}, {'_id': 0}))[0]['data']
 
 
         return jsonify({

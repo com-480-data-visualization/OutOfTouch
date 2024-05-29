@@ -68,14 +68,15 @@ export async function drawZones() {
     });
 }
 
-export async function loadDataAndDraw(matrix, zones, chordElementId) {
+export async function loadDataAndDraw(matrix, zones, chordElementId, padAngleValue) {
     const width = 600;
     const height = 700;
-    const innerRadius = Math.min(width, height) * 0.4 - 100;
+    const innerRadius = Math.min(width, height) * 0.36 - 100;
     const outerRadius = innerRadius + 10;
+    const minArcValue = 0.05;
 
     const chord = d3.chord()
-        .padAngle(0.05)
+        .padAngle(padAngleValue)
         .sortSubgroups(d3.descending);
 
     const arc = d3.arc()
@@ -105,7 +106,14 @@ export async function loadDataAndDraw(matrix, zones, chordElementId) {
         group.append("path")
         .style("fill", d => color(d.index))
         .style("stroke", d => d3.rgb(color(d.index)).darker())
-        .attr("d", arc);
+        .attr("d", d => {
+            const startAngle = d.startAngle;
+            const endAngle = d.endAngle;
+            const adjustedEndAngle = startAngle + Math.max(endAngle - startAngle, minArcValue);
+            console.log(startAngle)
+            console.log(adjustedEndAngle)
+            return arc({ startAngle, endAngle: adjustedEndAngle });
+        });
 
         // Add the labels
         group.append("text")
@@ -131,11 +139,10 @@ export async function loadDataAndDraw(matrix, zones, chordElementId) {
     }
 
     drawChordDiagram(matrix, zones, chordElementId);
-   
 }
 
-async function loadData() {
-    return fetch(`http://localhost:5000/api/routes`)
+async function loadData(resource) {
+    return fetch(`http://localhost:5000/api/routes/${resource}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -154,12 +161,25 @@ async function loadData() {
 }
 
 async function init() {
-    const data = await loadData();
+    const data_bike = await loadData('bike');
+    const data_taxi = await loadData('taxi');
 
-    loadDataAndDraw(data.data['pre_pandemic_matrix'], data.data['pre_pandemic_zones'], 'pre-pandemic-chord');
-    loadDataAndDraw(data.data['pandemic_matrix'], data.data['pandemic_zones'], 'pandemic-chord');
-    loadDataAndDraw(data.data['post_pandemic_matrix'], data.data['post_pandemic_zones'], 'post-pandemic-chord');
+    loadDataAndDraw(data_bike.data['pre_pandemic_matrix'], data_bike.data['pre_pandemic_zones'], 'pre-pandemic-chord', 0.05);
+    loadDataAndDraw(data_bike.data['pandemic_matrix'], data_bike.data['pandemic_zones'], 'pandemic-chord', 0.05);
+    loadDataAndDraw(data_bike.data['post_pandemic_matrix'], data_bike.data['post_pandemic_zones'], 'post-pandemic-chord', 0.05);
+   
+    loadDataAndDraw(data_taxi.data['pre_pandemic_matrix'], data_taxi.data['pre_pandemic_zones'], 'taxi-pre-pandemic-chord', 0.1);
+    loadDataAndDraw(data_taxi.data['pandemic_matrix'], data_taxi.data['pandemic_zones'], 'taxi-pandemic-chord', 0.1);
+    loadDataAndDraw(data_taxi.data['post_pandemic_matrix'], data_taxi.data['post_pandemic_zones'], 'taxi-post-pandemic-chord', 0.1);
+   
     drawZones()
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const card = document.querySelector('.card');
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+    });
 }
 
 window.onload = init;

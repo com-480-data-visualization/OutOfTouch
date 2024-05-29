@@ -110,58 +110,9 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
 
     return result
 
-
-def top_zones(collection_name, field_date, field_zone):
-    pipeline = [
-        # Extract month and year from the timestamp field
-        {
-            "$addFields": {
-                "month": {"$month": f"${field_date}"},
-                "year": {"$year": f"${field_date}"}
-            }
-        },
-        # Group documents by month, year, and zone
-        {
-            "$group": {
-                "_id": {"month": "$month", "year": "$year", "zone": f"${field_zone}"},
-                "total": {"$sum": 1}  # Aggregate any relevant metric
-            }
-        },
-        # Sort by month, year, and total in descending order
-        {
-            "$sort": {
-                "_id.year": -1,
-                "_id.month": -1,
-                "total": -1
-            }
-        },
-        # Group again by month and year, and push top 10 zones into an array
-        {
-            "$group": {
-                "_id": {"month": "$_id.month", "year": "$_id.year"},
-                "zones": {"$push": {"zone": "$_id.zone", "total": "$total"}}
-            }
-        },
-        # Project to reshape the document
-        {
-            "$project": {
-                "_id": 0,
-                "month": "$_id.month",
-                "year": "$_id.year",
-                "top10Zones": {"$slice": ["$zones", 10]}  # Extract top 10 zones
-            }
-        }
-    ]
-
-    result = list(db[collection_name].aggregate(pipeline))
-    return result
-
-def get_spiral_data(resource):
-    data = list(db[f"spiral_{resource}"].find({}, {'_id': 0}))
+def get_entire_collection(collection_name):
+    data = list(db[f"{collection_name}"].find({}, {'_id': 0}))
     return data
-
-def race(collection_name):
-    return list(db[collection_name].find())
 
 @app.route('/')
 def home_page():
@@ -198,24 +149,11 @@ def retrieve_accident_coordinates():
 
     return jsonify(result), 200
 
-@app.route('/api/accidents/zone/<zone_id>', methods=['GET'])
-def get_accidents_by_zone(zone_id):
-    try:
-        # Query accidents collection
-        accidents = timeseries_retrieval(collection_name='accidents', field_date='accident_date', region_name='region', region=zone_id)
-        
-        # Return formatted data as JSON response with success status
-        return jsonify({'success': True, 'accidents': accidents}), 200
-    
-    except Exception as e:
-        # Return error message with appropriate HTTP status code
-        return jsonify({'success': False, 'error': str(e)}), 500
-
 @app.route('/api/accidents/race', methods=['GET'])
 def get_top_zones_accidents():
     try:
         # Query accidents collection
-        crashes = race(collection_name='race_crashes')
+        crashes = get_entire_collection(collection_name='race_crashes')
 
         # Return formatted data as JSON response with success status
         return json.dumps(crashes, default=str), 200
@@ -241,7 +179,7 @@ def retrieve_bikes():
 def get_top_zones_bikes():
     try:
         # Query accidents collection
-        bikes = race(collection_name='race_bikes')
+        bikes = get_entire_collection(collection_name='race_bikes')
 
         # Return formatted data as JSON response with success status
         return json.dumps(bikes, default=str), 200
@@ -268,19 +206,6 @@ def retrieve_bike_coordinates():
 
     return jsonify(result), 200
 
-@app.route('/api/bikes/zone/<zone_id>', methods=['GET'])
-def get_bikes_by_zones(zone_id):
-    try:
-        # Query accidents collection
-        bikes = timeseries_retrieval(collection_name='bikes', field_date='starttime', region_name='start_zone', region=zone_id)
-
-        # Return formatted data as JSON response with success status
-        return jsonify({'success': True, 'bikes': bikes}), 200
-    
-    except Exception as e:
-        # Return error message with appropriate HTTP status code
-        return jsonify({'success': False, 'error': str(e)}), 500
-
 @app.route('/api/taxis', methods=['GET'])
 def retrieve_taxis():
     try:
@@ -297,7 +222,7 @@ def retrieve_taxis():
 def get_top_zones_taxis():
     try:
         # Query accidents collection
-        taxis = race(collection_name='race_taxi')
+        taxis = get_entire_collection(collection_name='race_taxi')
         
         # Return formatted data as JSON response with success status
         return json.dumps(taxis, default=str), 200
@@ -367,7 +292,7 @@ def get_top_routes():
 def get_timeseries_data(resource):
     try:
         # Query accidents collection
-        data = get_spiral_data(resource)
+        data = get_entire_collection(collection_name=f"spiral_{resource}")
 
         # Return formatted data as JSON response with success status
         return jsonify({'data': data}), 200

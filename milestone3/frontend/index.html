@@ -112,7 +112,7 @@
             <br />
 
             <div class="feature-button">
-              <a class="feature-link" href="./components/heatmap.html">
+              <a class="feature-link" href="./components/heatmap">
                 <span>Explore HeatMap</span>
                 <span class="material-symbols-outlined"> arrow_right_alt </span>
               </a>
@@ -138,7 +138,7 @@
             <br />
 
             <div class="feature-button">
-              <a class="feature-link" href="./components/timeseries.html">
+              <a class="feature-link" href="./components/timeseries">
                 <span>Explore TimeSeries</span>
                 <span class="material-symbols-outlined"> arrow_right_alt </span>
               </a>
@@ -176,7 +176,7 @@
             <br />
 
             <div class="feature-button">
-              <a class="feature-link" href="./components/race.html">
+              <a class="feature-link" href="./components/race">
                 <span>Explore Race</span>
                 <span class="material-symbols-outlined"> arrow_right_alt </span>
               </a>
@@ -203,7 +203,7 @@
             <br />
 
             <div class="feature-button">
-              <a class="feature-link" href="./components/predictions.html">
+              <a class="feature-link" href="./components/predictions">
                 <span>Explore Predictions</span>
                 <span class="material-symbols-outlined"> arrow_right_alt </span>
               </a>
@@ -225,51 +225,79 @@
         <span class="features-title">Overview</span>
       </div>
       <div class="chord-container">
-        <div>
-            <h3>Pre-Pandemic</h3>
-            <svg id="pre-pandemic-chord" width="550" height="850"></svg>
-            <div id="info">
-              <div class="info-text">
-                Before the pandemic, there was a substantially high number 
-                of trips from one zone to another, indicating a robust and 
-                interconnected urban mobility network. Notably, East Village 
-                and East Chelsea emerged as critical zones, demonstrating 
-                significant activity and serving as key hubs within the 
-                city's transportation landscape. This highlights their 
-                importance before pandemic, showcasing their vital roles 
-                in the daily commute of the city's residents.
+        <div class="card-container">
+          <div class="card">
+              <div class="card-front">
+                <h3>Pre-Pandemic - Bikes</h3>
+                <svg id="pre-pandemic-chord" width="550" height="850"></svg>
+                <div id="info">
+                  <div class="info-text">
+                    Before the pandemic, there was a substantially high number 
+                    of trips from one zone to another, indicating a robust and 
+                    interconnected urban mobility network. Notably, East Village 
+                    and East Chelsea emerged as critical zones, demonstrating 
+                    significant activity and serving as key hubs within the 
+                    city's transportation landscape. This highlights their 
+                    importance before pandemic, showcasing their vital roles 
+                    in the daily commute of the city's residents.
+                  </div>
+                </div>
               </div>
-            </div>
-        </div>
-        <div>
-            <h3>Pandemic</h3>
-            <svg id="pandemic-chord" width="550" height="850"></svg>
-            <div id="info">
-              <div class="info-text">
-                Compared to the period before the pandemic, we can observe 
-                a decrease in inter-zone trips, with a focus on intra-zone 
-                trips during the pandemic, leading to shorter trips. 
-                Another significant aspect is the overall reduction 
-                in the number of trips. Despite these changes,
-                East Chelsea continues to be the area with the highest 
-                number of routes both to and from.
+              <div class="card-back">
+                  <h3>Pre-Pandemic - Taxis</h3>
+                  <svg id="taxi-pre-pandemic-chord" width="550" height="850"></svg>
+                  <p>Put any additional information you want here.</p>
               </div>
-            </div>
+          </div>
         </div>
-        <div>
-            <h3>Post-Pandemic</h3>
-            <svg id="post-pandemic-chord" width="550" height="850"></svg>
-            <div id="info">
-              <div class="info-text">
-                After the pandemic, the behavior appears to have returned 
-                to its pre-pandemic state in terms of routes, with 
-                East Village and East Chelsea remaining central hubs of 
-                mobility. The number of trips has increased compared 
-                to the pandemic period.
+        <div class="card-container">
+          <div class="card">
+              <div class="card-front">
+                  <h3>Pandemic - Bikes</h3>
+                  <svg id="pandemic-chord" width="550" height="850"></svg>
+                  <div id="info">
+                      <div class="info-text">
+                          Compared to the period before the pandemic, we can observe 
+                          a decrease in inter-zone trips, with a focus on intra-zone 
+                          trips during the pandemic, leading to shorter trips. 
+                          Another significant aspect is the overall reduction 
+                          in the number of trips. Despite these changes,
+                          East Chelsea continues to be the area with the highest 
+                          number of routes both to and from.
+                      </div>
+                  </div>
               </div>
-            </div>
+              <div class="card-back">  
+                  <h3>Pandemic - Taxis</h3>
+                  <svg id="taxi-pandemic-chord" width="550" height="850"></svg>
+                  <p>Put any additional information you want here.</p>
+              </div>
+          </div>
         </div>
-    </div>
+
+        <div class="card-container">
+          <div class="card">
+              <div class="card-front">
+                <h3>Post-Pandemic - Bikes</h3>
+                <svg id="post-pandemic-chord" width="550" height="850"></svg>
+                <div id="info">
+                  <div class="info-text">
+                    After the pandemic, the behavior appears to have returned 
+                    to its pre-pandemic state in terms of routes, with 
+                    East Village and East Chelsea remaining central hubs of 
+                    mobility. The number of trips has increased compared 
+                    to the pandemic period.
+                  </div>
+                </div>
+              </div>
+              <div class="card-back">
+                  <h3>Post-Pandemic - Taxis</h3>
+                  <svg id="taxi-post-pandemic-chord" width="550" height="850"></svg>
+                  <p>Put any additional information you want here.</p>
+              </div>
+          </div>
+        </div>
+      </div>
     <footer id="footer-placeholder"></footer>
     </div>
 

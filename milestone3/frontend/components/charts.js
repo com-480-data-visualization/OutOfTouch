@@ -544,7 +544,7 @@ export async function loadHeatMap(data) {
       } catch (error) {
           console.error('Error fetching data:', error);
       }
-
+      
       const filteredData = filterDataByDateRange(data, startDate, endDate)
       updateHeatmap(filteredData)
   }
@@ -752,15 +752,13 @@ export async function loadSpiralChart(selectedValue) {
     const zeroRadius = 125;
     const oneRadius = 200;
     const months = [
-        "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-        "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"
+        "Mar", "Apr", "May", "Jun", "Jul", "Aug", 
+        "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", 
     ];
 
     let selectedData = await loadSpiralData(selectedValue);
-    console.log("_-----------------")
-    console.log(selectedData)
-    console.log("---------------------")
     const data = selectedData.data.data;
+    data.sort((a, b) => a["Year"] - b["Year"]);
 
     // // Clear the svg container to draw a chart from scratch
     d3.select('#climate-spiral').selectAll('*').remove();
@@ -805,7 +803,7 @@ export async function loadSpiralChart(selectedValue) {
         .attr('width', width)
         .attr('height', height);
 
-    let currentRow = 1;
+    let currentRow = 0;
     let currentMonth = 0;
     let previousAnomaly = null;
 
@@ -874,11 +872,11 @@ export async function loadSpiralChart(selectedValue) {
             .text(year);
 
         let firstValue = true;
-        for (let j = 0; j < currentRow; j++) {
+        for (let j = 0; j <= currentRow; j++) {
             const row = data[j];
 
             let totalMonths = months.length;
-            if (j === currentRow - 1) {
+            if (j === currentRow) {
                 totalMonths = currentMonth;
             }
 
@@ -934,3 +932,70 @@ export async function loadSpiralChart(selectedValue) {
     let interval = setInterval(draw, 100);
 }
 
+function drawClip(ctx, x, y) {
+    // Draw the clip body
+    ctx.beginPath();
+    ctx.ellipse(x, y, 10, 20, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'silver';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+
+    // Draw the clip lines
+    ctx.beginPath();
+    ctx.moveTo(x - 3, y + 10);
+    ctx.lineTo(x + 3, y + 14);
+    ctx.moveTo(x - 3, y - 10);
+    ctx.lineTo(x + 3, y - 14);
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+}
+
+export function drawNote() {
+    const canvas = document.getElementById('noteCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Draw the note
+    ctx.beginPath();
+    ctx.moveTo(50, 50);
+    ctx.lineTo(350, 50);
+    ctx.quadraticCurveTo(375, 50, 375, 75);
+    ctx.lineTo(375, 375);
+    ctx.quadraticCurveTo(375, 400, 350, 400);
+    ctx.lineTo(50, 400);
+    ctx.quadraticCurveTo(25, 400, 25, 375);
+    ctx.lineTo(25, 75);
+    ctx.quadraticCurveTo(25, 50, 50, 50);
+    ctx.fillStyle = 'lightyellow';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+
+    // Draw clips at the top corners of the note
+    drawClip(ctx, 70, 40); // Left clip
+    drawClip(ctx, 330, 40); // Right clip
+
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'left';
+    const text = [
+        'We see more accidents during the summer',
+        'than during the other seasons. We also',
+        'consider that there are more bike rides',
+        'in the summer than in other seasons, and',
+        'notably, in the winter, people do not use',
+        'bikes at all. However, taxis are used',
+        'uniformly for all seasons, with the mention',
+        'that people did not prefer them anymore',
+        'during the pandemic and after it.'
+    ];
+    
+    let y = 120;
+    for (const line of text) {
+        ctx.fillText(line, 60, y);
+        y += 25;
+    }
+}

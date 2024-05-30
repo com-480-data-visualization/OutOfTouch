@@ -1,5 +1,5 @@
 import { loadTimeSeriesData } from './data_loaders/load.js';
-import { loadSpiralChart, loadTimeSeriesChart } from './charts.js';
+import { drawNote, loadSpiralChart, loadTimeSeriesChart } from './charts.js';
 
 async function init() {
   try {
@@ -7,6 +7,8 @@ async function init() {
 
     loadSpiralChart("accidents");
     loadTimeSeriesChart('myChart', dates, counts);
+
+    drawNote()
 
     const selectDropdown = document.getElementById('ds-select');
     const watchAgain = document.getElementById('watch-again-btn');

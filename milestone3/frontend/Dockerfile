@@ -2,6 +2,10 @@
 FROM node:alpine AS builder
 
 # Set working directory
+WORKDIR /config
+
+COPY nginx.conf .
+
 WORKDIR /app
 
 COPY package*.json .
@@ -27,3 +31,4 @@ FROM nginx:alpine
 COPY --from=builder /app /usr/share/nginx/html
 COPY --from=builder /app/components /usr/share/nginx/html/components
 COPY --from=builder /app/assets /usr/share/nginx/html/assets
+COPY --from=builder /config/nginx.conf /etc/nginx/conf.d/default.conf

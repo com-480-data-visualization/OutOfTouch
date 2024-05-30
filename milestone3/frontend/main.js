@@ -69,9 +69,23 @@ export async function drawZones() {
 }
 
 export async function loadDataAndDraw(matrix, zones, chordElementId, padAngleValue) {
-    const width = 600;
-    const height = 700;
-    const innerRadius = Math.min(width, height) * 0.36 - 100;
+    const cards = document.querySelectorAll('.card');
+    let minWidth = Infinity;
+    let minHeight = Infinity;
+
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.width < minWidth) {
+            minWidth = rect.width;
+        }
+        if (rect.height < minHeight) {
+            minHeight = rect.height;
+        }
+    });
+
+    const width = minWidth;
+    const height = 4 * minHeight / 7;
+    const innerRadius = Math.min(width, height) * 0.39 - 100;
     const outerRadius = innerRadius + 10;
     const minArcValue = 0.05;
 
@@ -110,8 +124,6 @@ export async function loadDataAndDraw(matrix, zones, chordElementId, padAngleVal
             const startAngle = d.startAngle;
             const endAngle = d.endAngle;
             const adjustedEndAngle = startAngle + Math.max(endAngle - startAngle, minArcValue);
-            console.log(startAngle)
-            console.log(adjustedEndAngle)
             return arc({ startAngle, endAngle: adjustedEndAngle });
         });
 
@@ -126,6 +138,8 @@ export async function loadDataAndDraw(matrix, zones, chordElementId, padAngleVal
         `)
         .style("text-anchor", d => d.angle > Math.PI ? "end" : null)
         .style("fill", "white")
+        .style("font-family", "Arial, sans-serif") 
+        .style("font-size", "14px")
         .text(d => zones[d.index]);
 
         // Add the ribbons

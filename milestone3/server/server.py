@@ -25,7 +25,6 @@ db = get_db()
 
 model = joblib.load('model_simple.pkl')
 
-
 def retrieve_all_timeseries(collection_name):
     return list(db[collection_name].find({}, {"_id": 0}))
 
@@ -126,8 +125,6 @@ def race(collection_name):
 def time_to_float(time_str):
     try:
         hours, minutes = map(int, time_str.split(':'))
-        print(hours, minutes)
-        print(hours + minutes / 60.0)
         return hours + minutes / 60.0
     except ValueError as e:
         raise ValueError(f"Invalid time format: {time_str}. Expected format 'HH:MM'.") from e
@@ -184,7 +181,6 @@ def get_top_zones_accidents():
 @app.route('/api/bikes', methods=['GET'])
 def retrieve_bikes():
     try:
-        # Query accidents collection
         bikes = retrieve_all_timeseries(collection_name='timeseries_bikes')
 
         # Return formatted data as JSON response with success status
@@ -228,7 +224,6 @@ def retrieve_bike_coordinates():
 @app.route('/api/taxis', methods=['GET'])
 def retrieve_taxis():
     try:
-        # Query accidents collection
         taxis = retrieve_all_timeseries(collection_name='timeseries_taxis')
         # Return formatted data as JSON response with success status
         return jsonify({'success': True, 'taxis': taxis}), 200
@@ -240,7 +235,6 @@ def retrieve_taxis():
 @app.route('/api/taxis/race', methods=['GET'])
 def get_top_zones_taxis():
     try:
-        # Query accidents collection
         taxis = get_entire_collection(collection_name='race_taxi')
         
         # Return formatted data as JSON response with success status
@@ -271,7 +265,6 @@ def retrieve_taxi_coordinates():
 @app.route('/api/taxis/zone/<zone_id>', methods=['GET'])
 def get_taxis_by_zones(zone_id):
     try:
-        # Query accidents collection
         taxis = timeseries_retrieval(collection_name='taxis', field_date='starttime', region_name='source_zone', region=zone_id)
 
         # Return formatted data as JSON response with success status
@@ -310,7 +303,6 @@ def get_top_routes(resource):
 @app.route('/api/timeseries/<resource>', methods=['GET'])
 def get_timeseries_data(resource):
     try:
-        # Query accidents collection
         data = get_entire_collection(collection_name=f"spiral_{resource}")
 
         # Return formatted data as JSON response with success status
@@ -328,10 +320,7 @@ def predict():
         latitude = data['latitude']
         longitude = data['longitude']
         time_float = time_to_float(data['time'])
-        print(latitude)
-        print(longitude)
 
-        # np_data =  np.array([[latitude, longitude, time_float]])
         np_data = pd.DataFrame({'longitude': [longitude], 'latitude': [latitude], 'crash_time': [time_float]})
         # Make predictions
         prediction = model.predict_proba(np_data)[:, 1]* 100
@@ -340,14 +329,11 @@ def predict():
             color = 'green'
         elif prediction > 30 and prediction <=70:
             color = 'orange'
-        print(prediction)
-        print("--------------------")
+        
         # Return predictions as JSON
         return jsonify(color)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

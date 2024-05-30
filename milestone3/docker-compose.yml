@@ -12,9 +12,6 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ../data/crashes.csv:/docker-entrypoint-initdb.d/crashes.csv
-      - ../data/bike_dataset.csv:/docker-entrypoint-initdb.d/bike_dataset.csv
-      - ../data/taxi_dataset.csv:/docker-entrypoint-initdb.d/taxi_dataset.csv
       - ../data/race_taxi.csv:/docker-entrypoint-initdb.d/race_taxi.csv
       - ../data/race_bikes.csv:/docker-entrypoint-initdb.d/race_bikes.csv
       - ../data/race_crashes.csv:/docker-entrypoint-initdb.d/race_crashes.csv

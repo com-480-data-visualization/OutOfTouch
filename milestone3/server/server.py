@@ -1,11 +1,15 @@
 import json
 import os
 import pymongo
+import joblib
+import numpy as np
+import pandas as pd
 
 from flask_cors import CORS
 from datetime import datetime
 from pymongo import MongoClient
 from flask import Flask, jsonify, render_template, make_response, request
+# from sklearn.linear_model import LogisticRegression
 
 def get_db():
     client = MongoClient(host=os.environ['MONGODB_HOSTNAME'],
@@ -18,6 +22,8 @@ def get_db():
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 db = get_db()
+
+model = joblib.load('model_simple.pkl')
 
 
 def retrieve_all_timeseries(collection_name):
@@ -113,6 +119,19 @@ def heatmap_retrieval(collection_name, field_date, latitude_name, longitude_name
 def get_entire_collection(collection_name):
     data = list(db[f"{collection_name}"].find({}, {'_id': 0}))
     return data
+
+def race(collection_name):
+    return list(db[collection_name].find())
+
+def time_to_float(time_str):
+    try:
+        hours, minutes = map(int, time_str.split(':'))
+        print(hours, minutes)
+        print(hours + minutes / 60.0)
+        return hours + minutes / 60.0
+    except ValueError as e:
+        raise ValueError(f"Invalid time format: {time_str}. Expected format 'HH:MM'.") from e
+
 
 @app.route('/')
 def home_page():
@@ -300,6 +319,35 @@ def get_timeseries_data(resource):
     except Exception as e:
         # Return error message with appropriate HTTP status code
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.get_json(force=True)
+        latitude = data['latitude']
+        longitude = data['longitude']
+        time_float = time_to_float(data['time'])
+        print(latitude)
+        print(longitude)
+
+        # np_data =  np.array([[latitude, longitude, time_float]])
+        np_data = pd.DataFrame({'longitude': [longitude], 'latitude': [latitude], 'crash_time': [time_float]})
+        # Make predictions
+        prediction = model.predict_proba(np_data)[:, 1]* 100
+        color = 'red'
+        if prediction <=30:
+            color = 'green'
+        elif prediction > 30 and prediction <=70:
+            color = 'orange'
+        print(prediction)
+        print("--------------------")
+        # Return predictions as JSON
+        return jsonify(color)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 if __name__=='__main__':
     app.run(host="0.0.0.0", port=5000)

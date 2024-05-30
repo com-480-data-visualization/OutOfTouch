@@ -17,21 +17,25 @@ footer {
 
 .photos-container {
   display: flex;
-  flex: 1;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding-top: 40px;
 }
 
 .photos-container span {
   font-weight: bold;
-  font-size: 18;
+  font-size: 18px; 
 }
 
 .photos-container img {
-  width: 40%;
-  aspect-ratio: 1;
+  flex: 1;
+  max-width: 300px; 
+  max-height: 300px; 
+  width: auto;
+  height: auto;
   border-radius: 50%;
   border: 3px solid #fff;
+  object-fit: cover;
 }
 
 .person-container {

@@ -52,8 +52,8 @@ function init() {
       if (selectedTime) {
         // Make a POST request to the Flask server
         const data = {
-          latitude: parseFloat(lng),
-          longitude: parseFloat(lat),
+          latitude: parseFloat(lat),
+          longitude: parseFloat(lng),
           time: selectedTime
         };
         console.log(data)

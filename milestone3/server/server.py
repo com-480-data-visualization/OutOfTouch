@@ -3,6 +3,7 @@ import os
 import pymongo
 import joblib
 import numpy as np
+import pandas as pd
 
 from flask_cors import CORS
 from datetime import datetime
@@ -125,6 +126,8 @@ def race(collection_name):
 def time_to_float(time_str):
     try:
         hours, minutes = map(int, time_str.split(':'))
+        print(hours, minutes)
+        print(hours + minutes / 60.0)
         return hours + minutes / 60.0
     except ValueError as e:
         raise ValueError(f"Invalid time format: {time_str}. Expected format 'HH:MM'.") from e
@@ -325,9 +328,11 @@ def predict():
         latitude = data['latitude']
         longitude = data['longitude']
         time_float = time_to_float(data['time'])
+        print(latitude)
+        print(longitude)
 
-        np_data =  np.array([[longitude, latitude, time_float]])
-
+        # np_data =  np.array([[latitude, longitude, time_float]])
+        np_data = pd.DataFrame({'longitude': [longitude], 'latitude': [latitude], 'crash_time': [time_float]})
         # Make predictions
         prediction = model.predict_proba(np_data)[:, 1]* 100
         color = 'red'
@@ -335,7 +340,8 @@ def predict():
             color = 'green'
         elif prediction > 30 and prediction <=70:
             color = 'orange'
-
+        print(prediction)
+        print("--------------------")
         # Return predictions as JSON
         return jsonify(color)
     except Exception as e:

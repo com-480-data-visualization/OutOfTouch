@@ -206,7 +206,7 @@ The report for this milestone can be found [here](https://github.com/com-480-dat
 
 The used data is available [here](https://drive.google.com/drive/folders/1zd5pfRjVlyb2tbWu4nTnZTwUkrU_ITZN?usp=drive_link) and should be placed in a folder called data in the root of the project.
 
-The website is available at the following address: [http://out-of-touch.link](http://out-of-touch.link). Due to the resource constrained on the AWS EC2, there might be some delays. So, for a better experience, please try it locally.
+The website is available at the following address: [http://out-of-touch.link](http://out-of-touch.link). Due to the limitations of resources on the AWS EC2, there might be some delays. So, for a better experience, please try it locally.
 
 The processed book can be found [here]().
 

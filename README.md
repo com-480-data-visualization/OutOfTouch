@@ -16,7 +16,7 @@
   
   *As part of the course "Data Visualization COM-480" at EPFL*
   
-  [**Milestone 1**](#milestone-1) • [**Milestone 2**](#milestone-2) • [Milestone 3](#milestone-3)
+  [**Milestone 1**](#milestone-1) • [**Milestone 2**](#milestone-2) • [**Milestone 3**](#milestone-3)
   
 </span>
 
@@ -202,10 +202,15 @@ To reproduce our website please follow the instructions from [here](https://gith
 
 The report for this milestone can be found [here](https://github.com/com-480-data-visualization/OutOfTouch/blob/master/milestone2/Milestone2.pdf).
 
-## Milestone 3 (31st May, 5pm)
+## Milestone 3
 
-**80% of the final grade**
+The used data is available [here](https://drive.google.com/drive/folders/1zd5pfRjVlyb2tbWu4nTnZTwUkrU_ITZN?usp=drive_link) and should be placed in a folder called data in the root of the project.
 
+The website is available at the following address: [http://out-of-touch.link](http://out-of-touch.link).
+
+The processed book can be found [here]().
+
+The screencast is available [here]().
 
 ## Late policy
 

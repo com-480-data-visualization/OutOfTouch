@@ -208,7 +208,7 @@ The used data is available [here](https://drive.google.com/drive/folders/1zd5pfR
 
 The website is available at the following address: [http://out-of-touch.link](http://out-of-touch.link). Due to the limitations of resources on the AWS EC2, there might be some delays. So, for a better experience, please try it locally.
 
-The processed book can be found [here]().
+The processed book can be found [here](https://drive.google.com/file/d/1WJ5Uk6u_I1Fo7D94PMU_0sQSnhoQbzQi/view).
 
 The screencast is available [here](https://drive.google.com/file/d/1TM0eS6-RqUqtHjS_qlIqYiS3FXGMrm7u/view?usp=sharing).
 

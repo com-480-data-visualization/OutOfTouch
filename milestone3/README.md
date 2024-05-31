@@ -1,5 +1,4 @@
-# Milestone 2
-This milestone includes our 2-page report and a basic web skeleton with the initial visualizations. In order to run and load the website, please follow the instructions written below:
+# Milestone 3
 
 ## Requirements:
 
@@ -40,7 +39,7 @@ To run the project, the following commands should run inside `milestone2` folder
 ```
 make start
 ```
-The above command is used to start the services. The start of the services take around 10 minutes, as the data should be indexed in the database. Moreover, the data from [here](https://drive.google.com/drive/folders/1aDKNOa6lyxmlL4kD5Xr9ubpSJSsuHO9U?usp=drive_link) should be placed in the [data folder](https://github.com/com-480-data-visualization/OutOfTouch/tree/master/data) (```/data```).
+The above command is used to start the services. The start of the services take around 10 minutes, as the data should be indexed in the database. Moreover, the data from [here](https://drive.google.com/drive/folders/1zd5pfRjVlyb2tbWu4nTnZTwUkrU_ITZN?usp=drive_link) should be placed in the [data folder](https://github.com/com-480-data-visualization/OutOfTouch/tree/master/data) (```/data```).
 
 ```
 make stop
@@ -52,6 +51,6 @@ To be sure that the website started and the database contains everything. Please
 NETWORK  [conn1] received client metadata from 172.18.0.3:60712 conn1: { driver: { name: "PyMongo", version: "4.1.1" }, os: { type: "Linux", name: "Linux", architecture: "x86_64", version: "6.5.0-27-generic" }, platform: "CPython 3.6.15.final.0" }
 ```
 
-The website is accessible at the following address: [http://localhost:3000]()
+The website is accessible at the following address: [http://localhost](http://localhost)
 
 In case of problems with the docker configuration, please contact us for a live demo.

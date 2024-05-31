@@ -39,7 +39,7 @@ To run the project, the following commands should run inside `milestone2` folder
 ```
 make start
 ```
-The above command is used to start the services. The start of the services take around 10 minutes, as the data should be indexed in the database. Moreover, the data from [here](https://drive.google.com/drive/folders/1zd5pfRjVlyb2tbWu4nTnZTwUkrU_ITZN?usp=drive_link) should be placed in the [data folder](https://github.com/com-480-data-visualization/OutOfTouch/tree/master/data) (```/data```).
+The above command is used to start the services. The start of the services take around 10 minutes, as the data should be indexed in the database. Moreover, the data from [here](https://drive.google.com/drive/folders/1zd5pfRjVlyb2tbWu4nTnZTwUkrU_ITZN?usp=drive_link) should be placed in the data folder (```/data```) in the root of the project.
 
 ```
 make stop

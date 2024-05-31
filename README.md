@@ -210,7 +210,7 @@ The website is available at the following address: [http://out-of-touch.link](ht
 
 The processed book can be found [here]().
 
-The screencast is available [here]().
+The screencast is available [here](https://drive.google.com/file/d/1TM0eS6-RqUqtHjS_qlIqYiS3FXGMrm7u/view?usp=sharing).
 
 ## Late policy
 
